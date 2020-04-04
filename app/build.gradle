@@ -41,5 +41,8 @@ dependencies {
     implementation 'com.squareup.picasso:picasso:2.5.2'
     implementation 'com.github.lovetuzitong:MultiImageSelector:1.2'
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.34'
+    compile 'cc.trity.floatingactionbutton:library:1.0.0'
+//    compile 'com.squareup.okhttp3:okhttp:3.5.0'
+
 
 }
