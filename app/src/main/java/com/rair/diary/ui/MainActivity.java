@@ -37,9 +37,9 @@ public class MainActivity extends AppCompatActivity implements OnTabSelectListen
     @Titles
     public static final int[] titles = {R.string.diary, R.string.find, R.string.one, R.string.mine};
     @SeleIcons
-    public static final int[] selIcons = {R.mipmap.ic_diary_sel, R.mipmap.ic_find_sel,R.mipmap.ic_find_sel, R.mipmap.ic_setting_sel};
+    public static final int[] selIcons = {R.mipmap.house, R.mipmap.home,R.mipmap.browser, R.mipmap.personal};
     @NorIcons
-    public static final int[] icons = {R.mipmap.ic_diary, R.mipmap.ic_find,R.mipmap.ic_find, R.mipmap.ic_setting};
+    public static final int[] icons = {R.mipmap.house_dark, R.mipmap.home_dark,R.mipmap.browser_dark, R.mipmap.personal_dark};
 
     @BindView(R.id.main_fl_container)
     FrameLayout mainFlContainer;
