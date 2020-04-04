@@ -60,6 +60,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|right"
         android:layout_margin="15dp"
-        android:src="@mipmap/ic_add"
+        android:src="@mipmap/ic_edit"
         app:rippleColor="@color/ripple" />
 </FrameLayout>
