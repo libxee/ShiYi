@@ -6,23 +6,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import com.rair.diary.R;
+import com.rair.diary.bean.DayPic;
 import com.rair.diary.ui.one.OneFragment.OnListFragmentInteractionListener;
 import com.rair.diary.ui.one.dummy.DummyContent.DummyItem;
 
 import java.util.List;
 
-/**
- * {@link RecyclerView.Adapter} that can display a {@link DummyItem} and makes a call to the
- * specified {@link OnListFragmentInteractionListener}.
- * TODO: Replace the implementation with code for your data type.
- */
 public class MyOneRecyclerViewAdapter extends RecyclerView.Adapter<MyOneRecyclerViewAdapter.ViewHolder> {
 
-    private final List<DummyItem> mValues;
+    private final List<DayPic> DayPicList;
     private final OnListFragmentInteractionListener mListener;
 
-    public MyOneRecyclerViewAdapter(List<DummyItem> items, OnListFragmentInteractionListener listener) {
-        mValues = items;
+    public MyOneRecyclerViewAdapter(List<DayPic> items, OnListFragmentInteractionListener listener) {
+        DayPicList = items;
+        System.out.println("================" + items);
         mListener = listener;
     }
 
@@ -35,9 +32,10 @@ public class MyOneRecyclerViewAdapter extends RecyclerView.Adapter<MyOneRecycler
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).id);
-        holder.mContentView.setText(mValues.get(position).content);
+        holder.mItem = DayPicList.get(position);
+        System.out.println("+++++++++++" + DayPicList);
+        holder.mIdView.setText(DayPicList.get(position).getHp_content());
+        holder.mContentView.setText(DayPicList.get(position).getText_authors());
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,14 +51,14 @@ public class MyOneRecyclerViewAdapter extends RecyclerView.Adapter<MyOneRecycler
 
     @Override
     public int getItemCount() {
-        return mValues.size();
+        return DayPicList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
         public final TextView mIdView;
         public final TextView mContentView;
-        public DummyItem mItem;
+        public DayPic mItem;
 
         public ViewHolder(View view) {
             super(view);

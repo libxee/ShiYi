@@ -63,41 +63,6 @@
             android:layout_height="match_parent"
             android:gravity="center_horizontal"
             android:orientation="vertical">
-
-            <EditText
-                android:id="@+id/add_et_title"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:background="@drawable/editor_shape"
-                android:ellipsize="end"
-                android:hint="请输入标题"
-                android:maxLines="1"
-                android:textColor="@color/primary_text"
-                android:textColorHint="@color/secondary_text"
-                android:textSize="16sp" />
-
-            <com.rair.diary.view.LinedEditText
-                android:id="@+id/add_et_content"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_marginTop="10dp"
-                android:layout_weight="1"
-                android:background="@drawable/editor_shape"
-                android:gravity="top"
-                android:hint="写点什么吧"
-                android:lineSpacingExtra="8dp"
-                android:padding="10dp"
-                android:scrollbars="vertical"
-                android:textColor="@color/primary_text"
-                android:textColorHint="@color/secondary_text"
-                android:textSize="16sp" />
-
-            <ImageView
-                android:id="@+id/add_iv_show"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:visibility="gone" />
-
             <LinearLayout
                 android:id="@+id/add_ll_weather"
                 android:layout_width="match_parent"
@@ -160,6 +125,42 @@
                     android:src="@mipmap/ic_weather_qing" />
 
             </LinearLayout>
+
+            <EditText
+                android:id="@+id/add_et_title"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/editor_shape"
+                android:ellipsize="end"
+                android:hint="请输入标题"
+                android:maxLines="1"
+                android:textColor="@color/primary_text"
+                android:textColorHint="@color/secondary_text"
+                android:textSize="16sp" />
+
+            <com.rair.diary.view.LinedEditText
+                android:id="@+id/add_et_content"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/editor_shape"
+                android:gravity="top"
+                android:hint="写点什么吧"
+                android:lineSpacingExtra="8dp"
+                android:padding="10dp"
+                android:scrollbars="vertical"
+                android:textColor="@color/primary_text"
+                android:textColorHint="@color/secondary_text"
+                android:textSize="16sp" />
+
+            <ImageView
+                android:id="@+id/add_iv_show"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:visibility="gone" />
+
+
         </LinearLayout>
     </android.support.v7.widget.CardView>
 
