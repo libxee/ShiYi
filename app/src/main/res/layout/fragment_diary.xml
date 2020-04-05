@@ -60,6 +60,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|right"
         android:layout_margin="15dp"
-        android:src="@mipmap/edit"
+        android:src="@mipmap/add_cross"
         app:rippleColor="@color/ripple" />
 </FrameLayout>
