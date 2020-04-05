@@ -27,6 +27,9 @@ import com.rair.diary.db.DiaryDao;
 import com.rair.diary.ui.one.dummy.DummyContent;
 import com.rair.diary.ui.one.dummy.DummyContent.DummyItem;
 import com.rair.diary.utils.HttpUtils;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -91,10 +94,22 @@ public class OneFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_one_list, container, false);
         DayPicList = new ArrayList<DayPic>();
-        // Set the adapter
-        if (view instanceof RecyclerView) {
+        RefreshLayout refreshLayout = view.findViewById(R.id.refreshLayout);
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshlayout) {
+                refreshlayout.finishRefresh(1000);
+
+            }
+        });
+        refreshLayout.setOnLoadmoreListener(new OnLoadmoreListener() {
+            @Override
+            public void onLoadmore(RefreshLayout refreshlayout) {
+                refreshlayout.finishLoadmore(2000);
+            }
+        });
             Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
+            RecyclerView recyclerView = view.findViewById(R.id.list);
             if (mColumnCount <= 1) {
                 recyclerView.setLayoutManager(new LinearLayoutManager(context));
             } else {
@@ -103,21 +118,21 @@ public class OneFragment extends Fragment {
             oneRecyclerViewAdapter = new MyOneRecyclerViewAdapter(DayPicList, mListener);
             recyclerView.setAdapter(oneRecyclerViewAdapter);
             this.sendRequestWithOkHttp();
-        }
+
         return view;
     }
 
 
-//    @Override
-//    public void onAttach(Context context) {
-//        super.onAttach(context);
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
 //        if (context instanceof OnListFragmentInteractionListener) {
 //            mListener = (OnListFragmentInteractionListener) context;
 //        } else {
 //            throw new RuntimeException(context.toString()
 //                    + " must implement OnListFragmentInteractionListener");
 //        }
-//    }
+    }
 
     @Override
     public void onDetach() {
