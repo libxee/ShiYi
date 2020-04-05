@@ -1,6 +1,7 @@
 package com.rair.diary.ui.one;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -27,6 +28,7 @@ import com.rair.diary.db.DiaryDao;
 import com.rair.diary.ui.one.dummy.DummyContent;
 import com.rair.diary.ui.one.dummy.DummyContent.DummyItem;
 import com.rair.diary.utils.HttpUtils;
+import com.rair.diary.utils.RairUtils;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
@@ -99,12 +101,12 @@ public class OneFragment extends Fragment {
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
                 refreshlayout.finishRefresh(1000);
-
             }
         });
         refreshLayout.setOnLoadmoreListener(new OnLoadmoreListener() {
             @Override
             public void onLoadmore(RefreshLayout refreshlayout) {
+                sendRequestWithOkHttp();
                 refreshlayout.finishLoadmore(2000);
             }
         });
@@ -115,7 +117,7 @@ public class OneFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            oneRecyclerViewAdapter = new MyOneRecyclerViewAdapter(DayPicList, mListener);
+            oneRecyclerViewAdapter = new MyOneRecyclerViewAdapter(DayPicList, mListener, OneFragment.this);
             recyclerView.setAdapter(oneRecyclerViewAdapter);
             this.sendRequestWithOkHttp();
 
@@ -174,6 +176,7 @@ public class OneFragment extends Fragment {
                 }
             }
         }.execute();
+
     }
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name

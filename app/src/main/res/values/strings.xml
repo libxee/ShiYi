@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">时光记</string>
+    <string name="app_name">拾记</string>
     <string name="diary">日记</string>
     <string name="setting">设置</string>
     <string name="mine">我的</string>
@@ -31,7 +31,7 @@
     <string name="delete_over">日记已经删除！</string>
 
     <string name="is_export">是否导出此日记？</string>
-    <string name="save_success">导出成功！保存到SDCard/RairDiary/</string>
+    <string name="save_success">导出成功！保存到SDCard</string>
     <string name="save_failed">导出失败！</string>
 
     <string name="emptyall">清空</string>
