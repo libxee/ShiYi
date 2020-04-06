@@ -45,6 +45,7 @@ public class MyOneRecyclerViewAdapter extends RecyclerView.Adapter<MyOneRecycler
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = DayPicList.get(position);
         holder.OneDate.setText(DayPicList.get(position).getHp_makettime().toString());
+        holder.HpTitle.setText(DayPicList.get(position).getHp_title());
         holder.DayPicAuthor.setText(DayPicList.get(position).getHp_author());
         holder.HpContent.setText(DayPicList.get(position).getHp_content());
         holder.HpContentAuthor.setText(DayPicList.get(position).getText_authors());
@@ -78,6 +79,7 @@ public class MyOneRecyclerViewAdapter extends RecyclerView.Adapter<MyOneRecycler
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
         public final TextView OneDate;
+        public final  TextView HpTitle;
         public  final  TextView DayPicAuthor;
         public final TextView HpContent;
         public final TextView HpContentAuthor;
@@ -87,6 +89,7 @@ public class MyOneRecyclerViewAdapter extends RecyclerView.Adapter<MyOneRecycler
         public ViewHolder(View view) {
             super(view);
             mView = view;
+            HpTitle = (TextView) view.findViewById(R.id.one_item_hp_title);
             HpContent = (TextView) view.findViewById(R.id.one_item_hp_content);
             HpContentAuthor = (TextView) view.findViewById(R.id.one_item_hp_content_author);
             OneDate = (TextView) view.findViewById(R.id.one_item_date);

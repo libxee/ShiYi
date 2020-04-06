@@ -42,6 +42,8 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import okhttp3.FormBody;
@@ -65,7 +67,8 @@ public class OneFragment extends Fragment {
     private OnListFragmentInteractionListener mListener;
     private List<DayPic> DayPicList;
     private MyOneRecyclerViewAdapter oneRecyclerViewAdapter;
-
+    private  String currentMonthDate;
+    private  int preNum = 0;
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
@@ -73,8 +76,7 @@ public class OneFragment extends Fragment {
     public OneFragment() {
     }
 
-    // TODO: Customize parameter initialization
-    @SuppressWarnings("unused")
+
     public static OneFragment newInstance(int columnCount) {
         OneFragment fragment = new OneFragment();
         Bundle args = new Bundle();
@@ -86,6 +88,7 @@ public class OneFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        currentMonthDate = this.getPreMonthDate(preNum);
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
@@ -100,14 +103,17 @@ public class OneFragment extends Fragment {
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
-                refreshlayout.finishRefresh(1000);
+                DayPicList.clear();
+                resetCurrentDate();
+                sendRequestWithOkHttp();
+                refreshlayout.finishRefresh(500);
             }
         });
         refreshLayout.setOnLoadmoreListener(new OnLoadmoreListener() {
             @Override
             public void onLoadmore(RefreshLayout refreshlayout) {
                 sendRequestWithOkHttp();
-                refreshlayout.finishLoadmore(2000);
+                refreshlayout.finishLoadmore(500);
             }
         });
             Context context = view.getContext();
@@ -141,13 +147,22 @@ public class OneFragment extends Fragment {
         super.onDetach();
         mListener = null;
     }
-
+    private  void  resetCurrentDate(){
+        this.preNum = 0;
+        this.currentMonthDate = getPreMonthDate(0);
+    }
+    private  String getPreMonthDate(int preNum){
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(new Date());
+        cal.add(Calendar.MONTH, preNum);
+        int year = cal.get(Calendar.YEAR);
+        int month = cal.get(Calendar.MONTH )+1;
+        return  year+"-"+month;
+    }
 
     private List<DayPic> formatDayPicList(String response) {
-        //拿到数组
         JsonObject jsonObject = new JsonParser().parse(response).getAsJsonObject();
         JsonArray jsonArray = jsonObject.getAsJsonArray("data");
-        //循环遍历数组
         for (JsonElement pic : jsonArray) {
             DayPic dayPic = new Gson().fromJson(pic, new TypeToken<DayPic>() {
             }.getType());
@@ -158,25 +173,24 @@ public class OneFragment extends Fragment {
 
     @SuppressLint("StaticFieldLeak")
     private void sendRequestWithOkHttp() {
-        String RequestURL = "http://v3.wufazhuce.com:8000/api/hp/bymonth/2020-03";
+        String RequestURL = "http://v3.wufazhuce.com:8000/api/hp/bymonth/" + currentMonthDate;
         new AsyncTask<Void, Void, String>() {
             @Override
             protected String doInBackground(Void... params) {
-//                执行网络请求
                 String s = HttpUtils.getStringByOkhttp(RequestURL);
                 return s;
             }
-
             @Override
             protected void onPostExecute(String s) {
                 if (s != null && !s.isEmpty()) {
+                    preNum = preNum - 1;
+                    currentMonthDate = getPreMonthDate(preNum);
                     DayPicList = formatDayPicList(s);
                     System.out.println("---------" + DayPicList);
                     oneRecyclerViewAdapter.notifyDataSetChanged();
                 }
             }
         }.execute();
-
     }
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name

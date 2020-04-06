@@ -9,7 +9,6 @@
         <item name="android:windowBackground">@color/backgroundColor</item>
         <item name="backgroundBg">@color/backgroundColor</item>
     </style>
-
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
