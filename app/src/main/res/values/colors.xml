@@ -13,6 +13,9 @@
 
     <color name="thrid_text">#333333</color>
     <color name="thrid_text2">#666666</color>
+    <color name="thrid_text3">#999999</color>
+    <color name="thrid_text4">#5e5e5e</color>
+
     <color name="ripple">#3e64ff</color>
     <color name="bg_color">#eeeade</color>
 
