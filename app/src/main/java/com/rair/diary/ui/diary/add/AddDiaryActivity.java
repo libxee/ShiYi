@@ -21,7 +21,7 @@ import com.rair.diary.R;
 import com.rair.diary.bean.DiaryBean;
 import com.rair.diary.constant.Constants;
 import com.rair.diary.db.DiaryDao;
-import com.rair.diary.utils.RairUtils;
+import com.rair.diary.utils.CommonUtils;
 import com.rair.diary.view.LinedEditText;
 
 import java.text.SimpleDateFormat;
@@ -89,7 +89,7 @@ public class AddDiaryActivity extends AppCompatActivity {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.CHINA);
         mDate = dateFormat.format(date);
         mWeek = DateToWeek(date);
-        addTvTitle.setText(String.format(Constants.FORMAT,mDate,mWeek,""));
+        addTvTitle.setText(String.format(Constants.FORMAT, mDate, mWeek, ""));
     }
 
     public String DateToWeek(Date date) {
@@ -172,8 +172,8 @@ public class AddDiaryActivity extends AppCompatActivity {
         diary.setImage(image);
         diaryDao.insert(diary);
         this.finish();
-        RairUtils.hideInput(this);
-        RairUtils.showSnackar(addEtContent, "保存成功");
+        CommonUtils.hideInput(this);
+        CommonUtils.showSnackar(addEtContent, "保存成功");
     }
 
     /**
@@ -182,7 +182,7 @@ public class AddDiaryActivity extends AppCompatActivity {
     private void checkSelfPermission() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_CONTACTS)) {
-                RairUtils.showSnackar(addIvPhoto, "需要读写权限");
+                CommonUtils.showSnackar(addIvPhoto, "需要读写权限");
             } else {
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
             }
@@ -193,7 +193,7 @@ public class AddDiaryActivity extends AppCompatActivity {
                         .single()
                         .start(this, 0);
             } else {
-                RairUtils.showSnackar(addIvPhoto, "你已经选择了一张图片");
+                CommonUtils.showSnackar(addIvPhoto, "你已经选择了一张图片");
             }
         }
     }
@@ -210,7 +210,7 @@ public class AddDiaryActivity extends AppCompatActivity {
                             .multi() // 多选模式, 默认模式;
                             .start(this, 0);
                 } else {
-                    RairUtils.showSnackar(addIvPhoto, "没有授予读写权限，导出失败,请到设置中手动打开");
+                    CommonUtils.showSnackar(addIvPhoto, "没有授予读写权限，导出失败,请到设置中手动打开");
                 }
         }
     }

@@ -3,10 +3,6 @@ package com.rair.diary.config;
 import android.os.Handler;
 import android.os.Looper;
 
-/**
- * Created by wanjian on 2017/2/14.
- */
-
 public final class Cockroach {
 
     public interface ExceptionHandler {

@@ -7,10 +7,6 @@ import android.support.annotation.Nullable;
 
 import com.rair.diary.constant.Constants;
 
-/**
- * Created by mzaiy on 2017/6/5.
- */
-
 public class RemindService extends Service {
 
     private static RemindService remindService;

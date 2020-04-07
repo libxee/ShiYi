@@ -18,11 +18,7 @@ import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/**
- * Created by mzaiy on 2017/6/2.
- */
-
-public class RairUtils {
+public class CommonUtils {
 
     /**
      * 隐藏输入法

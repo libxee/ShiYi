@@ -19,7 +19,7 @@ import android.widget.Toast;
 import com.rair.diary.R;
 import com.rair.diary.constant.Constants;
 import com.rair.diary.db.DiaryDao;
-import com.rair.diary.utils.RairUtils;
+import com.rair.diary.utils.CommonUtils;
 import com.rair.diary.view.LinedEditText;
 
 import java.io.File;
@@ -121,8 +121,8 @@ public class DiaryDetailActivity extends AppCompatActivity {
         }
         diaryDao.update(title, content, id);
         this.finish();
-        RairUtils.showSnackar(detailEtContent, "保存成功");
-        RairUtils.hideInput(this);
+        CommonUtils.showSnackar(detailEtContent, "保存成功");
+        CommonUtils.hideInput(this);
     }
 
     /**

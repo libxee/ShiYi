@@ -2,9 +2,6 @@ package com.rair.diary.bean;
 
 import cn.bmob.v3.BmobObject;
 
-/**
- * Created by mzaiy on 2017/6/6.
- */
 
 public class FeedBack extends BmobObject {
 

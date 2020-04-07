@@ -19,7 +19,7 @@ import android.widget.TextView;
 
 import com.rair.diary.R;
 import com.rair.diary.bean.User;
-import com.rair.diary.utils.RairUtils;
+import com.rair.diary.utils.CommonUtils;
 import com.rair.diary.view.CircleImageView;
 import com.squareup.picasso.Picasso;
 
@@ -118,9 +118,9 @@ public class UserActivity extends AppCompatActivity {
             @Override
             public void done(BmobException e) {
                 if (e == null) {
-                    RairUtils.showSnackar(userRlSignature, "修改成功");
+                    CommonUtils.showSnackar(userRlSignature, "修改成功");
                 } else {
-                    RairUtils.showSnackar(userRlSignature, "修改失败");
+                    CommonUtils.showSnackar(userRlSignature, "修改失败");
                 }
             }
         });
@@ -138,7 +138,7 @@ public class UserActivity extends AppCompatActivity {
                 checkSelfPermission();
                 break;
             case R.id.user_rl_name:
-                RairUtils.showSnackar(userTvSignature, "昵称不可修改");
+                CommonUtils.showSnackar(userTvSignature, "昵称不可修改");
                 break;
             case R.id.user_rl_signature:
                 showEditDialog();
@@ -155,7 +155,7 @@ public class UserActivity extends AppCompatActivity {
     private void checkSelfPermission() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_CONTACTS)) {
-                RairUtils.showSnackar(userRlSignature, "需要读写权限");
+                CommonUtils.showSnackar(userRlSignature, "需要读写权限");
             } else {
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
             }
@@ -180,7 +180,7 @@ public class UserActivity extends AppCompatActivity {
                             .multi() // 多选模式, 默认模式;
                             .start(this, 0);
                 } else {
-                    RairUtils.showSnackar(userRlSignature, "没有授予读写权限，导出失败,请到设置中手动打开");
+                    CommonUtils.showSnackar(userRlSignature, "没有授予读写权限，导出失败,请到设置中手动打开");
                 }
         }
     }
@@ -204,9 +204,9 @@ public class UserActivity extends AppCompatActivity {
                     @Override
                     public void done(BmobException e) {
                         if (e == null) {
-                            RairUtils.showSnackar(userRlSignature, "编辑成功");
+                            CommonUtils.showSnackar(userRlSignature, "编辑成功");
                         } else {
-                            RairUtils.showSnackar(userRlSignature, "编辑失败");
+                            CommonUtils.showSnackar(userRlSignature, "编辑失败");
                         }
                     }
                 });
@@ -247,14 +247,14 @@ public class UserActivity extends AppCompatActivity {
                                 @Override
                                 public void done(BmobException e) {
                                     if (e == null) {
-                                        RairUtils.showSnackar(userRlSignature, "头像上传成功");
+                                        CommonUtils.showSnackar(userRlSignature, "头像上传成功");
                                     } else {
-                                        RairUtils.showSnackar(userRlSignature, "头像上传失败");
+                                        CommonUtils.showSnackar(userRlSignature, "头像上传失败");
                                     }
                                 }
                             });
                         } else {
-                            RairUtils.showSnackar(userRlSignature, "头像上传失败");
+                            CommonUtils.showSnackar(userRlSignature, "头像上传失败");
                         }
 
                     }

@@ -4,9 +4,6 @@ import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.datatype.BmobRelation;
 
-/**
- * Created by mzaiy on 2017/6/9.
- */
 
 public class User extends BmobUser {
 

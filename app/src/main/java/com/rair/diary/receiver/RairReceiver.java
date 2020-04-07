@@ -11,16 +11,13 @@ import android.os.Build;
 import android.support.annotation.RequiresApi;
 
 import com.rair.diary.R;
-import com.rair.diary.utils.RairUtils;
+import com.rair.diary.utils.CommonUtils;
 import com.rair.diary.base.RairApp;
 import com.rair.diary.constant.Constants;
 import com.rair.diary.ui.MainActivity;
 
 import java.util.Calendar;
 
-/**
- * Created by mzaiy on 2017/6/5.
- */
 
 public class RairReceiver extends BroadcastReceiver {
 
@@ -34,7 +31,7 @@ public class RairReceiver extends BroadcastReceiver {
             int h = calendar.get(Calendar.HOUR_OF_DAY);
             int m = calendar.get(Calendar.MINUTE);
             String setTime = RairApp.getRairApp().getSpUtils().getString("setTime");
-            if ((RairUtils.format(h) + RairUtils.format(m)).equals(setTime)) {
+            if ((CommonUtils.format(h) + CommonUtils.format(m)).equals(setTime)) {
                 showNotification(context);
                 return;
             }

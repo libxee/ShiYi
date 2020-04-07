@@ -52,10 +52,6 @@ public class AboutActivity extends AppCompatActivity {
     }
 
     /****************
-     *
-     * 发起添加群流程。群号：Rair修仙开发交流(650494950) 的 key 为： J_-56inXPgycIyUIF9tPW19bfUFZul9m
-     * 调用 joinQQGroup(J_-56inXPgycIyUIF9tPW19bfUFZul9m) 即可发起手Q客户端申请加群 Rair修仙开发交流(650494950)
-     *
      * @param key 由官网生成的key
      * @return 返回true表示呼起手Q成功，返回fals表示呼起失败
      ******************/

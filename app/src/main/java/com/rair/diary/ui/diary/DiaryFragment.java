@@ -32,7 +32,7 @@ import com.rair.diary.bean.User;
 import com.rair.diary.db.DiaryDao;
 import com.rair.diary.ui.diary.add.AddDiaryActivity;
 import com.rair.diary.ui.diary.detail.DiaryDetailActivity;
-import com.rair.diary.utils.RairUtils;
+import com.rair.diary.utils.CommonUtils;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -224,7 +224,7 @@ public class DiaryFragment extends Fragment implements TextWatcher, DiaryRvAdapt
                 }
             });
         } else {
-            RairUtils.showSnackar(diaryEtSearch, "请先登录后再操作");
+            CommonUtils.showSnackar(diaryEtSearch, "请先登录后再操作");
         }
     }
 
@@ -250,7 +250,7 @@ public class DiaryFragment extends Fragment implements TextWatcher, DiaryRvAdapt
                 }
             });
         } else {
-            RairUtils.showSnackar(diaryEtSearch, "请先登录后再操作");
+            CommonUtils.showSnackar(diaryEtSearch, "请先登录后再操作");
         }
     }
 
@@ -268,9 +268,9 @@ public class DiaryFragment extends Fragment implements TextWatcher, DiaryRvAdapt
             @Override
             public void done(BmobException e) {
                 if (e == null) {
-                    RairUtils.showSnackar(diaryEtSearch, "发布成功");
+                    CommonUtils.showSnackar(diaryEtSearch, "发布成功");
                 } else {
-                    RairUtils.showSnackar(diaryEtSearch, "发布失败");
+                    CommonUtils.showSnackar(diaryEtSearch, "发布失败");
                 }
             }
         });
@@ -292,7 +292,7 @@ public class DiaryFragment extends Fragment implements TextWatcher, DiaryRvAdapt
             public void onClick(DialogInterface dialogInterface, int which) {
                 diaryDao.delete(datas.get(position).getId());
                 queryDatas();
-                RairUtils.showSnackar(diaryEtSearch, getString(R.string.delete_over));
+                CommonUtils.showSnackar(diaryEtSearch, getString(R.string.delete_over));
                 dialogInterface.cancel();
             }
         });
@@ -319,21 +319,21 @@ public class DiaryFragment extends Fragment implements TextWatcher, DiaryRvAdapt
         builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int which) {
-                String fileName = RairUtils.getTime();
+                String fileName = CommonUtils.getTime();
                 File rairPath = RairApp.getRairApp().getRairPath();
                 String path = new File(rairPath, fileName + ".txt").getAbsolutePath();
                 if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                     if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.READ_CONTACTS)) {
-                        RairUtils.showSnackar(diaryXRvList, "需要读写权限");
+                        CommonUtils.showSnackar(diaryXRvList, "需要读写权限");
                         ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
                     } else {
                         ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
                     }
                 } else {
                     if (exportTxt(path, datas.get(position))) {
-                        RairUtils.showSnackar(diaryEtSearch, getString(R.string.save_success));
+                        CommonUtils.showSnackar(diaryEtSearch, getString(R.string.save_success));
                     } else {
-                        RairUtils.showSnackar(diaryEtSearch, getString(R.string.save_failed));
+                        CommonUtils.showSnackar(diaryEtSearch, getString(R.string.save_failed));
                     }
                 }
             }
@@ -362,7 +362,7 @@ public class DiaryFragment extends Fragment implements TextWatcher, DiaryRvAdapt
             public void onClick(DialogInterface dialogInterface, int which) {
                 diaryDao.deleteAll();
                 queryDatas();
-                RairUtils.showSnackar(diaryEtSearch, getString(R.string.emptyed));
+                CommonUtils.showSnackar(diaryEtSearch, getString(R.string.emptyed));
             }
         });
         builder.setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
@@ -383,7 +383,7 @@ public class DiaryFragment extends Fragment implements TextWatcher, DiaryRvAdapt
                 break;
             case R.id.diary_iv_delete:
                 diaryEtSearch.setText("");
-                RairUtils.hideInput(getContext());
+                CommonUtils.hideInput(getContext());
                 break;
         }
     }
@@ -450,7 +450,7 @@ public class DiaryFragment extends Fragment implements TextWatcher, DiaryRvAdapt
         } else {
             datas.clear();
             queryDatas();
-            RairUtils.hideInput(getContext());
+            CommonUtils.hideInput(getContext());
         }
         if (s.length() > 0) {
             diaryIvDelete.setVisibility(View.VISIBLE);

@@ -54,7 +54,7 @@ public class SetFragment extends Fragment {
     LinearLayout setLlSecret;
     @BindView(R.id.set_ll_export)
     LinearLayout setLlExport;
-////    @BindView(R.id.set_switch_night)
+    ////    @BindView(R.id.set_switch_night)
 ////    Switch setSwitchNight;
 //    @BindView(R.id.set_ll_bg)
 //    LinearLayout setLlBg;

@@ -24,7 +24,7 @@ import com.rair.diary.ui.diary.DiaryFragment;
 import com.rair.diary.ui.find.FindFragment;
 import com.rair.diary.ui.setting.SetFragment;
 import com.rair.diary.ui.one.OneFragment;
-import com.rair.diary.utils.RairUtils;
+import com.rair.diary.utils.CommonUtils;
 import com.rair.diary.utils.SPUtils;
 import com.rair.diary.view.LockPattern;
 
@@ -37,9 +37,9 @@ public class MainActivity extends AppCompatActivity implements OnTabSelectListen
     @Titles
     public static final int[] titles = {R.string.diary, R.string.find, R.string.one, R.string.mine};
     @SeleIcons
-    public static final int[] selIcons = {R.mipmap.house, R.mipmap.home,R.mipmap.browser, R.mipmap.personal};
+    public static final int[] selIcons = {R.mipmap.house, R.mipmap.home, R.mipmap.browser, R.mipmap.personal};
     @NorIcons
-    public static final int[] icons = {R.mipmap.house_dark, R.mipmap.home_dark,R.mipmap.browser_dark, R.mipmap.personal_dark};
+    public static final int[] icons = {R.mipmap.house_dark, R.mipmap.home_dark, R.mipmap.browser_dark, R.mipmap.personal_dark};
 
     @BindView(R.id.main_fl_container)
     FrameLayout mainFlContainer;
@@ -202,7 +202,7 @@ public class MainActivity extends AppCompatActivity implements OnTabSelectListen
     @Override
     public void onBackPressed() {
         if ((System.currentTimeMillis() - exitTime) > 2000) {
-            RairUtils.showSnackar(mainJpTabbar, "再按一次退出");
+            CommonUtils.showSnackar(mainJpTabbar, "再按一次退出");
             exitTime = System.currentTimeMillis();
         } else {
             finish();

@@ -3,6 +3,7 @@ package com.rair.diary.ui.one;
 import android.annotation.SuppressLint;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,11 +23,23 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import static android.provider.Settings.System.getString;
+
 public class MyOneRecyclerViewAdapter extends RecyclerView.Adapter<MyOneRecyclerViewAdapter.ViewHolder> {
 
     private final List<DayPic> DayPicList;
     private final OnListFragmentInteractionListener mListener;
     Fragment OneListFragment;
+    private OnDayPicItemClickListener onDayPicItemClickListener;
+
+    public interface OnDayPicItemClickListener {
+        void OnItemClick(int position);
+    }
+
+    public void setOnRvItemClickListener(OnDayPicItemClickListener onDayPicItemClickListener) {
+        this.onDayPicItemClickListener = onDayPicItemClickListener;
+    }
+
     public MyOneRecyclerViewAdapter(List<DayPic> items, OnListFragmentInteractionListener listener, Fragment fragment) {
         DayPicList = items;
         OneListFragment = fragment;
@@ -49,23 +62,23 @@ public class MyOneRecyclerViewAdapter extends RecyclerView.Adapter<MyOneRecycler
         holder.DayPicAuthor.setText(DayPicList.get(position).getHp_author());
         holder.HpContent.setText(DayPicList.get(position).getHp_content());
         holder.HpContentAuthor.setText(DayPicList.get(position).getText_authors());
+        final int mPosition = position;
+        holder.mView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onDayPicItemClickListener != null)
+                    onDayPicItemClickListener.OnItemClick(mPosition);
+            }
+        });
         String imgUrl = DayPicList.get(position).getHp_img_url();
         Glide.with(OneListFragment)
                 .load(imgUrl)
                 .into(holder.HpImg);
-        holder.mView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (null != mListener) {
-                    // Notify the active callbacks interface (the activity, if the
-                    // fragment is attached to one) that an item has been selected.
-                    mListener.onListFragmentInteraction(holder.mItem);
-                }
-            }
-        });
+
     }
+
     @SuppressLint("SimpleDateFormat")
-    private  String  formatString (Date date){
+    private String formatString(Date date) {
         DateFormat formatter;
         formatter = new SimpleDateFormat("dd/MM/yyyy");
         return formatter.format(date);
@@ -79,11 +92,11 @@ public class MyOneRecyclerViewAdapter extends RecyclerView.Adapter<MyOneRecycler
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
         public final TextView OneDate;
-        public final  TextView HpTitle;
-        public  final  TextView DayPicAuthor;
+        public final TextView HpTitle;
+        public final TextView DayPicAuthor;
         public final TextView HpContent;
         public final TextView HpContentAuthor;
-        public  final ImageView HpImg;
+        public final ImageView HpImg;
         public DayPic mItem;
 
         public ViewHolder(View view) {
