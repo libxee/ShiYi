@@ -9,6 +9,7 @@
         <item name="android:windowBackground">@color/backgroundColor</item>
         <item name="backgroundBg">@color/backgroundColor</item>
     </style>
+
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
@@ -27,4 +28,13 @@
     <style name="DialogStyle" parent="Theme.AppCompat.DayNight.Dialog.Alert">
         <item name="android:windowBackground">@color/backgroundColor</item>
     </style>
+
+    <style name="AppTheme.NoActionBar.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.NoActionBar.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

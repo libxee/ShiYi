@@ -20,7 +20,7 @@ import com.rair.diary.base.RairApp;
 import com.rair.diary.bean.DiaryBean;
 import com.rair.diary.constant.Constants;
 import com.rair.diary.db.DiaryDao;
-import com.rair.diary.utils.RairUtils;
+import com.rair.diary.utils.CommonUtils;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -70,9 +70,9 @@ public class ExportActivity extends AppCompatActivity {
                 if (progressDialog != null)
                     progressDialog.dismiss();
                 if (msg.what == 0) {
-                    RairUtils.showSnackar(exportLlTxt, "导出成功");
+                    CommonUtils.showSnackar(exportLlTxt, "导出成功");
                 } else {
-                    RairUtils.showSnackar(exportLlTxt, "导出失败");
+                    CommonUtils.showSnackar(exportLlTxt, "导出失败");
                 }
             }
         };
@@ -86,13 +86,13 @@ public class ExportActivity extends AppCompatActivity {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     doExportTxt();
                 } else {
-                    RairUtils.showSnackar(exportLlTxt, "没有授予读写权限，导出失败,请到设置中手动打开");
+                    CommonUtils.showSnackar(exportLlTxt, "没有授予读写权限，导出失败,请到设置中手动打开");
                 }
             case 1:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     doExportDb();
                 } else {
-                    RairUtils.showSnackar(exportLlTxt, "没有授予读写权限，恢复失败,请到设置中手动打开");
+                    CommonUtils.showSnackar(exportLlTxt, "没有授予读写权限，恢复失败,请到设置中手动打开");
                 }
                 break;
         }
@@ -107,7 +107,7 @@ public class ExportActivity extends AppCompatActivity {
             case R.id.export_ll_txt:
                 if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                     if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_CONTACTS)) {
-                        RairUtils.showSnackar(exportLlTxt, "需要读写权限");
+                        CommonUtils.showSnackar(exportLlTxt, "需要读写权限");
                     } else {
                         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
                     }
@@ -118,7 +118,7 @@ public class ExportActivity extends AppCompatActivity {
             case R.id.export_ll_db:
                 if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                     if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_CONTACTS)) {
-                        RairUtils.showSnackar(exportLlTxt, "需要读写权限");
+                        CommonUtils.showSnackar(exportLlTxt, "需要读写权限");
                     } else {
                         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
                     }

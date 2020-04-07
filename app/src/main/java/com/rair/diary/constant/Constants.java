@@ -1,8 +1,5 @@
 package com.rair.diary.constant;
 
-/**
- * Created by mzaiy on 2017/6/5.
- */
 
 public class Constants {
     //DB

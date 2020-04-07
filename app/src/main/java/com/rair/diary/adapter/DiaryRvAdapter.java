@@ -84,6 +84,7 @@ public class DiaryRvAdapter extends RecyclerView.Adapter<DiaryRvAdapter.DiaryHol
             }
         });
     }
+
     @Override
     public int getItemCount() {
         return datas.size();

@@ -19,7 +19,7 @@ import com.rair.diary.bean.Comment;
 import com.rair.diary.bean.Diary;
 import com.rair.diary.bean.User;
 import com.rair.diary.ui.setting.user.LoginActivity;
-import com.rair.diary.utils.RairUtils;
+import com.rair.diary.utils.CommonUtils;
 import com.rair.diary.view.CircleImageView;
 import com.squareup.picasso.Picasso;
 
@@ -214,7 +214,7 @@ public class FindDetailActivity extends AppCompatActivity implements View.OnClic
         } else {
             String commentStr = findEtCommentsContent.getText().toString().trim();
             if (TextUtils.isEmpty(commentStr)) {
-                RairUtils.showSnackar(findEtCommentsContent, "来评论一句吧");
+                CommonUtils.showSnackar(findEtCommentsContent, "来评论一句吧");
                 return;
             }
             String timeMillis = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.CHINA).format(new Date());
@@ -230,7 +230,7 @@ public class FindDetailActivity extends AppCompatActivity implements View.OnClic
                         comments.add(0, comment);
                         adapter.notifyDataSetChanged();
                         findEtCommentsContent.setText("");
-                        RairUtils.hideInput(FindDetailActivity.this);
+                        CommonUtils.hideInput(FindDetailActivity.this);
                         BmobRelation relation = new BmobRelation();
                         relation.add(comment);
                         diary.setComment(relation);
@@ -238,14 +238,14 @@ public class FindDetailActivity extends AppCompatActivity implements View.OnClic
                             @Override
                             public void done(BmobException e) {
                                 if (e == null) {
-                                    RairUtils.showSnackar(findEtCommentsContent, "评论成功");
+                                    CommonUtils.showSnackar(findEtCommentsContent, "评论成功");
                                 } else {
-                                    RairUtils.showSnackar(findEtCommentsContent, "评论失败");
+                                    CommonUtils.showSnackar(findEtCommentsContent, "评论失败");
                                 }
                             }
                         });
                     } else {
-                        RairUtils.showSnackar(findEtCommentsContent, "评论失败");
+                        CommonUtils.showSnackar(findEtCommentsContent, "评论失败");
                     }
                 }
             });

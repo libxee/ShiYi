@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.rair.diary.R;
 import com.rair.diary.bean.User;
-import com.rair.diary.utils.RairUtils;
+import com.rair.diary.utils.CommonUtils;
 import com.rair.diary.view.EditTextWithDel;
 
 import butterknife.BindView;
@@ -68,19 +68,19 @@ public class RegisterFragment extends Fragment {
         String userMail = registerEtEmail.getText().toString();
         String userPwd = registerEtPwd.getText().toString();
         if (TextUtils.isEmpty(userName)) {
-            RairUtils.showSnackar(registerTvRegister, "请输入用户名");
+            CommonUtils.showSnackar(registerTvRegister, "请输入用户名");
             return;
         }
         if (TextUtils.isEmpty(userMail)) {
-            RairUtils.showSnackar(registerTvRegister, "请输入邮箱");
+            CommonUtils.showSnackar(registerTvRegister, "请输入邮箱");
             return;
         }
-        if (!RairUtils.isEmail(userMail)) {
-            RairUtils.showSnackar(registerTvRegister, "邮箱格式不正确");
+        if (!CommonUtils.isEmail(userMail)) {
+            CommonUtils.showSnackar(registerTvRegister, "邮箱格式不正确");
             return;
         }
         if (TextUtils.isEmpty(userPwd)) {
-            RairUtils.showSnackar(registerTvRegister, "请输入密码");
+            CommonUtils.showSnackar(registerTvRegister, "请输入密码");
             return;
         }
         User user = new User();
@@ -94,18 +94,18 @@ public class RegisterFragment extends Fragment {
             @Override
             public void done(User user, BmobException e) {
                 if (e == null) {
-                    RairUtils.showSnackar(registerTvRegister, "注册成功，已登录");
+                    CommonUtils.showSnackar(registerTvRegister, "注册成功，已登录");
                     getActivity().finish();
                 } else {
                     switch (e.getErrorCode()) {
                         case 202:
-                            RairUtils.showSnackar(registerTvRegister, "注册失败，用户名已经存在");
+                            CommonUtils.showSnackar(registerTvRegister, "注册失败，用户名已经存在");
                             break;
                         case 203:
-                            RairUtils.showSnackar(registerTvRegister, "注册失败，邮箱已经存在");
+                            CommonUtils.showSnackar(registerTvRegister, "注册失败，邮箱已经存在");
                             break;
                         default:
-                            RairUtils.showSnackar(registerTvRegister, "注册失败");
+                            CommonUtils.showSnackar(registerTvRegister, "注册失败");
                             break;
                     }
                 }

@@ -19,7 +19,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.rair.diary.R;
-import com.rair.diary.utils.RairUtils;
+import com.rair.diary.utils.CommonUtils;
 import com.rair.diary.utils.SPUtils;
 import com.rair.diary.base.RairApp;
 import com.rair.diary.constant.Constants;
@@ -86,13 +86,13 @@ public class NotifyActivity extends AppCompatActivity implements CompoundButton.
         super.onResume();
         int hour = spUtils.getInt("hour", 0);
         int minute = spUtils.getInt("minute", 0);
-        String remindTime = "提醒时间：" + RairUtils.format(hour) + ":" + RairUtils.format(minute);
+        String remindTime = "提醒时间：" + CommonUtils.format(hour) + ":" + CommonUtils.format(minute);
         notifyTvRemindTime.setText(remindTime);
         mIntent = new Intent(NotifyActivity.this, RemindService.class);
 
         calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
-        String currentTime = "当前时间：" + RairUtils.format(calendar.get(Calendar.HOUR_OF_DAY)) + ":" + RairUtils.format(calendar.get(Calendar.MINUTE));
+        String currentTime = "当前时间：" + CommonUtils.format(calendar.get(Calendar.HOUR_OF_DAY)) + ":" + CommonUtils.format(calendar.get(Calendar.MINUTE));
         notifyTvCurrentTime.setText(currentTime);
     }
 
@@ -162,7 +162,7 @@ public class NotifyActivity extends AppCompatActivity implements CompoundButton.
                 calendar.set(Calendar.MILLISECOND, 0);
                 spUtils.put("hour", hourOfDay);
                 spUtils.put("minute", minute);
-                spUtils.put("setTime", RairUtils.format(hourOfDay) + RairUtils.format(minute));
+                spUtils.put("setTime", CommonUtils.format(hourOfDay) + CommonUtils.format(minute));
                 setRemind();
             }
         }, mHour, mMinute, true).show();
@@ -182,7 +182,7 @@ public class NotifyActivity extends AppCompatActivity implements CompoundButton.
             if (msg.what == 0x001) {
                 int hour = spUtils.getInt("hour", 0);
                 int minute = spUtils.getInt("minute", 0);
-                String remindTime = "提醒时间：" + RairUtils.format(hour) + ":" + RairUtils.format(minute);
+                String remindTime = "提醒时间：" + CommonUtils.format(hour) + ":" + CommonUtils.format(minute);
                 notifyTvRemindTime.setText(remindTime);
             }
         }

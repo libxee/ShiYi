@@ -37,7 +37,7 @@ public class LockPattern extends View {
 
     private int lineColor = 0XFFFFA429;// 选中时线条颜色
     private int arrowColor = 0XFFFFA429;// 选中时箭头颜色
-	//private int arrowColor = this.selectedInnerColor;// 选中时箭头颜色
+    //private int arrowColor = this.selectedInnerColor;// 选中时箭头颜色
 
     private int errorArrowColor = this.errorInnerColor;// 密码错误时箭头颜色
     private int errorlineColor = this.errorInnerColor;// 密码错误时线条颜色

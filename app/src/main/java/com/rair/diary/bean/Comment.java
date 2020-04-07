@@ -2,11 +2,7 @@ package com.rair.diary.bean;
 
 import cn.bmob.v3.BmobObject;
 
-/**
- * Created by Rair on 2017/6/12.
- * Email:rairmmd@gmail.com
- * Author:Rair
- */
+
 public class Comment extends BmobObject {
 
     //评论内容
@@ -17,7 +13,7 @@ public class Comment extends BmobObject {
     private Diary diary;
 
     //评论时间
-    private  String commentTime;
+    private String commentTime;
 
     public String getContent() {
         return content;

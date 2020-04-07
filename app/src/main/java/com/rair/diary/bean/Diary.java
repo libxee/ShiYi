@@ -4,11 +4,7 @@ import cn.bmob.v3.BmobObject;
 import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.datatype.BmobRelation;
 
-/**
- * Created by Rair on 2017/6/12.
- * Email:rairmmd@gmail.com
- * Author:Rair
- */
+
 public class Diary extends BmobObject {
 
     //发布者

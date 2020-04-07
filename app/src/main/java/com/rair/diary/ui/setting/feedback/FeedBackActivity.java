@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.rair.diary.R;
 import com.rair.diary.bean.FeedBack;
-import com.rair.diary.utils.RairUtils;
+import com.rair.diary.utils.CommonUtils;
 import com.rair.diary.view.LinedEditText;
 
 import butterknife.BindView;
@@ -58,9 +58,9 @@ public class FeedBackActivity extends AppCompatActivity {
         String content = feedbackEtContent.getText().toString().trim();
         String contact = feedbackEtContact.getText().toString().trim();
         if (TextUtils.isEmpty(content)) {
-            RairUtils.showSnackar(feedbackTvCommit, "请输入反馈内容");
+            CommonUtils.showSnackar(feedbackTvCommit, "请输入反馈内容");
         } else if (TextUtils.isEmpty(contact)) {
-            RairUtils.showSnackar(feedbackTvCommit, "请输入联系方式");
+            CommonUtils.showSnackar(feedbackTvCommit, "请输入联系方式");
         } else {
             FeedBack feedBack = new FeedBack(content, contact);
             feedBack.save(new SaveListener<String>() {
@@ -68,9 +68,9 @@ public class FeedBackActivity extends AppCompatActivity {
                 public void done(String s, BmobException e) {
                     if (e == null) {
                         FeedBackActivity.this.finish();
-                        RairUtils.showSnackar(feedbackTvCommit, "提交成功");
+                        CommonUtils.showSnackar(feedbackTvCommit, "提交成功");
                     } else {
-                        RairUtils.showSnackar(feedbackTvCommit, "提交失败");
+                        CommonUtils.showSnackar(feedbackTvCommit, "提交失败");
                     }
                 }
             });

@@ -14,7 +14,7 @@ import android.widget.Toast;
 
 import com.rair.diary.R;
 import com.rair.diary.base.RairApp;
-import com.rair.diary.utils.RairUtils;
+import com.rair.diary.utils.CommonUtils;
 import com.rair.diary.utils.SPUtils;
 import com.rair.diary.view.LockPattern;
 
@@ -61,7 +61,7 @@ public class SecretActivity extends AppCompatActivity {
                 spUtils.put("hasNumberPwd", false);
                 spUtils.remove("patternPwd");
                 spUtils.remove("numberPwd");
-                RairUtils.showSnackar(secretRlClear, "密码已清空");
+                CommonUtils.showSnackar(secretRlClear, "密码已清空");
                 break;
         }
     }

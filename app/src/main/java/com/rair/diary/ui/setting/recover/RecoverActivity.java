@@ -16,7 +16,7 @@ import com.rair.diary.R;
 import com.rair.diary.base.RairApp;
 import com.rair.diary.bean.User;
 import com.rair.diary.constant.Constants;
-import com.rair.diary.utils.RairUtils;
+import com.rair.diary.utils.CommonUtils;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -69,7 +69,7 @@ public class RecoverActivity extends AppCompatActivity {
             case R.id.recover_ll_upload:
                 if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                     if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_CONTACTS)) {
-                        RairUtils.showSnackar(recoverLlDownload, "需要读写权限");
+                        CommonUtils.showSnackar(recoverLlDownload, "需要读写权限");
                         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
                     } else {
                         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
@@ -81,7 +81,7 @@ public class RecoverActivity extends AppCompatActivity {
             case R.id.recover_ll_download:
                 if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                     if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_CONTACTS)) {
-                        RairUtils.showSnackar(recoverLlDownload, "需要读写权限");
+                        CommonUtils.showSnackar(recoverLlDownload, "需要读写权限");
                         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
                     } else {
                         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
@@ -101,14 +101,14 @@ public class RecoverActivity extends AppCompatActivity {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     doUpLoad();
                 } else {
-                    RairUtils.showSnackar(recoverLlDownload, "没有授予读写权限，导出失败,请到设置中手动打开");
+                    CommonUtils.showSnackar(recoverLlDownload, "没有授予读写权限，导出失败,请到设置中手动打开");
                 }
                 break;
             case 1:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     doDownLoad();
                 } else {
-                    RairUtils.showSnackar(recoverLlDownload, "没有授予读写权限，恢复失败,请到设置中手动打开");
+                    CommonUtils.showSnackar(recoverLlDownload, "没有授予读写权限，恢复失败,请到设置中手动打开");
                 }
                 break;
         }
@@ -135,10 +135,10 @@ public class RecoverActivity extends AppCompatActivity {
                             public void done(BmobException e) {
                                 if (e == null) {
                                     progressDialog.dismiss();
-                                    RairUtils.showSnackar(recoverLlDownload, "备份成功");
+                                    CommonUtils.showSnackar(recoverLlDownload, "备份成功");
                                 } else {
                                     progressDialog.dismiss();
-                                    RairUtils.showSnackar(recoverLlDownload, "备份失败");
+                                    CommonUtils.showSnackar(recoverLlDownload, "备份失败");
                                 }
                             }
                         });
@@ -154,7 +154,7 @@ public class RecoverActivity extends AppCompatActivity {
                 }
             });
         } else {
-            RairUtils.showSnackar(recoverLlDownload, "文件导出错误");
+            CommonUtils.showSnackar(recoverLlDownload, "文件导出错误");
         }
     }
 
@@ -171,20 +171,20 @@ public class RecoverActivity extends AppCompatActivity {
                 @Override
                 public void done(String s, BmobException e) {
                     if (e == null) {
-                        RairUtils.showSnackar(recoverLlDownload, "下载成功,保存路径:" + s);
+                        CommonUtils.showSnackar(recoverLlDownload, "下载成功,保存路径:" + s);
                         progressDialog.setMessage("正在还原。。。");
                         String dbPath = RecoverActivity.this.getDatabasePath(Constants.DB_NAME).getAbsolutePath();
                         boolean success = pasteFile(sdPath, dbPath);
                         if (success) {
                             progressDialog.dismiss();
-                            RairUtils.showSnackar(recoverLlDownload, "恢复成功");
+                            CommonUtils.showSnackar(recoverLlDownload, "恢复成功");
                         } else {
                             progressDialog.dismiss();
-                            RairUtils.showSnackar(recoverLlDownload, "恢复失败");
+                            CommonUtils.showSnackar(recoverLlDownload, "恢复失败");
                         }
                     } else {
                         progressDialog.dismiss();
-                        RairUtils.showSnackar(recoverLlDownload, "下载失败");
+                        CommonUtils.showSnackar(recoverLlDownload, "下载失败");
                     }
                 }
 
@@ -196,7 +196,7 @@ public class RecoverActivity extends AppCompatActivity {
             });
         } else {
             progressDialog.dismiss();
-            RairUtils.showSnackar(recoverLlDownload, "没有找到云端备份文件");
+            CommonUtils.showSnackar(recoverLlDownload, "没有找到云端备份文件");
         }
 
     }

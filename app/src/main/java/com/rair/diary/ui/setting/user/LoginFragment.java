@@ -13,7 +13,7 @@ import android.widget.TextView;
 import com.rair.diary.R;
 import com.rair.diary.base.RairApp;
 import com.rair.diary.bean.User;
-import com.rair.diary.utils.RairUtils;
+import com.rair.diary.utils.CommonUtils;
 import com.rair.diary.utils.SPUtils;
 import com.rair.diary.view.EditTextWithDel;
 
@@ -76,11 +76,11 @@ public class LoginFragment extends Fragment {
         String userName = loginEtName.getText().toString();
         String userPwd = loginEtPwd.getText().toString();
         if (TextUtils.isEmpty(userName)) {
-            RairUtils.showSnackar(loginTvLogin, "请输入用户名/邮箱");
+            CommonUtils.showSnackar(loginTvLogin, "请输入用户名/邮箱");
             return;
         }
         if (TextUtils.isEmpty(userPwd)) {
-            RairUtils.showSnackar(loginTvLogin, "请输入密码");
+            CommonUtils.showSnackar(loginTvLogin, "请输入密码");
             return;
         }
         User user = new User();
@@ -91,15 +91,15 @@ public class LoginFragment extends Fragment {
             @Override
             public void done(User user, BmobException e) {
                 if (e == null) {
-                    RairUtils.showSnackar(loginTvLogin, "登陆成功");
+                    CommonUtils.showSnackar(loginTvLogin, "登陆成功");
                     getActivity().finish();
                 } else {
                     switch (e.getErrorCode()) {
                         case 101:
-                            RairUtils.showSnackar(loginTvLogin, "登陆失败，用户不存在或密码错误");
+                            CommonUtils.showSnackar(loginTvLogin, "登陆失败，用户不存在或密码错误");
                             break;
                         default:
-                            RairUtils.showSnackar(loginTvLogin, "登陆失败");
+                            CommonUtils.showSnackar(loginTvLogin, "登陆失败");
                             break;
                     }
                 }

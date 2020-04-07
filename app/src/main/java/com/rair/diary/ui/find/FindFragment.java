@@ -17,7 +17,7 @@ import com.rair.diary.R;
 import com.rair.diary.adapter.FindXrvAdapter;
 import com.rair.diary.bean.Diary;
 import com.rair.diary.bean.User;
-import com.rair.diary.utils.RairUtils;
+import com.rair.diary.utils.CommonUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -93,7 +93,7 @@ public class FindFragment extends Fragment implements BaseQuickAdapter.OnItemCli
                     }
                     findXrvAdapter.notifyDataSetChanged();
                 } else {
-                    RairUtils.showSnackar(findrvList, "加载失败，请稍后重试。");
+                    CommonUtils.showSnackar(findrvList, "加载失败，请稍后重试。");
                 }
             }
         });

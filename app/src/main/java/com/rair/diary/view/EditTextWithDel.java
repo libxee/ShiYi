@@ -10,7 +10,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 
 import com.rair.diary.R;
-import com.rair.diary.utils.RairUtils;
+import com.rair.diary.utils.CommonUtils;
 
 public class EditTextWithDel extends AppCompatEditText {
 
@@ -72,7 +72,7 @@ public class EditTextWithDel extends AppCompatEditText {
             rect.left = rect.right - 50;
             if (rect.contains(eventX, eventY))
                 setText("");
-            RairUtils.hideInput(getContext());
+            CommonUtils.hideInput(getContext());
         }
         return super.onTouchEvent(event);
     }

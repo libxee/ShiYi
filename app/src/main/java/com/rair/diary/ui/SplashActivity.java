@@ -38,7 +38,7 @@ public class SplashActivity extends AppCompatActivity {
                 "为了不忘昨天，为了憧憬明天，应该写日记。",
                 "人生有许多事情，正如船后的波纹，总要过后才觉得美的。 by 余光中",
                 "我敞开心扉向它（日记）倾诉，请它为我挽住时间的足迹。",
-               "应是天仙狂醉，乱把白云揉碎。 from 李白《清平乐·画堂晨起》",
+                "应是天仙狂醉，乱把白云揉碎。 from 李白《清平乐·画堂晨起》",
                 "我并不期待人生可以过得很顺利，但我希望碰到人生难关的时候，自己可以是它的对手。 by 加缪"
         };
         int random = new Random().nextInt(tips.length);
