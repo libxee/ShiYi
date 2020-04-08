@@ -7,23 +7,39 @@
     android:gravity="center|bottom"
     android:orientation="vertical"
     tools:context="com.rair.diary.ui.SplashActivity">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:gravity="top"
+        android:layout_marginBottom="50dp"
+        android:visibility="visible"
+        android:src="@mipmap/spalsh" />
     <TextView
         android:id="@+id/splash_tv_tip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:lineSpacingMultiplier="1.4"
-        android:textColor="@color/secondary_text"
-        android:textSize="16sp" />
+        android:textColor="@color/primary_text"
+        android:textSize="12sp" />
+
     <ImageView
-        android:layout_width="160dp"
+        android:layout_width="60dp"
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
+        android:layout_margin="20dp"
         android:visibility="visible"
+        android:src="@mipmap/icon_round" />
+
+    <TextView
+        android:id="@+id/splash_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="30dp"
-        android:src="@mipmap/logo_dark" />
-
-
-
-
+        android:lineSpacingMultiplier="1.4"
+        android:textColor="@color/primary_text"
+        android:text="@string/app_name"
+        android:textSize="14sp" />
 </LinearLayout>
