@@ -31,7 +31,7 @@
         </com.rair.diary.view.RippleView>
 
         <TextView
-            android:id="@+id/detail_tv_tite"
+            android:id="@+id/one_detail_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
@@ -54,11 +54,59 @@
                 android:visibility="gone" />
         </com.rair.diary.view.RippleView>
     </RelativeLayout>
-
-    <TextView
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            >
+        <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="detai l"
-        />
+            android:id="@+id/one_detail_article"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="10dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/detail_article_label"
+            android:textSize="20sp"
+            android:textColor="@color/primary_text"
+            android:layout_marginVertical="20dp"
+            />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:id="@+id/one_detail_article_nodata"
+                android:text="今日暂无推荐文章"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/one_detail_article_title"
+                android:textSize="16sp"
+                android:textColor="@color/primary_text"
+                android:layout_marginBottom="12dp"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/one_detail_article_author"
+                android:textSize="12sp"
+                android:textColor="@color/primary_text"
+                android:layout_marginBottom="20dp"
+                />
+            <TextView
+            android:id="@+id/one_detail_article_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/primary_text"
+            android:textSize="14sp"
+            android:lineSpacingMultiplier="1.2"
+            />
     </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+
 </android.support.constraint.ConstraintLayout>

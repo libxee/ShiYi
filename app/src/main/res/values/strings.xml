@@ -7,6 +7,10 @@
     <string name="login">登录</string>
     <string name="register">注册</string>
     <string name="one">精选</string>
+    <!--    每日精选所包含内容-->
+    <string name="detail_article_label">精选文章</string>
+    <string name="detail_movie_label">电影推荐</string>
+    <string name="detail_book_label">书籍推荐</string>
     <string-array name="weather">
         <item name="sunny">晴朗</item>
         <item name="cloudy">多云</item>

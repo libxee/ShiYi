@@ -1,5 +1,6 @@
 package com.rair.diary.utils;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Point;
 import android.support.design.widget.Snackbar;
@@ -11,6 +12,7 @@ import android.view.animation.CycleInterpolator;
 import android.view.animation.TranslateAnimation;
 import android.view.inputmethod.InputMethodManager;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -42,7 +44,13 @@ public class CommonUtils {
             s = "0" + s;
         return s;
     }
-
+    public  static  String formatOneArticleDate(String date) throws ParseException {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        formatter.setLenient(false);
+        Date newDate= formatter.parse(date);
+        formatter = new SimpleDateFormat("yyyyMMdd");
+        return formatter.format(newDate);
+    }
     /**
      * 获取屏幕宽高
      *

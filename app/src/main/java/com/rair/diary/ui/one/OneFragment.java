@@ -186,6 +186,7 @@ public class OneFragment extends Fragment implements MyOneRecyclerViewAdapter.On
     @Override
     public void OnItemClick(int position) {
         Intent intent = new Intent(getContext(), OneDayDetail.class);
+        intent.putExtra("currentDate", DayPicList.get(position).getHp_makettime().toString());
         startActivity(intent);
     }
 
