@@ -14,20 +14,20 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:background="@color/colorPrimary"
+        android:background="@color/white"
         tools:ignore="MissingConstraints">
 
         <com.rair.diary.view.RippleView
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_centerVertical="true">
 
             <ImageView
                 android:id="@+id/one_detail_back"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="30dp"
                 android:padding="5dp"
-                android:src="@mipmap/ic_back" />
+                android:src="@mipmap/back_dark" />
         </com.rair.diary.view.RippleView>
 
         <TextView
@@ -35,8 +35,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="日记内容"
-            android:textColor="@color/white"
+            android:text="每日精选"
+            android:textColor="@color/primary_text"
             android:textSize="18sp" />
 
         <com.rair.diary.view.RippleView
@@ -57,13 +57,94 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+
             android:fillViewport="true"
             >
-        <LinearLayout
+            <LinearLayout
+                android:layout_width="match_parent"
+
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:id="@+id/one_detail_movie"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/detail_movie_label"
+                        android:textSize="20sp"
+                        android:textStyle='bold'
+                        android:textColor="@color/primary_text"
+                        android:layout_marginVertical="20dp"
+                        />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        android:id="@+id/one_detail_movie_nodata"
+                        android:text="今日暂无推荐电影"
+                        />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/one_detail_movie_title"
+                        android:textSize="16sp"
+                        android:textColor="@color/thrid_text2"
+                        android:layout_marginBottom="12dp"
+                        android:text="暂无数据"
+                        />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:background="#f6f6f6" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                android:layout_width="match_parent"
+                android:id="@+id/one_detail_book"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/detail_book_label"
+                    android:textSize="20sp"
+                    android:textStyle='bold'
+                    android:textColor="@color/primary_text"
+                    android:layout_marginVertical="20dp"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:id="@+id/one_detail_book_nodata"
+                    android:text="暂无数据"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/one_detail_book_title"
+                    android:textSize="16sp"
+                    android:textColor="@color/thrid_text2"
+                    android:layout_marginBottom="12dp"
+                    android:text="暂无数据"
+                    />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:background="#f6f6f6" />
+            </LinearLayout>
+
+            <LinearLayout
         android:layout_width="match_parent"
             android:id="@+id/one_detail_article"
             android:layout_height="match_parent"
-            android:layout_marginHorizontal="10dp"
+            android:layout_marginHorizontal="16dp"
         android:orientation="vertical">
 
         <TextView
@@ -71,6 +152,7 @@
             android:layout_height="wrap_content"
             android:text="@string/detail_article_label"
             android:textSize="20sp"
+            android:textStyle='bold'
             android:textColor="@color/primary_text"
             android:layout_marginVertical="20dp"
             />
@@ -86,26 +168,30 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/one_detail_article_title"
                 android:textSize="16sp"
-                android:textColor="@color/primary_text"
+                android:textColor="@color/thrid_text2"
                 android:layout_marginBottom="12dp"
+                android:text="题目"
                 />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/one_detail_article_author"
                 android:textSize="12sp"
-                android:textColor="@color/primary_text"
+                android:text="作者"
+                android:textColor="@color/thrid_text3"
                 android:layout_marginBottom="20dp"
                 />
             <TextView
             android:id="@+id/one_detail_article_content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/primary_text"
+            android:textColor="@color/thrid_text2"
             android:textSize="14sp"
-            android:lineSpacingMultiplier="1.2"
+                android:text="内容内容"
+            android:lineSpacingMultiplier="1.4"
             />
     </LinearLayout>
+            </LinearLayout>
         </ScrollView>
     </LinearLayout>
 

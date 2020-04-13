@@ -12,9 +12,10 @@
     <color name="backgroundColor">#ffffff</color>
 
     <color name="thrid_text">#333333</color>
-    <color name="thrid_text2">#666666</color>
-    <color name="thrid_text3">#999999</color>
-    <color name="thrid_text4">#5e5e5e</color>
+    <color name="thrid_text2">#585858</color>
+    <color name="thrid_text3">#a1a1a1</color>
+    <color name="thrid_text4">#eeeeee</color>
+    <color name="second_white">#f4f4f4</color>
 
     <color name="ripple">#3e64ff</color>
     <color name="bg_color">#eeeade</color>

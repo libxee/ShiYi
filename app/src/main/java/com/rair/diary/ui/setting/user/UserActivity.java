@@ -73,11 +73,12 @@ public class UserActivity extends AppCompatActivity {
         if (user != null) {
             userTvName.setText(user.getUsername());
             userTvSignature.setText(user.getSign());
-            if (user.getSex() != null && user.getSex().equals("nan")) {
-                userCbSex.setChecked(false);
-            } else {
-                userCbSex.setChecked(true);
-            }
+//            if (user.getSex() != null && user.getSex().equals("nan")) {
+//                userCbSex.setChecked(false);
+//            } else {
+//                userCbSex.setChecked(true);
+//            }
+            userCbSex.setChecked(true);
             loadHead(user);
         }
         userCbSex.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -98,12 +99,13 @@ public class UserActivity extends AppCompatActivity {
      * @param user
      */
     private void loadHead(User user) {
-        if (user.getHeadFile() != null) {
-            BmobFile headFileFile = user.getHeadFile();
-            Picasso.with(UserActivity.this).load(headFileFile.getFileUrl()).into(userCivHead);
-        } else {
-            Picasso.with(UserActivity.this).load(R.mipmap.ic_head).into(userCivHead);
-        }
+//        if (user.getHeadFile() != null) {
+//            BmobFile headFileFile = user.getHeadFile();
+//            Picasso.with(UserActivity.this).load(headFileFile.getFileUrl()).into(userCivHead);
+//        } else {
+//            Picasso.with(UserActivity.this).load(R.mipmap.ic_head).into(userCivHead);
+//        }
+        Picasso.with(UserActivity.this).load(R.mipmap.ic_head).into(userCivHead);
     }
 
     /**
@@ -113,17 +115,17 @@ public class UserActivity extends AppCompatActivity {
      */
     private void changeSex(Integer sex) {
         User user = BmobUser.getCurrentUser(User.class);
-        user.setSex(sex);
-        user.update(new UpdateListener() {
-            @Override
-            public void done(BmobException e) {
-                if (e == null) {
-                    CommonUtils.showSnackar(userRlSignature, "修改成功");
-                } else {
-                    CommonUtils.showSnackar(userRlSignature, "修改失败");
-                }
-            }
-        });
+//        user.setSex(sex);
+//        user.update(new UpdateListener() {
+//            @Override
+//            public void done(BmobException e) {
+//                if (e == null) {
+//                    CommonUtils.showSnackar(userRlSignature, "修改成功");
+//                } else {
+//                    CommonUtils.showSnackar(userRlSignature, "修改失败");
+//                }
+//            }
+//        });
     }
 
     @OnClick({R.id.user_iv_back, R.id.user_civ_head, R.id.user_rl_head, R.id.user_rl_name, R.id.user_rl_signature, R.id.user_tv_unlogin})
@@ -199,17 +201,17 @@ public class UserActivity extends AppCompatActivity {
             public void onClick(View v) {
                 editDialog.dismiss();
                 User user = BmobUser.getCurrentUser(User.class);
-                user.setSign(etSign.getText().toString());
-                user.update(new UpdateListener() {
-                    @Override
-                    public void done(BmobException e) {
-                        if (e == null) {
-                            CommonUtils.showSnackar(userRlSignature, "编辑成功");
-                        } else {
-                            CommonUtils.showSnackar(userRlSignature, "编辑失败");
-                        }
-                    }
-                });
+//                user.setSign(etSign.getText().toString());
+//                user.update(new UpdateListener() {
+//                    @Override
+//                    public void done(BmobException e) {
+//                        if (e == null) {
+//                            CommonUtils.showSnackar(userRlSignature, "编辑成功");
+//                        } else {
+//                            CommonUtils.showSnackar(userRlSignature, "编辑失败");
+//                        }
+//                    }
+//                });
             }
         };
         tvOk.setOnClickListener(listener);
@@ -240,19 +242,19 @@ public class UserActivity extends AppCompatActivity {
                     @Override
                     public void done(BmobException e) {
                         if (e == null) {
-                            User user = BmobUser.getCurrentUser(User.class);
-                            user.setHeadFile(headFile);
-                            Picasso.with(UserActivity.this).load(headFile.getFileUrl()).into(userCivHead);
-                            user.update(new UpdateListener() {
-                                @Override
-                                public void done(BmobException e) {
-                                    if (e == null) {
-                                        CommonUtils.showSnackar(userRlSignature, "头像上传成功");
-                                    } else {
-                                        CommonUtils.showSnackar(userRlSignature, "头像上传失败");
-                                    }
-                                }
-                            });
+//                            User user = BmobUser.getCurrentUser(User.class);
+//                            user.setHeadFile(headFile);
+//                            Picasso.with(UserActivity.this).load(headFile.getFileUrl()).into(userCivHead);
+//                            user.update(new UpdateListener() {
+//                                @Override
+//                                public void done(BmobException e) {
+//                                    if (e == null) {
+//                                        CommonUtils.showSnackar(userRlSignature, "头像上传成功");
+//                                    } else {
+//                                        CommonUtils.showSnackar(userRlSignature, "头像上传失败");
+//                                    }
+//                                }
+//                            });
                         } else {
                             CommonUtils.showSnackar(userRlSignature, "头像上传失败");
                         }

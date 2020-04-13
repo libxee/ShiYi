@@ -35,17 +35,7 @@ public class FindXrvAdapter extends BaseQuickAdapter<Diary, BaseViewHolder> {
         User user = item.getUser();
         ImageView ivSex = helper.getView(R.id.find_item_iv_sex);
         CircleImageView civHead = helper.getView(R.id.find_item_civ_head);
-        if (user.getSex() == 0) {
-            Picasso.with(context).load(R.mipmap.male).into(ivSex);
-        } else {
-            Picasso.with(context).load(R.mipmap.female).into(ivSex);
-        }
-        if (user.getHeadFile() != null) {
-            BmobFile headFileFile = user.getHeadFile();
-            Picasso.with(context).load(headFileFile.getFileUrl()).into(civHead);
-        } else {
-            Picasso.with(context).load(R.mipmap.ic_head).into(civHead);
-        }
+
         helper.setText(R.id.find_item_tv_name, item.getName());
         helper.setText(R.id.find_item_tv_time, item.getCreateTime());
         helper.setText(R.id.find_item_tv_content, item.getContent());

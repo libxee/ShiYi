@@ -263,17 +263,17 @@ public class DiaryFragment extends Fragment implements TextWatcher, DiaryRvAdapt
     private void toSetRelation(User user, Diary diary) {
         BmobRelation relation = new BmobRelation();
         relation.add(diary);
-        user.setDiary(relation);
-        user.update(new UpdateListener() {
-            @Override
-            public void done(BmobException e) {
-                if (e == null) {
-                    CommonUtils.showSnackar(diaryEtSearch, "发布成功");
-                } else {
-                    CommonUtils.showSnackar(diaryEtSearch, "发布失败");
-                }
-            }
-        });
+//        user.setDiary(relation);
+//        user.update(new UpdateListener() {
+//            @Override
+//            public void done(BmobException e) {
+//                if (e == null) {
+//                    CommonUtils.showSnackar(diaryEtSearch, "发布成功");
+//                } else {
+//                    CommonUtils.showSnackar(diaryEtSearch, "发布失败");
+//                }
+//            }
+//        });
     }
 
     /**

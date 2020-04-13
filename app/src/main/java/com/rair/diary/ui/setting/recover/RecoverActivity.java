@@ -129,19 +129,19 @@ public class RecoverActivity extends AppCompatActivity {
                 public void done(BmobException e) {
                     if (e == null) {
                         User user = BmobUser.getCurrentUser(User.class);
-                        user.setDbFile(dbFile);
-                        user.update(new UpdateListener() {
-                            @Override
-                            public void done(BmobException e) {
-                                if (e == null) {
-                                    progressDialog.dismiss();
-                                    CommonUtils.showSnackar(recoverLlDownload, "备份成功");
-                                } else {
-                                    progressDialog.dismiss();
-                                    CommonUtils.showSnackar(recoverLlDownload, "备份失败");
-                                }
-                            }
-                        });
+//                        user.setDbFile(dbFile);
+//                        user.update(new UpdateListener() {
+//                            @Override
+//                            public void done(BmobException e) {
+//                                if (e == null) {
+//                                    progressDialog.dismiss();
+//                                    CommonUtils.showSnackar(recoverLlDownload, "备份成功");
+//                                } else {
+//                                    progressDialog.dismiss();
+//                                    CommonUtils.showSnackar(recoverLlDownload, "备份失败");
+//                                }
+//                            }
+//                        });
                     } else {
                         progressDialog.dismiss();
                     }
@@ -164,40 +164,40 @@ public class RecoverActivity extends AppCompatActivity {
     private void doDownLoad() {
         progressDialog.setMessage("正在下载。。。");
         progressDialog.show();
-        User user = BmobUser.getCurrentUser(User.class);
-        if (user.getDbFile() != null) {
-            BmobFile dbFile = user.getDbFile();
-            dbFile.download(new File(sdPath), new DownloadFileListener() {
-                @Override
-                public void done(String s, BmobException e) {
-                    if (e == null) {
-                        CommonUtils.showSnackar(recoverLlDownload, "下载成功,保存路径:" + s);
-                        progressDialog.setMessage("正在还原。。。");
-                        String dbPath = RecoverActivity.this.getDatabasePath(Constants.DB_NAME).getAbsolutePath();
-                        boolean success = pasteFile(sdPath, dbPath);
-                        if (success) {
-                            progressDialog.dismiss();
-                            CommonUtils.showSnackar(recoverLlDownload, "恢复成功");
-                        } else {
-                            progressDialog.dismiss();
-                            CommonUtils.showSnackar(recoverLlDownload, "恢复失败");
-                        }
-                    } else {
-                        progressDialog.dismiss();
-                        CommonUtils.showSnackar(recoverLlDownload, "下载失败");
-                    }
-                }
-
-                @Override
-                public void onProgress(Integer integer, long l) {
-                    progressDialog.setMessage("正在下载。。。网速" + l);
-                    progressDialog.setProgress(integer);
-                }
-            });
-        } else {
-            progressDialog.dismiss();
-            CommonUtils.showSnackar(recoverLlDownload, "没有找到云端备份文件");
-        }
+//        User user = BmobUser.getCurrentUser(User.class);
+//        if (user.getDbFile() != null) {
+//            BmobFile dbFile = user.getDbFile();
+//            dbFile.download(new File(sdPath), new DownloadFileListener() {
+//                @Override
+//                public void done(String s, BmobException e) {
+//                    if (e == null) {
+//                        CommonUtils.showSnackar(recoverLlDownload, "下载成功,保存路径:" + s);
+//                        progressDialog.setMessage("正在还原。。。");
+//                        String dbPath = RecoverActivity.this.getDatabasePath(Constants.DB_NAME).getAbsolutePath();
+//                        boolean success = pasteFile(sdPath, dbPath);
+//                        if (success) {
+//                            progressDialog.dismiss();
+//                            CommonUtils.showSnackar(recoverLlDownload, "恢复成功");
+//                        } else {
+//                            progressDialog.dismiss();
+//                            CommonUtils.showSnackar(recoverLlDownload, "恢复失败");
+//                        }
+//                    } else {
+//                        progressDialog.dismiss();
+//                        CommonUtils.showSnackar(recoverLlDownload, "下载失败");
+//                    }
+//                }
+//
+//                @Override
+//                public void onProgress(Integer integer, long l) {
+//                    progressDialog.setMessage("正在下载。。。网速" + l);
+//                    progressDialog.setProgress(integer);
+//                }
+//            });
+//        } else {
+//            progressDialog.dismiss();
+//            CommonUtils.showSnackar(recoverLlDownload, "没有找到云端备份文件");
+//        }
 
     }
 

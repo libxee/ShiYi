@@ -121,12 +121,13 @@ public class SetFragment extends Fragment {
      * @param user
      */
     private void loadHead(User user) {
-        if (user.getHeadFile() != null) {
-            BmobFile headFile = user.getHeadFile();
-            Picasso.with(getContext()).load(headFile.getFileUrl()).into(setCivHead);
-        } else {
-            Picasso.with(getContext()).load(R.mipmap.ic_head).into(setCivHead);
-        }
+//        if (user.getHeadFile() != null) {
+//            BmobFile headFile = user.getHeadFile();
+//            Picasso.with(getContext()).load(headFile.getFileUrl()).into(setCivHead);
+//        } else {
+//            Picasso.with(getContext()).load(R.mipmap.ic_head).into(setCivHead);
+//        }
+                    Picasso.with(getContext()).load(R.mipmap.ic_head).into(setCivHead);
     }
 
     @OnClick({R.id.set_ll_user, R.id.set_ll_notify, R.id.set_ll_recover, R.id.set_ll_secret, R.id.set_ll_export})

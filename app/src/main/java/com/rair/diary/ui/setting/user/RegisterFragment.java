@@ -86,31 +86,31 @@ public class RegisterFragment extends Fragment {
         User user = new User();
         user.setUsername(userName);
         user.setSign("编辑个性签名");
-        user.setEmail(userMail);
+//        user.setEmail(userMail);
         user.setNickName(userName);
-        user.setSex(0);
-        user.setPassword(userPwd);
-        user.signUp(new SaveListener<User>() {
-            @Override
-            public void done(User user, BmobException e) {
-                if (e == null) {
-                    CommonUtils.showSnackar(registerTvRegister, "注册成功，已登录");
-                    getActivity().finish();
-                } else {
-                    switch (e.getErrorCode()) {
-                        case 202:
-                            CommonUtils.showSnackar(registerTvRegister, "注册失败，用户名已经存在");
-                            break;
-                        case 203:
-                            CommonUtils.showSnackar(registerTvRegister, "注册失败，邮箱已经存在");
-                            break;
-                        default:
-                            CommonUtils.showSnackar(registerTvRegister, "注册失败");
-                            break;
-                    }
-                }
-            }
-        });
+//        user.setSex(0);
+//        user.setPassword(userPwd);
+//        user.signUp(new SaveListener<User>() {
+//            @Override
+//            public void done(User user, BmobException e) {
+//                if (e == null) {
+//                    CommonUtils.showSnackar(registerTvRegister, "注册成功，已登录");
+//                    getActivity().finish();
+//                } else {
+//                    switch (e.getErrorCode()) {
+//                        case 202:
+//                            CommonUtils.showSnackar(registerTvRegister, "注册失败，用户名已经存在");
+//                            break;
+//                        case 203:
+//                            CommonUtils.showSnackar(registerTvRegister, "注册失败，邮箱已经存在");
+//                            break;
+//                        default:
+//                            CommonUtils.showSnackar(registerTvRegister, "注册失败");
+//                            break;
+//                    }
+//                }
+//            }
+//        });
     }
 
     @Override

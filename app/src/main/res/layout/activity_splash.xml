@@ -30,7 +30,6 @@
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
         android:layout_margin="20dp"
-        android:visibility="visible"
         android:src="@mipmap/icon_round" />
 
     <TextView

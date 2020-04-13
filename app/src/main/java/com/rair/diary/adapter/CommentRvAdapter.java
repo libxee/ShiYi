@@ -34,20 +34,8 @@ public class CommentRvAdapter extends BaseQuickAdapter<Comment, BaseViewHolder> 
     protected void convert(BaseViewHolder helper, Comment item) {
         User user = item.getUser();
         ImageView sexView = helper.getView(R.id.comment_item_iv_sex);
-        if (user.getSex() != null) {
-            if (user.getSex() == 0) {
-                Picasso.with(context).load(R.mipmap.male).into(sexView);
-            } else {
-                Picasso.with(context).load(R.mipmap.female).into(sexView);
-            }
-        }
-        ImageView headView = helper.getView(R.id.comment_item_civ_head);
-        if (user.getHeadFile() != null) {
-            BmobFile headFileFile = user.getHeadFile();
-            Picasso.with(context).load(headFileFile.getFileUrl()).into(headView);
-        } else {
-            Picasso.with(context).load(R.mipmap.ic_head).into(headView);
-        }
+
+
         helper.setText(R.id.comment_item_tv_name, user.getNickName());
         helper.setText(R.id.comment_item_tv_time, item.getCommentTime());
         helper.setText(R.id.comment_item_tv_content, item.getContent());

@@ -86,25 +86,25 @@ public class LoginFragment extends Fragment {
         User user = new User();
         user.setUsername(userName);
         user.setNickName(userName);
-        user.setPassword(userPwd);
-        user.login(new SaveListener<User>() {
-            @Override
-            public void done(User user, BmobException e) {
-                if (e == null) {
-                    CommonUtils.showSnackar(loginTvLogin, "登陆成功");
-                    getActivity().finish();
-                } else {
-                    switch (e.getErrorCode()) {
-                        case 101:
-                            CommonUtils.showSnackar(loginTvLogin, "登陆失败，用户不存在或密码错误");
-                            break;
-                        default:
-                            CommonUtils.showSnackar(loginTvLogin, "登陆失败");
-                            break;
-                    }
-                }
-            }
-        });
+//        user.setPassword(userPwd);
+//        user.login(new SaveListener<User>() {
+//            @Override
+//            public void done(User user, BmobException e) {
+//                if (e == null) {
+//                    CommonUtils.showSnackar(loginTvLogin, "登陆成功");
+//                    getActivity().finish();
+//                } else {
+//                    switch (e.getErrorCode()) {
+//                        case 101:
+//                            CommonUtils.showSnackar(loginTvLogin, "登陆失败，用户不存在或密码错误");
+//                            break;
+//                        default:
+//                            CommonUtils.showSnackar(loginTvLogin, "登陆失败");
+//                            break;
+//                    }
+//                }
+//            }
+//        });
     }
 
     @Override

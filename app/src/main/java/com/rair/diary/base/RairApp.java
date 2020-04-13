@@ -14,9 +14,6 @@ import java.io.File;
 
 import cn.bmob.v3.Bmob;
 
-/**
- * Created by mzaiy on 2017/6/5.
- */
 
 public class RairApp extends Application {
 
