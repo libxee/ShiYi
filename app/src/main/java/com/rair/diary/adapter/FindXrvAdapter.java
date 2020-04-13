@@ -14,13 +14,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-import cn.bmob.v3.datatype.BmobFile;
 
-/**
- * Created by Rair on 2017/6/12.
- * Email:rairmmd@gmail.com
- * Author:Rair
- */
 public class FindXrvAdapter extends BaseQuickAdapter<Diary, BaseViewHolder> {
 
     private Context context;

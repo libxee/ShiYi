@@ -12,7 +12,6 @@ import com.rair.diary.utils.Utils;
 
 import java.io.File;
 
-import cn.bmob.v3.Bmob;
 
 
 public class RairApp extends Application {
@@ -26,7 +25,7 @@ public class RairApp extends Application {
         rairApp = this;
         Utils.init(this);
         spUtils = new SPUtils(Constants.SP_NAME);
-        Bmob.initialize(this, Constants.APP_ID);
+//        Bmob.initialize(this, Constants.APP_ID);
 //        Cockroach.install(exceptionHandler);
         configTheme();
     }

@@ -19,10 +19,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Random;
 
-/**
- * Created by mzaiy on 2017/6/1.
- */
-
 public class DiaryRvAdapter extends RecyclerView.Adapter<DiaryRvAdapter.DiaryHolder> {
 
     private Context context;

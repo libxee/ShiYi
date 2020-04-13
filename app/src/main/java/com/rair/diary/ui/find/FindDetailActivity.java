@@ -33,15 +33,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import cn.bmob.v3.BmobQuery;
-import cn.bmob.v3.BmobUser;
-import cn.bmob.v3.datatype.BmobPointer;
-import cn.bmob.v3.datatype.BmobRelation;
-import cn.bmob.v3.exception.BmobException;
-import cn.bmob.v3.listener.FindListener;
-import cn.bmob.v3.listener.SaveListener;
-import cn.bmob.v3.listener.UpdateListener;
-
 public class FindDetailActivity extends AppCompatActivity implements View.OnClickListener {
 
     @BindView(R.id.find_iv_back)
@@ -150,32 +141,32 @@ public class FindDetailActivity extends AppCompatActivity implements View.OnClic
      * 加载评论
      */
     private void loadComments() {
-        BmobQuery<Comment> query = new BmobQuery<>();
-        query.addWhereRelatedTo("comment", new BmobPointer(diary));
-        query.include("user");
-        query.order("createdAt");
-        query.setLimit(5);
-        query.setSkip(5 * (pageNum++));
-        query.findObjects(new FindListener<Comment>() {
-            @Override
-            public void done(List<Comment> list, BmobException e) {
-                if (e == null) {
-                    comments.addAll(list);
-                    adapter.notifyDataSetChanged();
-                    if (list.size() != 0 && list.get(list.size() - 1) != null) {
-                        findTvCommentsTip.setText("更多评论");
-                        if (list.size() < 5) {
-                            findTvCommentsTip.setText("暂无更多评论~");
-                        }
-                    } else {
-                        findTvCommentsTip.setText("暂无更多评论~");
-                        pageNum--;
-                    }
-                } else {
-                    pageNum--;
-                }
-            }
-        });
+//        BmobQuery<Comment> query = new BmobQuery<>();
+//        query.addWhereRelatedTo("comment", new BmobPointer(diary));
+//        query.include("user");
+//        query.order("createdAt");
+//        query.setLimit(5);
+//        query.setSkip(5 * (pageNum++));
+//        query.findObjects(new FindListener<Comment>() {
+//            @Override
+//            public void done(List<Comment> list, BmobException e) {
+//                if (e == null) {
+//                    comments.addAll(list);
+//                    adapter.notifyDataSetChanged();
+//                    if (list.size() != 0 && list.get(list.size() - 1) != null) {
+//                        findTvCommentsTip.setText("更多评论");
+//                        if (list.size() < 5) {
+//                            findTvCommentsTip.setText("暂无更多评论~");
+//                        }
+//                    } else {
+//                        findTvCommentsTip.setText("暂无更多评论~");
+//                        pageNum--;
+//                    }
+//                } else {
+//                    pageNum--;
+//                }
+//            }
+//        });
     }
 
     @OnClick({R.id.find_iv_back, R.id.find_tv_comments_commit})
@@ -207,49 +198,39 @@ public class FindDetailActivity extends AppCompatActivity implements View.OnClic
      */
 
     private void pushComment() {
-        User user = BmobUser.getCurrentUser(User.class);
-        if (user == null) {
-            Intent intent = new Intent(this, LoginActivity.class);
-            startActivity(intent);
-        } else {
-            String commentStr = findEtCommentsContent.getText().toString().trim();
-            if (TextUtils.isEmpty(commentStr)) {
-                CommonUtils.showSnackar(findEtCommentsContent, "来评论一句吧");
-                return;
-            }
-            String timeMillis = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.CHINA).format(new Date());
-            final Comment comment = new Comment();
-            comment.setUser(user);
-            comment.setDiary(diary);
-            comment.setCommentTime(timeMillis);
-            comment.setContent(commentStr);
-            comment.save(new SaveListener<String>() {
-                @Override
-                public void done(String s, BmobException e) {
-                    if (e == null) {
-                        comments.add(0, comment);
-                        adapter.notifyDataSetChanged();
-                        findEtCommentsContent.setText("");
-                        CommonUtils.hideInput(FindDetailActivity.this);
-                        BmobRelation relation = new BmobRelation();
-                        relation.add(comment);
-                        diary.setComment(relation);
-                        diary.update(new UpdateListener() {
-                            @Override
-                            public void done(BmobException e) {
-                                if (e == null) {
-                                    CommonUtils.showSnackar(findEtCommentsContent, "评论成功");
-                                } else {
-                                    CommonUtils.showSnackar(findEtCommentsContent, "评论失败");
-                                }
-                            }
-                        });
-                    } else {
-                        CommonUtils.showSnackar(findEtCommentsContent, "评论失败");
-                    }
-                }
-            });
-        }
+//        User user = BmobUser.getCurrentUser(User.class);
+//        if (user == null) {
+//            Intent intent = new Intent(this, LoginActivity.class);
+//            startActivity(intent);
+//        } else {
+//            String commentStr = findEtCommentsContent.getText().toString().trim();
+//            if (TextUtils.isEmpty(commentStr)) {
+//                CommonUtils.showSnackar(findEtCommentsContent, "来评论一句吧");
+//                return;
+//            }
+//            String timeMillis = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.CHINA).format(new Date());
+//            final Comment comment = new Comment();
+//            comment.setUser(user);
+//            comment.setDiary(diary);
+//            comment.setCommentTime(timeMillis);
+//            comment.setContent(commentStr);
+//            comment.save(new SaveListener<String>() {
+//                @Override
+//                public void done(String s, BmobException e) {
+//                    if (e == null) {
+//                        comments.add(0, comment);
+//                        adapter.notifyDataSetChanged();
+//                        findEtCommentsContent.setText("");
+//                        CommonUtils.hideInput(FindDetailActivity.this);
+//                        BmobRelation relation = new BmobRelation();
+//                        relation.add(comment);
+//
+//                    } else {
+//                        CommonUtils.showSnackar(findEtCommentsContent, "评论失败");
+//                    }
+//                }
+//            });
+//        }
 
     }
 

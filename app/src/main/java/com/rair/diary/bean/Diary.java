@@ -1,38 +1,7 @@
 package com.rair.diary.bean;
 
-import cn.bmob.v3.BmobObject;
-import cn.bmob.v3.datatype.BmobFile;
-import cn.bmob.v3.datatype.BmobRelation;
 
-
-public class Diary extends BmobObject {
-
-    //发布者
-    private User user;
-    //昵称
-    private String name;
-    //标题
-    private String title;
-    //内容
-    private String content;
-    //图片
-    private BmobFile image;
-    //天气
-    private String weather;
-    //日期
-    private String date;
-    //星期
-    private String week;
-    //评论
-    private BmobRelation comment;
-    //发布时间
-    private String createTime;
-    //点赞总数
-    private Integer likes;
-    //点赞的人
-    private BmobRelation likers;
-    //评论总数
-    private Integer comments;
+public class Diary  {
 
     public User getUser() {
         return user;
@@ -66,11 +35,11 @@ public class Diary extends BmobObject {
         this.content = content;
     }
 
-    public BmobFile getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(BmobFile image) {
+    public void setImage(String image) {
         this.image = image;
     }
 
@@ -98,14 +67,6 @@ public class Diary extends BmobObject {
         this.week = week;
     }
 
-    public BmobRelation getComment() {
-        return comment;
-    }
-
-    public void setComment(BmobRelation comment) {
-        this.comment = comment;
-    }
-
     public String getCreateTime() {
         return createTime;
     }
@@ -122,19 +83,26 @@ public class Diary extends BmobObject {
         this.likes = likes;
     }
 
-    public BmobRelation getLikers() {
-        return likers;
-    }
+    //发布者
+    private User user;
+    //昵称
+    private String name;
+    //标题
+    private String title;
+    //内容
+    private String content;
+    //图片
+    private String image;
+    //天气
+    private String weather;
+    //日期
+    private String date;
+    //星期
+    private String week;
 
-    public void setLikers(BmobRelation likers) {
-        this.likers = likers;
-    }
+    //发布时间
+    private String createTime;
+    //点赞总数
+    private Integer likes;
 
-    public Integer getComments() {
-        return comments;
-    }
-
-    public void setComments(Integer comments) {
-        this.comments = comments;
-    }
 }

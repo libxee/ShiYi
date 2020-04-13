@@ -1,9 +1,7 @@
 package com.rair.diary.bean;
 
-import cn.bmob.v3.BmobObject;
 
-
-public class FeedBack extends BmobObject {
+public class FeedBack  {
 
     private String content;
     private String contact;

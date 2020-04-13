@@ -9,7 +9,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.rair.diary.R;
-import com.rair.diary.bean.FeedBack;
 import com.rair.diary.utils.CommonUtils;
 import com.rair.diary.view.LinedEditText;
 
@@ -17,8 +16,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import cn.bmob.v3.exception.BmobException;
-import cn.bmob.v3.listener.SaveListener;
 
 public class FeedBackActivity extends AppCompatActivity {
 
@@ -62,18 +59,18 @@ public class FeedBackActivity extends AppCompatActivity {
         } else if (TextUtils.isEmpty(contact)) {
             CommonUtils.showSnackar(feedbackTvCommit, "请输入联系方式");
         } else {
-            FeedBack feedBack = new FeedBack(content, contact);
-            feedBack.save(new SaveListener<String>() {
-                @Override
-                public void done(String s, BmobException e) {
-                    if (e == null) {
-                        FeedBackActivity.this.finish();
-                        CommonUtils.showSnackar(feedbackTvCommit, "提交成功");
-                    } else {
-                        CommonUtils.showSnackar(feedbackTvCommit, "提交失败");
-                    }
-                }
-            });
+//            FeedBack feedBack = new FeedBack(content, contact);
+//            feedBack.save(new SaveListener<String>() {
+//                @Override
+//                public void done(String s, BmobException e) {
+//                    if (e == null) {
+//                        FeedBackActivity.this.finish();
+//                        CommonUtils.showSnackar(feedbackTvCommit, "提交成功");
+//                    } else {
+//                        CommonUtils.showSnackar(feedbackTvCommit, "提交失败");
+//                    }
+//                }
+//            });
         }
     }
 

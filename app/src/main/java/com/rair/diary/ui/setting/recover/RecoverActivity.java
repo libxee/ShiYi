@@ -26,12 +26,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import cn.bmob.v3.BmobUser;
-import cn.bmob.v3.datatype.BmobFile;
-import cn.bmob.v3.exception.BmobException;
-import cn.bmob.v3.listener.DownloadFileListener;
-import cn.bmob.v3.listener.UpdateListener;
-import cn.bmob.v3.listener.UploadFileListener;
 
 public class RecoverActivity extends AppCompatActivity {
 
@@ -122,40 +116,40 @@ public class RecoverActivity extends AppCompatActivity {
         progressDialog.show();
         String dbPath = this.getDatabasePath(Constants.DB_NAME).getAbsolutePath();
         boolean success = copyFile(dbPath, sdPath);
-        if (success) {
-            final BmobFile dbFile = new BmobFile(new File(sdPath));
-            dbFile.uploadblock(new UploadFileListener() {
-                @Override
-                public void done(BmobException e) {
-                    if (e == null) {
-                        User user = BmobUser.getCurrentUser(User.class);
-//                        user.setDbFile(dbFile);
-//                        user.update(new UpdateListener() {
-//                            @Override
-//                            public void done(BmobException e) {
-//                                if (e == null) {
-//                                    progressDialog.dismiss();
-//                                    CommonUtils.showSnackar(recoverLlDownload, "备份成功");
-//                                } else {
-//                                    progressDialog.dismiss();
-//                                    CommonUtils.showSnackar(recoverLlDownload, "备份失败");
-//                                }
-//                            }
-//                        });
-                    } else {
-                        progressDialog.dismiss();
-                    }
-
-                }
-
-                @Override
-                public void onProgress(Integer value) {
-                    progressDialog.setProgress(value);
-                }
-            });
-        } else {
-            CommonUtils.showSnackar(recoverLlDownload, "文件导出错误");
-        }
+//        if (success) {
+//            final BmobFile dbFile = new BmobFile(new File(sdPath));
+//            dbFile.uploadblock(new UploadFileListener() {
+//                @Override
+//                public void done(BmobException e) {
+//                    if (e == null) {
+//                        User user = BmobUser.getCurrentUser(User.class);
+////                        user.setDbFile(dbFile);
+////                        user.update(new UpdateListener() {
+////                            @Override
+////                            public void done(BmobException e) {
+////                                if (e == null) {
+////                                    progressDialog.dismiss();
+////                                    CommonUtils.showSnackar(recoverLlDownload, "备份成功");
+////                                } else {
+////                                    progressDialog.dismiss();
+////                                    CommonUtils.showSnackar(recoverLlDownload, "备份失败");
+////                                }
+////                            }
+////                        });
+//                    } else {
+//                        progressDialog.dismiss();
+//                    }
+//
+//                }
+//
+//                @Override
+//                public void onProgress(Integer value) {
+//                    progressDialog.setProgress(value);
+//                }
+//            });
+//        } else {
+//            CommonUtils.showSnackar(recoverLlDownload, "文件导出错误");
+//        }
     }
 
     /**

@@ -30,11 +30,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import cn.bmob.v3.BmobUser;
-import cn.bmob.v3.datatype.BmobFile;
-import cn.bmob.v3.exception.BmobException;
-import cn.bmob.v3.listener.UpdateListener;
-import cn.bmob.v3.listener.UploadFileListener;
+
 import me.nereo.multi_image_selector.MultiImageSelector;
 import me.nereo.multi_image_selector.MultiImageSelectorActivity;
 
@@ -69,18 +65,18 @@ public class UserActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        User user = BmobUser.getCurrentUser(User.class);
-        if (user != null) {
-            userTvName.setText(user.getUsername());
-            userTvSignature.setText(user.getSign());
+//        User user = BmobUser.getCurrentUser(User.class);
+//        if (user != null) {
+//            userTvName.setText(user.getUsername());
+//            userTvSignature.setText(user.getSign());
 //            if (user.getSex() != null && user.getSex().equals("nan")) {
 //                userCbSex.setChecked(false);
 //            } else {
 //                userCbSex.setChecked(true);
 //            }
-            userCbSex.setChecked(true);
-            loadHead(user);
-        }
+//            userCbSex.setChecked(true);
+//            loadHead(user);
+//        }
         userCbSex.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -114,7 +110,7 @@ public class UserActivity extends AppCompatActivity {
      * @param sex 性别
      */
     private void changeSex(Integer sex) {
-        User user = BmobUser.getCurrentUser(User.class);
+//        User user = BmobUser.getCurrentUser(User.class);
 //        user.setSex(sex);
 //        user.update(new UpdateListener() {
 //            @Override
@@ -200,7 +196,7 @@ public class UserActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 editDialog.dismiss();
-                User user = BmobUser.getCurrentUser(User.class);
+//                User user = BmobUser.getCurrentUser(User.class);
 //                user.setSign(etSign.getText().toString());
 //                user.update(new UpdateListener() {
 //                    @Override
@@ -222,7 +218,7 @@ public class UserActivity extends AppCompatActivity {
      * 登出
      */
     private void doLoginOut() {
-        BmobUser.logOut();
+//        BmobUser.logOut();
         this.finish();
     }
 
@@ -232,41 +228,41 @@ public class UserActivity extends AppCompatActivity {
         if (data == null) {
             return;
         }
-        if (requestCode == 0) {
-            List<String> selectPaths = data.getStringArrayListExtra(MultiImageSelectorActivity.EXTRA_RESULT);
-            if (selectPaths.size() != 0) {
-                String imagePath = selectPaths.get(0);
-                final BmobFile headFile = new BmobFile(new File(imagePath));
-                headFile.uploadblock(new UploadFileListener() {
-
-                    @Override
-                    public void done(BmobException e) {
-                        if (e == null) {
-//                            User user = BmobUser.getCurrentUser(User.class);
-//                            user.setHeadFile(headFile);
-//                            Picasso.with(UserActivity.this).load(headFile.getFileUrl()).into(userCivHead);
-//                            user.update(new UpdateListener() {
-//                                @Override
-//                                public void done(BmobException e) {
-//                                    if (e == null) {
-//                                        CommonUtils.showSnackar(userRlSignature, "头像上传成功");
-//                                    } else {
-//                                        CommonUtils.showSnackar(userRlSignature, "头像上传失败");
-//                                    }
-//                                }
-//                            });
-                        } else {
-                            CommonUtils.showSnackar(userRlSignature, "头像上传失败");
-                        }
-
-                    }
-
-                    @Override
-                    public void onProgress(Integer value) {
-                    }
-                });
-            }
-        }
+//        if (requestCode == 0) {
+//            List<String> selectPaths = data.getStringArrayListExtra(MultiImageSelectorActivity.EXTRA_RESULT);
+//            if (selectPaths.size() != 0) {
+//                String imagePath = selectPaths.get(0);
+//                final BmobFile headFile = new BmobFile(new File(imagePath));
+//                headFile.uploadblock(new UploadFileListener() {
+//
+//                    @Override
+//                    public void done(BmobException e) {
+//                        if (e == null) {
+////                            User user = BmobUser.getCurrentUser(User.class);
+////                            user.setHeadFile(headFile);
+////                            Picasso.with(UserActivity.this).load(headFile.getFileUrl()).into(userCivHead);
+////                            user.update(new UpdateListener() {
+////                                @Override
+////                                public void done(BmobException e) {
+////                                    if (e == null) {
+////                                        CommonUtils.showSnackar(userRlSignature, "头像上传成功");
+////                                    } else {
+////                                        CommonUtils.showSnackar(userRlSignature, "头像上传失败");
+////                                    }
+////                                }
+////                            });
+//                        } else {
+//                            CommonUtils.showSnackar(userRlSignature, "头像上传失败");
+//                        }
+//
+//                    }
+//
+//                    @Override
+//                    public void onProgress(Integer value) {
+//                    }
+//                });
+//            }
+//        }
     }
 
     @Override

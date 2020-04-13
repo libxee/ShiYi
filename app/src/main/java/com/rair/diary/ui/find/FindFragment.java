@@ -25,9 +25,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import cn.bmob.v3.BmobQuery;
-import cn.bmob.v3.exception.BmobException;
-import cn.bmob.v3.listener.FindListener;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -75,28 +72,28 @@ public class FindFragment extends Fragment implements BaseQuickAdapter.OnItemCli
      * 加载日记
      */
     private void loadDiary() {
-        BmobQuery<Diary> query = new BmobQuery<>();
-        query.order("-createdAt");
-        query.setLimit(20);
-        query.setSkip(20 * (pageNum++));
-        query.include("user");
-        query.findObjects(new FindListener<Diary>() {
-            @Override
-            public void done(List<Diary> list, BmobException e) {
-                if (e == null) {
-                    findXrvAdapter.notifyDataSetChanged();
-                    datas.addAll(list);
-                    if (datas.size() == 0) {
-                        findTvTip.setVisibility(View.VISIBLE);
-                    } else {
-                        findTvTip.setVisibility(View.GONE);
-                    }
-                    findXrvAdapter.notifyDataSetChanged();
-                } else {
-                    CommonUtils.showSnackar(findrvList, "加载失败，请稍后重试。");
-                }
-            }
-        });
+//        BmobQuery<Diary> query = new BmobQuery<>();
+//        query.order("-createdAt");
+//        query.setLimit(20);
+//        query.setSkip(20 * (pageNum++));
+//        query.include("user");
+//        query.findObjects(new FindListener<Diary>() {
+//            @Override
+//            public void done(List<Diary> list, BmobException e) {
+//                if (e == null) {
+//                    findXrvAdapter.notifyDataSetChanged();
+//                    datas.addAll(list);
+//                    if (datas.size() == 0) {
+//                        findTvTip.setVisibility(View.VISIBLE);
+//                    } else {
+//                        findTvTip.setVisibility(View.GONE);
+//                    }
+//                    findXrvAdapter.notifyDataSetChanged();
+//                } else {
+//                    CommonUtils.showSnackar(findrvList, "加载失败，请稍后重试。");
+//                }
+//            }
+//        });
     }
 
     @Override
@@ -107,7 +104,7 @@ public class FindFragment extends Fragment implements BaseQuickAdapter.OnItemCli
         intent.putExtra("title", diary.getTitle());
         intent.putExtra("content", diary.getContent());
         if (diary.getImage() != null)
-            intent.putExtra("image", diary.getImage().getFileUrl());
+//            intent.putExtra("image", diary.getImage().getFileUrl());
         intent.putExtra("date", diary.getDate());
         intent.putExtra("week", diary.getWeek());
         intent.putExtra("weather", diary.getWeather());
@@ -117,7 +114,7 @@ public class FindFragment extends Fragment implements BaseQuickAdapter.OnItemCli
 //        intent.putExtra("sex", user.getSex());
         intent.putExtra("sign", user.getSign());
         intent.putExtra("publish", diary.getCreateTime());
-        intent.putExtra("diary", diary);
+//        intent.putExtra("diary", diary);
         startActivity(intent);
     }
 

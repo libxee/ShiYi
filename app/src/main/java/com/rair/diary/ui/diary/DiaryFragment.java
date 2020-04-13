@@ -46,13 +46,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import cn.bmob.v3.BmobUser;
-import cn.bmob.v3.datatype.BmobFile;
-import cn.bmob.v3.datatype.BmobRelation;
-import cn.bmob.v3.exception.BmobException;
-import cn.bmob.v3.listener.SaveListener;
-import cn.bmob.v3.listener.UpdateListener;
-import cn.bmob.v3.listener.UploadFileListener;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -194,64 +188,64 @@ public class DiaryFragment extends Fragment implements TextWatcher, DiaryRvAdapt
      * @param week
      */
     private void doPublishPic(String title, String content, String image, String weather, String date, String week) {
-        final User user = BmobUser.getCurrentUser(User.class);
-        if (user != null) {
-            String timeMillis = new SimpleDateFormat("yyyy年MM月dd日 HH:mm", Locale.CHINA).format(new Date());
-            final Diary diary = new Diary();
-            diary.setUser(user);
-            diary.setName(user.getUsername());
-            diary.setTitle(title);
-            diary.setContent(content);
-            diary.setWeather(weather);
-            diary.setDate(date);
-            diary.setWeek(week);
-            diary.setCreateTime(timeMillis);
-            final BmobFile imageFile = new BmobFile(new File(image));
-            imageFile.uploadblock(new UploadFileListener() {
-                @Override
-                public void done(BmobException e) {
-                    if (e == null) {
-                        diary.setImage(imageFile);
-                        diary.save(new SaveListener<String>() {
-                            @Override
-                            public void done(String s, BmobException e) {
-                                if (e == null) {
-                                    toSetRelation(user, diary);
-                                }
-                            }
-                        });
-                    }
-                }
-            });
-        } else {
-            CommonUtils.showSnackar(diaryEtSearch, "请先登录后再操作");
-        }
+//        final User user = BmobUser.getCurrentUser(User.class);
+//        if (user != null) {
+//            String timeMillis = new SimpleDateFormat("yyyy年MM月dd日 HH:mm", Locale.CHINA).format(new Date());
+//            final Diary diary = new Diary();
+//            diary.setUser(user);
+//            diary.setName(user.getUsername());
+//            diary.setTitle(title);
+//            diary.setContent(content);
+//            diary.setWeather(weather);
+//            diary.setDate(date);
+//            diary.setWeek(week);
+//            diary.setCreateTime(timeMillis);
+//            final BmobFile imageFile = new BmobFile(new File(image));
+//            imageFile.uploadblock(new UploadFileListener() {
+//                @Override
+//                public void done(BmobException e) {
+//                    if (e == null) {
+//                        diary.setImage(imageFile);
+//                        diary.save(new SaveListener<String>() {
+//                            @Override
+//                            public void done(String s, BmobException e) {
+//                                if (e == null) {
+//                                    toSetRelation(user, diary);
+//                                }
+//                            }
+//                        });
+//                    }
+//                }
+//            });
+//        } else {
+//            CommonUtils.showSnackar(diaryEtSearch, "请先登录后再操作");
+//        }
     }
 
     private void doPublish(String title, String content, String weather, String date, String week) {
-        final User user = BmobUser.getCurrentUser(User.class);
-        if (user != null) {
-            String timeMillis = new SimpleDateFormat("yyyy年MM月dd日 HH:mm", Locale.CHINA).format(new Date());
-            final Diary diary = new Diary();
-            diary.setUser(user);
-            diary.setName(user.getUsername());
-            diary.setTitle(title);
-            diary.setContent(content);
-            diary.setWeather(weather);
-            diary.setDate(date);
-            diary.setWeek(week);
-            diary.setCreateTime(timeMillis);
-            diary.save(new SaveListener<String>() {
-                @Override
-                public void done(String s, BmobException e) {
-                    if (e == null) {
-                        toSetRelation(user, diary);
-                    }
-                }
-            });
-        } else {
-            CommonUtils.showSnackar(diaryEtSearch, "请先登录后再操作");
-        }
+//        final User user = BmobUser.getCurrentUser(User.class);
+//        if (user != null) {
+//            String timeMillis = new SimpleDateFormat("yyyy年MM月dd日 HH:mm", Locale.CHINA).format(new Date());
+//            final Diary diary = new Diary();
+//            diary.setUser(user);
+//            diary.setName(user.getUsername());
+//            diary.setTitle(title);
+//            diary.setContent(content);
+//            diary.setWeather(weather);
+//            diary.setDate(date);
+//            diary.setWeek(week);
+//            diary.setCreateTime(timeMillis);
+//            diary.save(new SaveListener<String>() {
+//                @Override
+//                public void done(String s, BmobException e) {
+//                    if (e == null) {
+//                        toSetRelation(user, diary);
+//                    }
+//                }
+//            });
+//        } else {
+//            CommonUtils.showSnackar(diaryEtSearch, "请先登录后再操作");
+//        }
     }
 
     /**
@@ -261,8 +255,8 @@ public class DiaryFragment extends Fragment implements TextWatcher, DiaryRvAdapt
      * @param diary
      */
     private void toSetRelation(User user, Diary diary) {
-        BmobRelation relation = new BmobRelation();
-        relation.add(diary);
+//        BmobRelation relation = new BmobRelation();
+//        relation.add(diary);
 //        user.setDiary(relation);
 //        user.update(new UpdateListener() {
 //            @Override

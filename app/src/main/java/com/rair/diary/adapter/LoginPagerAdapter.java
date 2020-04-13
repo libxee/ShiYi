@@ -4,11 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-/**
- * Created by Rair on 2017/6/12.
- * Email:rairmmd@gmail.com
- * Author:Rair
- */
+
 public class LoginPagerAdapter extends FragmentPagerAdapter {
 
     private String[] titles;

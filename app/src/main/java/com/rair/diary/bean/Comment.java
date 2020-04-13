@@ -1,9 +1,8 @@
 package com.rair.diary.bean;
 
-import cn.bmob.v3.BmobObject;
 
 
-public class Comment extends BmobObject {
+public class Comment  {
 
     //评论内容
     private String content;

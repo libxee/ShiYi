@@ -32,8 +32,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import cn.bmob.v3.BmobUser;
-import cn.bmob.v3.datatype.BmobFile;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -106,13 +105,13 @@ public class SetFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        User user = BmobUser.getCurrentUser(User.class);
-        if (user != null) {
-            setTvName.setText(user.getUsername());
-            loadHead(user);
-        } else {
-            setTvName.setText("未登录");
-        }
+//        User user = BmobUser.getCurrentUser(User.class);
+//        if (user != null) {
+//            setTvName.setText(user.getUsername());
+//            loadHead(user);
+//        } else {
+//            setTvName.setText("未登录");
+//        }
     }
 
     /**
@@ -134,26 +133,26 @@ public class SetFragment extends Fragment {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.set_ll_user:
-                if (BmobUser.getCurrentUser(User.class) == null) {
-                    Intent loginIntent = new Intent(getContext(), LoginActivity.class);
-                    startActivity(loginIntent);
-                } else {
-                    Intent userIntent = new Intent(getContext(), UserActivity.class);
-                    startActivity(userIntent);
-                }
+//                if (BmobUser.getCurrentUser(User.class) == null) {
+//                    Intent loginIntent = new Intent(getContext(), LoginActivity.class);
+//                    startActivity(loginIntent);
+//                } else {
+//                    Intent userIntent = new Intent(getContext(), UserActivity.class);
+//                    startActivity(userIntent);
+//                }
                 break;
             case R.id.set_ll_notify:
                 Intent notifyIntent = new Intent(getContext(), NotifyActivity.class);
                 startActivity(notifyIntent);
                 break;
             case R.id.set_ll_recover:
-                if (BmobUser.getCurrentUser(User.class) == null) {
-                    Intent loginIntent = new Intent(getContext(), LoginActivity.class);
-                    startActivity(loginIntent);
-                } else {
-                    Intent recoverIntent = new Intent(getContext(), RecoverActivity.class);
-                    startActivity(recoverIntent);
-                }
+//                if (BmobUser.getCurrentUser(User.class) == null) {
+//                    Intent loginIntent = new Intent(getContext(), LoginActivity.class);
+//                    startActivity(loginIntent);
+//                } else {
+//                    Intent recoverIntent = new Intent(getContext(), RecoverActivity.class);
+//                    startActivity(recoverIntent);
+//                }
                 break;
             case R.id.set_ll_secret:
                 Intent secretIntent = new Intent(getContext(), SecretActivity.class);
