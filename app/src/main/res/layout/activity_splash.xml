@@ -16,6 +16,7 @@
         android:layout_marginBottom="50dp"
         android:visibility="visible"
         android:src="@mipmap/spalsh" />
+
     <TextView
         android:id="@+id/splash_tv_tip"
         android:layout_width="wrap_content"

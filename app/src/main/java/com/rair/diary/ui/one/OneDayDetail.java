@@ -46,8 +46,9 @@ public class OneDayDetail extends AppCompatActivity {
     @BindView(R.id.one_detail_article_nodata)
     TextView articleNoData;
     private Unbinder bind;
-    private  String currentDateStr = "20200407";
+    private String currentDateStr = "20200407";
     private OneArticle oneArticle;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,35 +56,39 @@ public class OneDayDetail extends AppCompatActivity {
         bind = ButterKnife.bind(this);
         initView();
     }
-    private  void initView(){
+
+    private void initView() {
         Intent intent = getIntent();
         currentDateStr = intent.getStringExtra("currentDate");
         detailTitle.setText("每日精选");
         System.out.println(currentDateStr);
         getArticleByDate(currentDateStr);
     }
+
     private OneArticle formatArticle(String response) {
         JsonObject jsonObject = new JsonParser().parse(response).getAsJsonObject();
         JsonObject dataObject = jsonObject.getAsJsonObject("data");
-        oneArticle =  new Gson().fromJson(dataObject, new TypeToken<OneArticle>(){}.getType());
+        oneArticle = new Gson().fromJson(dataObject, new TypeToken<OneArticle>() {
+        }.getType());
         return oneArticle;
     }
-    private  void  setArticleView(Boolean hasData){
-        if (hasData){
+
+    private void setArticleView(Boolean hasData) {
+        if (hasData) {
             articleTitle.setText(oneArticle.getTitle());
             articleAuthor.setText(oneArticle.getAuthor());
             articleContent.setText(Html.fromHtml(oneArticle.getContent()));
-        }
-        else {
+        } else {
             articleNoData.setVisibility(View.VISIBLE);
         }
     }
+
     @SuppressLint("StaticFieldLeak")
-    private void getArticleByDate(String date){
+    private void getArticleByDate(String date) {
         String dateFormatted = "20170216";
         try {
             dateFormatted = CommonUtils.formatOneArticleDate(date);
-            System.out.println("dateFormatted==="+dateFormatted);
+            System.out.println("dateFormatted===" + dateFormatted);
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -95,18 +100,19 @@ public class OneDayDetail extends AppCompatActivity {
                 System.out.println("CONTENT=========" + s);
                 return s;
             }
+
             @Override
             protected void onPostExecute(String s) {
                 if (s != null && !s.isEmpty()) {
                     oneArticle = formatArticle(s);
                     setArticleView(true);
-                }
-                else {
+                } else {
                     setArticleView(false);
                 }
             }
         }.execute();
     }
+
     @OnClick({R.id.one_detail_back,})
     public void onViewClicked(View view) {
         switch (view.getId()) {

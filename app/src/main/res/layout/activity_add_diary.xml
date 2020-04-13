@@ -63,6 +63,7 @@
             android:layout_height="match_parent"
             android:gravity="center_horizontal"
             android:orientation="vertical">
+
             <LinearLayout
                 android:id="@+id/add_ll_weather"
                 android:layout_width="match_parent"

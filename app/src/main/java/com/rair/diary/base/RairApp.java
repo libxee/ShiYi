@@ -13,7 +13,6 @@ import com.rair.diary.utils.Utils;
 import java.io.File;
 
 
-
 public class RairApp extends Application {
 
     private static RairApp rairApp;

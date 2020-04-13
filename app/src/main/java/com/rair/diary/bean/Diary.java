@@ -1,7 +1,7 @@
 package com.rair.diary.bean;
 
 
-public class Diary  {
+public class Diary {
 
     public User getUser() {
         return user;

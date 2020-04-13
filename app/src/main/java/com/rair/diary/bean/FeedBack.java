@@ -1,7 +1,7 @@
 package com.rair.diary.bean;
 
 
-public class FeedBack  {
+public class FeedBack {
 
     private String content;
     private String contact;

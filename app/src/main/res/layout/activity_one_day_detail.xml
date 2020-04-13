@@ -5,72 +5,75 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.one.OneDayDetail">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-      >
+        android:orientation="vertical">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:background="@color/white"
-        tools:ignore="MissingConstraints">
-
-        <com.rair.diary.view.RippleView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_centerVertical="true">
-
-            <ImageView
-                android:id="@+id/one_detail_back"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:padding="5dp"
-                android:src="@mipmap/back_dark" />
-        </com.rair.diary.view.RippleView>
-
-        <TextView
-            android:id="@+id/one_detail_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="每日精选"
-            android:textColor="@color/primary_text"
-            android:textSize="18sp" />
-
-        <com.rair.diary.view.RippleView
-            android:layout_width="48dp"
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true">
+            android:background="@color/white"
+            tools:ignore="MissingConstraints">
 
-            <ImageView
-                android:id="@+id/detail_iv_save"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="5dp"
-                android:src="@mipmap/ic_save"
-                android:visibility="gone" />
-        </com.rair.diary.view.RippleView>
-    </RelativeLayout>
+            <com.rair.diary.view.RippleView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_centerVertical="true">
+
+                <ImageView
+                    android:id="@+id/one_detail_back"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:padding="5dp"
+                    android:src="@mipmap/back_dark" />
+            </com.rair.diary.view.RippleView>
+
+            <TextView
+                android:id="@+id/one_detail_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="每日精选"
+                android:textColor="@color/primary_text"
+                android:textSize="18sp" />
+
+            <com.rair.diary.view.RippleView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true">
+
+                <ImageView
+                    android:id="@+id/detail_iv_save"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="5dp"
+                    android:src="@mipmap/ic_save"
+                    android:visibility="gone" />
+            </com.rair.diary.view.RippleView>
+        </RelativeLayout>
+
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
 
-            android:fillViewport="true"
-            >
+            android:fillViewport="true">
+
             <LinearLayout
                 android:layout_width="match_parent"
 
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:id="@+id/one_detail_movie"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="16dp"
                     android:orientation="vertical">
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -78,15 +81,15 @@
                         android:textSize="20sp"
                         android:textStyle='bold'
                         android:textColor="@color/primary_text"
-                        android:layout_marginVertical="20dp"
-                        />
+                        android:layout_marginVertical="20dp" />
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:visibility="gone"
                         android:id="@+id/one_detail_movie_nodata"
-                        android:text="今日暂无推荐电影"
-                        />
+                        android:text="今日暂无推荐电影" />
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -94,8 +97,8 @@
                         android:textSize="16sp"
                         android:textColor="@color/thrid_text2"
                         android:layout_marginBottom="12dp"
-                        android:text="暂无数据"
-                        />
+                        android:text="暂无数据" />
+
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="2dp"
@@ -104,93 +107,93 @@
                 </LinearLayout>
 
                 <LinearLayout
-                android:layout_width="match_parent"
-                android:id="@+id/one_detail_book"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp"
-                android:orientation="vertical">
-                <TextView
                     android:layout_width="match_parent"
+                    android:id="@+id/one_detail_book"
                     android:layout_height="wrap_content"
-                    android:text="@string/detail_book_label"
-                    android:textSize="20sp"
-                    android:textStyle='bold'
-                    android:textColor="@color/primary_text"
-                    android:layout_marginVertical="20dp"
-                    />
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:visibility="gone"
-                    android:id="@+id/one_detail_book_nodata"
-                    android:text="暂无数据"
-                    />
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/one_detail_book_title"
-                    android:textSize="16sp"
-                    android:textColor="@color/thrid_text2"
-                    android:layout_marginBottom="12dp"
-                    android:text="暂无数据"
-                    />
+                    android:layout_marginHorizontal="16dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/detail_book_label"
+                        android:textSize="20sp"
+                        android:textStyle='bold'
+                        android:textColor="@color/primary_text"
+                        android:layout_marginVertical="20dp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        android:id="@+id/one_detail_book_nodata"
+                        android:text="暂无数据" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/one_detail_book_title"
+                        android:textSize="16sp"
+                        android:textColor="@color/thrid_text2"
+                        android:layout_marginBottom="12dp"
+                        android:text="暂无数据" />
+
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="2dp"
                         android:background="#f6f6f6" />
-            </LinearLayout>
+                </LinearLayout>
 
-            <LinearLayout
-        android:layout_width="match_parent"
-            android:id="@+id/one_detail_article"
-            android:layout_height="match_parent"
-            android:layout_marginHorizontal="16dp"
-        android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:id="@+id/one_detail_article"
+                    android:layout_height="match_parent"
+                    android:layout_marginHorizontal="16dp"
+                    android:orientation="vertical">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/detail_article_label"
-            android:textSize="20sp"
-            android:textStyle='bold'
-            android:textColor="@color/primary_text"
-            android:layout_marginVertical="20dp"
-            />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="gone"
-                android:id="@+id/one_detail_article_nodata"
-                android:text="今日暂无推荐文章"
-                />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/one_detail_article_title"
-                android:textSize="16sp"
-                android:textColor="@color/thrid_text2"
-                android:layout_marginBottom="12dp"
-                android:text="题目"
-                />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/one_detail_article_author"
-                android:textSize="12sp"
-                android:text="作者"
-                android:textColor="@color/thrid_text3"
-                android:layout_marginBottom="20dp"
-                />
-            <TextView
-            android:id="@+id/one_detail_article_content"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/thrid_text2"
-            android:textSize="14sp"
-                android:text="内容内容"
-            android:lineSpacingMultiplier="1.4"
-            />
-    </LinearLayout>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/detail_article_label"
+                        android:textSize="20sp"
+                        android:textStyle='bold'
+                        android:textColor="@color/primary_text"
+                        android:layout_marginVertical="20dp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        android:id="@+id/one_detail_article_nodata"
+                        android:text="今日暂无推荐文章" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/one_detail_article_title"
+                        android:textSize="16sp"
+                        android:textColor="@color/thrid_text2"
+                        android:layout_marginBottom="12dp"
+                        android:text="题目" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/one_detail_article_author"
+                        android:textSize="12sp"
+                        android:text="作者"
+                        android:textColor="@color/thrid_text3"
+                        android:layout_marginBottom="20dp" />
+
+                    <TextView
+                        android:id="@+id/one_detail_article_content"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/thrid_text2"
+                        android:textSize="14sp"
+                        android:text="内容内容"
+                        android:lineSpacingMultiplier="1.4" />
+                </LinearLayout>
             </LinearLayout>
         </ScrollView>
     </LinearLayout>

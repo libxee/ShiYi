@@ -44,13 +44,15 @@ public class CommonUtils {
             s = "0" + s;
         return s;
     }
-    public  static  String formatOneArticleDate(String date) throws ParseException {
+
+    public static String formatOneArticleDate(String date) throws ParseException {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         formatter.setLenient(false);
-        Date newDate= formatter.parse(date);
+        Date newDate = formatter.parse(date);
         formatter = new SimpleDateFormat("yyyyMMdd");
         return formatter.format(newDate);
     }
+
     /**
      * 获取屏幕宽高
      *

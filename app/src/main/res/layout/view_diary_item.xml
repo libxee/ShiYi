@@ -5,26 +5,29 @@
     android:adjustViewBounds="true"
     android:layout_marginBottom="20dp"
     android:orientation="vertical">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:padding="10dp"
-        android:orientation="horizontal"
-        >
+        android:orientation="horizontal">
+
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="left">
-        <TextView
-            android:id="@+id/diary_item_tv_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:textColor="@color/thrid_text2"
-            android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/diary_item_tv_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:textColor="@color/thrid_text2"
+                android:textSize="18sp" />
         </RelativeLayout>
+
         <ImageView
             android:id="@+id/diary_item_iv_option"
             android:layout_gravity="top"
@@ -39,34 +42,36 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:orientation="horizontal">
+
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:orientation="vertical"
-            >
+            android:orientation="vertical">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
                 android:orientation="vertical">
+
                 <TextView
-                            android:id="@+id/diary_item_tv_title"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:ellipsize="end"
-                            android:maxLines="1"
-                            android:textColor="@color/primary_text"
-                            android:layout_marginHorizontal="10dp"
-                            android:layout_marginBottom="10dp"
-                            android:textSize="18sp"
-                            />
+                    android:id="@+id/diary_item_tv_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textColor="@color/primary_text"
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:textSize="18sp" />
+
                 <ImageView
                     android:id="@+id/diary_item_iv_show"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:adjustViewBounds="true"
-                     />
+                    android:adjustViewBounds="true" />
+
                 <TextView
                     android:id="@+id/diary_item_tv_content"
                     android:layout_width="match_parent"

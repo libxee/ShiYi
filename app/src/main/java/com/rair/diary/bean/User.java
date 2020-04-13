@@ -16,10 +16,12 @@ public class User {
         this.username = username;
     }
 
-    private  String username;
+    private String username;
+
     public String getSign() {
         return sign;
     }
+
     public void setSign(String sign) {
         this.sign = sign;
     }

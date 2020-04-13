@@ -33,6 +33,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+
 public class FindDetailActivity extends AppCompatActivity implements View.OnClickListener {
 
     @BindView(R.id.find_iv_back)

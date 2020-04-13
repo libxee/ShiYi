@@ -105,7 +105,7 @@ public class FindFragment extends Fragment implements BaseQuickAdapter.OnItemCli
         intent.putExtra("content", diary.getContent());
         if (diary.getImage() != null)
 //            intent.putExtra("image", diary.getImage().getFileUrl());
-        intent.putExtra("date", diary.getDate());
+            intent.putExtra("date", diary.getDate());
         intent.putExtra("week", diary.getWeek());
         intent.putExtra("weather", diary.getWeather());
 //        if (user.getHeadFile() != null)

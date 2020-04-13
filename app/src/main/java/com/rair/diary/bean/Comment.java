@@ -1,8 +1,7 @@
 package com.rair.diary.bean;
 
 
-
-public class Comment  {
+public class Comment {
 
     //评论内容
     private String content;

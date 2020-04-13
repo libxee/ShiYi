@@ -15,7 +15,7 @@ public class HttpUtils {
         System.out.println(request.toString() + request.headers().toString());
         try {
             Response response = client.newCall(request).execute();
-            System.out.println("RESPONSE======:"+ response.toString() + response.headers().toString());
+            System.out.println("RESPONSE======:" + response.toString() + response.headers().toString());
             if (response.isSuccessful()) {
                 ResponseBody body = response.body();
                 return body.string();

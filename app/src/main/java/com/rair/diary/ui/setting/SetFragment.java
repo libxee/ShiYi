@@ -126,7 +126,7 @@ public class SetFragment extends Fragment {
 //        } else {
 //            Picasso.with(getContext()).load(R.mipmap.ic_head).into(setCivHead);
 //        }
-                    Picasso.with(getContext()).load(R.mipmap.ic_head).into(setCivHead);
+        Picasso.with(getContext()).load(R.mipmap.ic_head).into(setCivHead);
     }
 
     @OnClick({R.id.set_ll_user, R.id.set_ll_notify, R.id.set_ll_recover, R.id.set_ll_secret, R.id.set_ll_export})
