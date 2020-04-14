@@ -134,8 +134,8 @@ public class SetFragment extends Fragment {
         switch (view.getId()) {
             case R.id.set_ll_user:
                 Intent loginIntent = new Intent(getContext(), LoginActivity.class);
-                    startActivity(loginIntent);
- //                TODO： 根据用户是否登录判断打开响应的页面
+                startActivity(loginIntent);
+                //                TODO： 根据用户是否登录判断打开响应的页面
 //                if (BmobUser.getCurrentUser(User.class) == null) {
 //                    Intent loginIntent = new Intent(getContext(), LoginActivity.class);
 //                    startActivity(loginIntent);

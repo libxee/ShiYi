@@ -14,6 +14,7 @@ import android.view.inputmethod.InputMethodManager;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Random;
@@ -51,6 +52,16 @@ public class CommonUtils {
         Date newDate = formatter.parse(date);
         formatter = new SimpleDateFormat("yyyyMMdd");
         return formatter.format(newDate);
+    }
+
+    public static int formatDate2Id(String date) throws ParseException {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        formatter.setLenient(false);
+        Date newDate = formatter.parse(date);
+        Calendar ca = Calendar.getInstance();
+        ca.setTime(newDate);
+        int day = ca.get(Calendar.DAY_OF_YEAR);
+        return day % 250;
     }
 
     /**

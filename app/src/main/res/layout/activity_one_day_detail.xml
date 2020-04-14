@@ -58,7 +58,7 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-
+            android:orientation="vertical"
             android:fillViewport="true">
 
             <LinearLayout
@@ -90,18 +90,90 @@
                         android:id="@+id/one_detail_movie_nodata"
                         android:text="今日暂无推荐电影" />
 
-                    <TextView
+
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/one_detail_movie_title"
-                        android:textSize="16sp"
-                        android:textColor="@color/thrid_text2"
-                        android:layout_marginBottom="12dp"
-                        android:text="暂无数据" />
+                        android:layout_marginBottom="20dp"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:adjustViewBounds="true"
+                            android:id="@+id/one_detail_movie_cover"
+                            android:src="@mipmap/movie" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="12dp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/one_detail_movie_title"
+                                android:text="肖申克的救赎 / The Shawshank Redemption"
+                                android:textColor="@color/thrid_text2"
+                                android:textSize="16sp"
+                                android:textStyle='bold'
+                                android:layout_marginBottom="10dp" />
+
+
+                                <TextView
+                                    android:id="@+id/one_detail_movie_product_info"
+                                    android:layout_width="match_parent"
+                                    android:textSize="12sp"
+                                    android:layout_marginBottom="10dp"
+                                    android:layout_height="wrap_content"
+                                    android:text="导演:弗兰克·德拉邦特FrankDarabont 主演:蒂姆·罗宾斯TimRobbins"
+                                    />
+                            <TextView
+                                android:id="@+id/one_detail_movie_type"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="12sp"
+                                android:layout_marginBottom="10dp"
+                                android:text="美国 犯罪剧情" />
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:layout_marginBottom="10dp">
+
+                                <TextView
+                                    android:id="@+id/one_detail_movie_score"
+                                    android:textSize="@dimen/sp_14"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="9.6分 "
+                                    android:textColor="#e09015"
+                                    />
+                                <TextView
+                                    android:id="@+id/one_detail_movie_commentnum"
+                                    android:textSize="@dimen/sp_14"
+                                    android:layout_marginLeft="6dp"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="(7777777人评价)"
+                                    />
+                            </LinearLayout>
+                            <TextView
+                                android:id="@+id/one_detail_movie_quote"
+                                android:textSize="@dimen/sp_16"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/thrid_text3"
+                                android:text="希望让人自由" />
+                        </LinearLayout>
+
+                    </LinearLayout>
 
                     <View
                         android:layout_width="match_parent"
-                        android:layout_height="2dp"
+                        android:layout_height="10dp"
                         android:background="#f6f6f6" />
 
                 </LinearLayout>
@@ -129,18 +201,95 @@
                         android:id="@+id/one_detail_book_nodata"
                         android:text="暂无数据" />
 
-                    <TextView
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/one_detail_book_title"
-                        android:textSize="16sp"
-                        android:textColor="@color/thrid_text2"
-                        android:layout_marginBottom="12dp"
-                        android:text="暂无数据" />
+                        android:layout_marginBottom="20dp"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:adjustViewBounds="true"
+                            android:id="@+id/one_detail_book_cover"
+                            android:src="@mipmap/book_cover" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="12dp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/one_detail_book_title"
+                                android:text="红楼梦"
+                                android:textColor="@color/thrid_text2"
+                                android:textSize="16sp"
+                                android:textStyle='bold'
+                                android:layout_marginBottom="10dp" />
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:layout_marginBottom="10dp">
+
+                                <TextView
+                                    android:id="@+id/one_detail_book_author"
+                                    android:layout_width="match_parent"
+                                    android:textSize="12sp"
+                                    android:layout_height="wrap_content"
+                                    android:text="清] 曹雪芹 著"
+                                     />
+
+                                <TextView
+                                    android:id="@+id/one_detail_book_press"
+                                    android:layout_marginLeft="6dp"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="12sp"
+                                    android:text="人民文学出版社" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:layout_marginBottom="10dp">
+
+                                <TextView
+                                    android:id="@+id/one_detail_book_score"
+                                    android:textSize="@dimen/sp_14"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="9.6分 "
+                                    android:textColor="#e09015"
+                                    />
+                                <TextView
+                                    android:id="@+id/one_detail_book_commentnum"
+                                    android:textSize="@dimen/sp_14"
+                                    android:layout_marginLeft="6dp"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="(7777777人评价)"
+                                    />
+                            </LinearLayout>
+                            <TextView
+                                android:id="@+id/one_detail_book_quote"
+                                android:textSize="@dimen/sp_16"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/thrid_text3"
+                                android:text="都云作者痴，谁解其中味？" />
+                        </LinearLayout>
+
+                    </LinearLayout>
 
                     <View
                         android:layout_width="match_parent"
-                        android:layout_height="2dp"
+                        android:layout_height="10dp"
                         android:background="#f6f6f6" />
                 </LinearLayout>
 
@@ -169,7 +318,8 @@
 
                     <TextView
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
+                        android:textAlignment="center"
                         android:id="@+id/one_detail_article_title"
                         android:textSize="16sp"
                         android:textColor="@color/thrid_text2"
@@ -179,6 +329,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:textAlignment="center"
                         android:id="@+id/one_detail_article_author"
                         android:textSize="12sp"
                         android:text="作者"

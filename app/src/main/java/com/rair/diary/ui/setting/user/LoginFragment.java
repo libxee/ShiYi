@@ -1,6 +1,8 @@
 package com.rair.diary.ui.setting.user;
 
 
+import android.annotation.SuppressLint;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,12 +12,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.rair.diary.R;
 import com.rair.diary.base.RairApp;
 import com.rair.diary.bean.User;
 import com.rair.diary.utils.CommonUtils;
+import com.rair.diary.utils.HttpUtils;
 import com.rair.diary.utils.SPUtils;
 import com.rair.diary.view.EditTextWithDel;
+
+
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -84,27 +94,49 @@ public class LoginFragment extends Fragment {
         User user = new User();
         user.setUsername(userName);
         user.setNickName(userName);
-//        user.setPassword(userPwd);
-//        user.login(new SaveListener<User>() {
-//            @Override
-//            public void done(User user, BmobException e) {
-//                if (e == null) {
-//                    CommonUtils.showSnackar(loginTvLogin, "登陆成功");
-//                    getActivity().finish();
-//                } else {
-//                    switch (e.getErrorCode()) {
-//                        case 101:
-//                            CommonUtils.showSnackar(loginTvLogin, "登陆失败，用户不存在或密码错误");
-//                            break;
-//                        default:
-//                            CommonUtils.showSnackar(loginTvLogin, "登陆失败");
-//                            break;
-//                    }
-//                }
-//            }
-//        });
+        user.setPassword(userPwd);
+        Gson gson = new Gson();
+        String userJSON = gson.toJson(user);
+        loginHttpMethod(userJSON);
     }
 
+    @SuppressLint("StaticFieldLeak")
+    private void loginHttpMethod(String postData) {
+        String RequestURL = "http://119.29.235.55:8000/auth/login";
+        new AsyncTask<Void, Void, String>() {
+            @Override
+            protected String doInBackground(Void... params) {
+                String s = HttpUtils.PostHttp(RequestURL, postData);
+                System.out.println("CONTENT=========" + s);
+                return s;
+            }
+            @Override
+            protected void onPostExecute(String s) {
+                if (s != null && !s.isEmpty()) {
+//                    TODO 确定本地存储登录信息逻辑
+                    CommonUtils.showSnackar(loginTvLogin, "登陆成功");
+                    getActivity().finish();
+                } else {
+                    CommonUtils.showSnackar(loginTvLogin, "登陆失败");
+                }
+            }
+        }.execute();
+    }
+    private HashMap<String, String> formatString2User(String str){
+
+        HashMap<String, String > infoMap = new HashMap<String, String>(){{
+            put("status", String.valueOf(0));
+            put("token", "tokeen");
+        }};
+        return infoMap;
+    }
+    private  void loginSuccess(String token, User user){
+        spUtils = RairApp.getRairApp().getSpUtils();
+        spUtils.put("hasLogin",true);
+        spUtils.put("current_token","hiiamtoken");
+        spUtils.put("current_username", "user");
+        spUtils.put("current_password","password");
+    }
     @Override
     public void onDestroyView() {
         super.onDestroyView();

@@ -11,20 +11,44 @@ public class Book {
      * price : 59.70元
      * year : 1996
      * subject : 1007305
-     * imgSrc : https://img1.doubanio.com/view/subject/s/public/s1070959.jpg
+     * image : https://img1.doubanio.com/view/subject/s/public/s1070959.jpg
      */
 
     private String name;
     private double score;
     private String quote;
-    private int numberOfComments;
+    private int comment_num;
     private String author;
     private String press;
     private String price;
     private int year;
     private String subject;
-    private String imgSrc;
+    private String image;
 
+
+    private  String description;
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+    public int getComment_num() {
+        return comment_num;
+    }
+
+    public void setComment_num(int comment_num) {
+        this.comment_num = comment_num;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
     public String getName() {
         return name;
     }
@@ -49,13 +73,7 @@ public class Book {
         this.quote = quote;
     }
 
-    public int getNumberOfComments() {
-        return numberOfComments;
-    }
 
-    public void setNumberOfComments(int numberOfComments) {
-        this.numberOfComments = numberOfComments;
-    }
 
     public String getAuthor() {
         return author;
@@ -97,11 +115,4 @@ public class Book {
         this.subject = subject;
     }
 
-    public String getImgSrc() {
-        return imgSrc;
-    }
-
-    public void setImgSrc(String imgSrc) {
-        this.imgSrc = imgSrc;
-    }
 }
