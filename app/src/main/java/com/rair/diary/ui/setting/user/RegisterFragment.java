@@ -1,6 +1,8 @@
 package com.rair.diary.ui.setting.user;
 
 
+import android.annotation.SuppressLint;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,9 +12,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.rair.diary.R;
+import com.rair.diary.base.RairApp;
 import com.rair.diary.bean.User;
 import com.rair.diary.utils.CommonUtils;
+import com.rair.diary.utils.HttpUtils;
+import com.rair.diary.utils.SPUtils;
 import com.rair.diary.view.EditTextWithDel;
 
 import butterknife.BindView;
@@ -35,7 +43,8 @@ public class RegisterFragment extends Fragment {
     @BindView(R.id.register_tv_register)
     TextView registerTvRegister;
     Unbinder unbinder;
-
+    private SPUtils spUtils;
+    private User user;
     public static RegisterFragment newInstance() {
         RegisterFragment registerFragment = new RegisterFragment();
         return registerFragment;
@@ -81,13 +90,12 @@ public class RegisterFragment extends Fragment {
             CommonUtils.showSnackar(registerTvRegister, "请输入密码");
             return;
         }
-        User user = new User();
+        user = new User();
         user.setUsername(userName);
-        user.setSign("编辑个性签名");
-//        user.setEmail(userMail);
-        user.setNickName(userName);
-//        user.setSex(0);
-//        user.setPassword(userPwd);
+        user.setPassword(userPwd);
+        Gson gson = new Gson();
+        String userJSON = gson.toJson(user);
+        registerHttpMethod(userJSON);
 //        user.signUp(new SaveListener<User>() {
 //            @Override
 //            public void done(User user, BmobException e) {
@@ -110,7 +118,50 @@ public class RegisterFragment extends Fragment {
 //            }
 //        });
     }
+    @SuppressLint("StaticFieldLeak")
+    private void registerHttpMethod(String postData) {
+        String RequestURL = "http://119.29.235.55:8000/auth/register";
+        new AsyncTask<Void, Void, String>() {
+            @Override
+            protected String doInBackground(Void... params) {
+                String s = HttpUtils.PostHttp(RequestURL, postData);
+                System.out.println("CONTENT=========" + s);
+                return s;
+            }
+            @Override
+            protected void onPostExecute(String s) {
+                if (s != null && !s.isEmpty()) {
+                    formatString2User(s);
+                } else {
+                    CommonUtils.showSnackar(registerTvRegister, "注册失败");
+                }
+            }
+        }.execute();
+    }
+    private void formatString2User(String response){
+        JsonObject jsonObject = new JsonParser().parse(response).getAsJsonObject();
+        String status = jsonObject.get("status").toString();
+        if(status.equals("0")){
+            String token =jsonObject.get("data").toString();
+            loginSuccess(token, user);
+            System.out.println("REGISTER SUCCESS========");
+            CommonUtils.showSnackar(registerTvRegister, "注册成功");
+            getActivity().finish();
+        }else{
+            System.out.println("REGISTER FAILED========");
+            CommonUtils.showSnackar(registerTvRegister, "注册失败,请重试");
+        }
+        System.out.println("RESPONSEE========"+ status);
 
+    }
+    private  void loginSuccess(String token, User user){
+        spUtils = RairApp.getRairApp().getSpUtils();
+        spUtils.put("hasLogin",true);
+        spUtils.put("current_token",token);
+        spUtils.put("current_username", user.getUsername());
+        spUtils.put("current_password",user.getPassword());
+        System.out.println("HASLOGIN=========="+ spUtils.getBoolean("hasLogin") + user.getUsername());
+    }
     @Override
     public void onDestroyView() {
         super.onDestroyView();
