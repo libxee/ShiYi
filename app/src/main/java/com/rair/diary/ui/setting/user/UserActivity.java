@@ -18,8 +18,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.rair.diary.R;
+import com.rair.diary.base.RairApp;
 import com.rair.diary.bean.User;
 import com.rair.diary.utils.CommonUtils;
+import com.rair.diary.utils.SPUtils;
 import com.rair.diary.view.CircleImageView;
 import com.squareup.picasso.Picasso;
 
@@ -46,29 +48,24 @@ public class UserActivity extends AppCompatActivity {
     TextView userTvName;
     @BindView(R.id.user_rl_name)
     RelativeLayout userRlName;
-    @BindView(R.id.user_cb_sex)
-    CheckBox userCbSex;
-    @BindView(R.id.user_tv_signature)
-    TextView userTvSignature;
-    @BindView(R.id.user_rl_signature)
-    RelativeLayout userRlSignature;
     @BindView(R.id.user_tv_unlogin)
     TextView userTvUnlogin;
     private Unbinder unbinder;
-
+    private SPUtils spUtils;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
         unbinder = ButterKnife.bind(this);
+        spUtils =  RairApp.getRairApp().getSpUtils();
         initView();
     }
 
     private void initView() {
-//        User user = BmobUser.getCurrentUser(User.class);
-//        if (user != null) {
-//            userTvName.setText(user.getUsername());
-//            userTvSignature.setText(user.getSign());
+        boolean hasLogin =  spUtils.getBoolean("hasLogin", false);
+
+        if (hasLogin) {
+            userTvName.setText(spUtils.getString("current_username"));
 //            if (user.getSex() != null && user.getSex().equals("nan")) {
 //                userCbSex.setChecked(false);
 //            } else {
@@ -76,17 +73,8 @@ public class UserActivity extends AppCompatActivity {
 //            }
 //            userCbSex.setChecked(true);
 //            loadHead(user);
-//        }
-        userCbSex.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    changeSex(1);
-                } else {
-                    changeSex(0);
-                }
-            }
-        });
+        }
+
     }
 
     /**
@@ -124,7 +112,7 @@ public class UserActivity extends AppCompatActivity {
 //        });
     }
 
-    @OnClick({R.id.user_iv_back, R.id.user_civ_head, R.id.user_rl_head, R.id.user_rl_name, R.id.user_rl_signature, R.id.user_tv_unlogin})
+    @OnClick({R.id.user_iv_back, R.id.user_civ_head, R.id.user_rl_head, R.id.user_rl_name, R.id.user_tv_unlogin})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.user_iv_back:
@@ -134,12 +122,6 @@ public class UserActivity extends AppCompatActivity {
                 break;
             case R.id.user_rl_head:
                 checkSelfPermission();
-                break;
-            case R.id.user_rl_name:
-                CommonUtils.showSnackar(userTvSignature, "昵称不可修改");
-                break;
-            case R.id.user_rl_signature:
-                showEditDialog();
                 break;
             case R.id.user_tv_unlogin:
                 doLoginOut();
@@ -153,7 +135,7 @@ public class UserActivity extends AppCompatActivity {
     private void checkSelfPermission() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_CONTACTS)) {
-                CommonUtils.showSnackar(userRlSignature, "需要读写权限");
+                CommonUtils.showSnackar( userRlName,"需要读写权限");
             } else {
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
             }
@@ -178,7 +160,7 @@ public class UserActivity extends AppCompatActivity {
                             .multi() // 多选模式, 默认模式;
                             .start(this, 0);
                 } else {
-                    CommonUtils.showSnackar(userRlSignature, "没有授予读写权限，导出失败,请到设置中手动打开");
+                    CommonUtils.showSnackar(userRlName, "没有授予读写权限，导出失败,请到设置中手动打开");
                 }
         }
     }
@@ -218,7 +200,10 @@ public class UserActivity extends AppCompatActivity {
      * 登出
      */
     private void doLoginOut() {
-//        BmobUser.logOut();
+        spUtils.put("hasLogin", false);
+        spUtils.put("current_token", "");
+        spUtils.put("current_username", "");
+        spUtils.put("current_password", "");
         this.finish();
     }
 

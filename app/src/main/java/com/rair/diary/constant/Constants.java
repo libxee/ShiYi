@@ -16,6 +16,10 @@ public class Constants {
     //SharedPreferences
     public static final String SP_NAME = "rair";
     public static final String RECREATE = "isRecreate";
+    public  static final String CURRENT_USERNAME = "current_username";
+    public  static final String CURRENT_TOKEN = "current_token";
+    public  static final boolean LOGIN_STATUS = false;
+
     //设置提醒时间
     public static final String SET_RECEIVER = "com.rair.set";
     //提醒广播

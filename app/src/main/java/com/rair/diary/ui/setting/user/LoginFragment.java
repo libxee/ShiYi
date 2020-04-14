@@ -13,8 +13,13 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.google.gson.reflect.TypeToken;
 import com.rair.diary.R;
 import com.rair.diary.base.RairApp;
+import com.rair.diary.bean.OneArticle;
 import com.rair.diary.bean.User;
 import com.rair.diary.utils.CommonUtils;
 import com.rair.diary.utils.HttpUtils;
@@ -47,7 +52,7 @@ public class LoginFragment extends Fragment {
     TextView loginTvForget;
     Unbinder unbinder;
     private SPUtils spUtils;
-
+private User user;
     public static LoginFragment newInstance() {
         LoginFragment loginFragment = new LoginFragment();
         return loginFragment;
@@ -91,7 +96,7 @@ public class LoginFragment extends Fragment {
             CommonUtils.showSnackar(loginTvLogin, "请输入密码");
             return;
         }
-        User user = new User();
+        user = new User();
         user.setUsername(userName);
         user.setNickName(userName);
         user.setPassword(userPwd);
@@ -113,29 +118,42 @@ public class LoginFragment extends Fragment {
             @Override
             protected void onPostExecute(String s) {
                 if (s != null && !s.isEmpty()) {
+                    formatString2User(s);
 //                    TODO 确定本地存储登录信息逻辑
-                    CommonUtils.showSnackar(loginTvLogin, "登陆成功");
-                    getActivity().finish();
+
                 } else {
                     CommonUtils.showSnackar(loginTvLogin, "登陆失败");
                 }
             }
         }.execute();
     }
-    private HashMap<String, String> formatString2User(String str){
+    private void formatString2User(String response){
+        JsonObject jsonObject = new JsonParser().parse(response).getAsJsonObject();
+        String status = jsonObject.get("status").toString();
+        if(status.equals("0")){
+            String token =jsonObject.get("data").toString();
+//            HashMap<String, String > infoMap = new HashMap<String, String>(){{
+//                put("status", String.valueOf(0));
+//                put("token", "tokeen");
+//            }};
+            loginSuccess(token, user);
+            System.out.println("LOGIN SUCCESS========");
+            CommonUtils.showSnackar(loginTvLogin, "登陆成功");
+            getActivity().finish();
+        }else{
+            System.out.println("LOGIN FAILED========");
+            CommonUtils.showSnackar(loginTvLogin, "登陆失败,请重试");
+        }
+        System.out.println("RESPONSEE========"+ status);
 
-        HashMap<String, String > infoMap = new HashMap<String, String>(){{
-            put("status", String.valueOf(0));
-            put("token", "tokeen");
-        }};
-        return infoMap;
     }
     private  void loginSuccess(String token, User user){
         spUtils = RairApp.getRairApp().getSpUtils();
         spUtils.put("hasLogin",true);
-        spUtils.put("current_token","hiiamtoken");
-        spUtils.put("current_username", "user");
-        spUtils.put("current_password","password");
+        spUtils.put("current_token",token);
+        spUtils.put("current_username", user.getUsername());
+        spUtils.put("current_password",user.getPassword());
+        System.out.println("HASLOGIN=========="+ spUtils.getBoolean("hasLogin") + user.getUsername());
     }
     @Override
     public void onDestroyView() {

@@ -83,7 +83,7 @@ public class SetFragment extends Fragment {
     }
 
     private void initView() {
-//        spUtils = RairApp.getRairApp().getSpUtils();
+        spUtils = RairApp.getRairApp().getSpUtils();
 //        boolean isNight = spUtils.getBoolean("isNight");
 //        if (isNight) setSwitchNight.setChecked(true);
 //        setSwitchNight.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -101,17 +101,17 @@ public class SetFragment extends Fragment {
 //            }
 //        });
     }
-
     @Override
     public void onResume() {
         super.onResume();
-//        User user = BmobUser.getCurrentUser(User.class);
-//        if (user != null) {
-//            setTvName.setText(user.getUsername());
+       boolean hasLogin =  spUtils.getBoolean("hasLogin", false);
+        if (hasLogin) {
+            System.out.println("USERNAME====="+spUtils.getString("username"));
+            setTvName.setText(spUtils.getString("current_username"));
 //            loadHead(user);
-//        } else {
-//            setTvName.setText("未登录");
-//        }
+        } else {
+            setTvName.setText("未登录");
+        }
     }
 
     /**
@@ -133,16 +133,13 @@ public class SetFragment extends Fragment {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.set_ll_user:
-                Intent loginIntent = new Intent(getContext(), LoginActivity.class);
-                startActivity(loginIntent);
-                //                TODO： 根据用户是否登录判断打开响应的页面
-//                if (BmobUser.getCurrentUser(User.class) == null) {
-//                    Intent loginIntent = new Intent(getContext(), LoginActivity.class);
-//                    startActivity(loginIntent);
-//                } else {
-//                    Intent userIntent = new Intent(getContext(), UserActivity.class);
-//                    startActivity(userIntent);
-//                }
+                if (!spUtils.getBoolean("hasLogin", false)) {
+                    Intent loginIntent = new Intent(getContext(), LoginActivity.class);
+                    startActivity(loginIntent);
+                } else {
+                    Intent userIntent = new Intent(getContext(), UserActivity.class);
+                    startActivity(userIntent);
+                }
                 break;
             case R.id.set_ll_notify:
                 Intent notifyIntent = new Intent(getContext(), NotifyActivity.class);
