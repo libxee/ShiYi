@@ -16,9 +16,7 @@ import android.widget.TextView;
 import com.rair.diary.R;
 import com.rair.diary.base.RairApp;
 import com.rair.diary.bean.User;
-import com.rair.diary.ui.setting.about.AboutActivity;
 import com.rair.diary.ui.setting.export.ExportActivity;
-import com.rair.diary.ui.setting.feedback.FeedBackActivity;
 import com.rair.diary.ui.setting.recover.RecoverActivity;
 import com.rair.diary.ui.setting.remind.NotifyActivity;
 import com.rair.diary.ui.setting.secret.SecretActivity;
@@ -47,19 +45,12 @@ public class SetFragment extends Fragment {
     LinearLayout setLlUser;
     @BindView(R.id.set_ll_notify)
     LinearLayout setLlNotify;
-    @BindView(R.id.set_ll_recover)
-    LinearLayout setLlRecover;
+//    @BindView(R.id.set_ll_recover)
+//    LinearLayout setLlRecover;
     @BindView(R.id.set_ll_secret)
     LinearLayout setLlSecret;
     @BindView(R.id.set_ll_export)
     LinearLayout setLlExport;
-    ////    @BindView(R.id.set_switch_night)
-////    Switch setSwitchNight;
-//    @BindView(R.id.set_ll_bg)
-//    LinearLayout setLlBg;
-//    @BindView(R.id.set_ll_info)
-//    LinearLayout setLlInfo;
-//    @BindView(R.id.set_ll_feedback)
     LinearLayout setLlFeedback;
     Unbinder unbinder;
     private SPUtils spUtils;
@@ -84,22 +75,6 @@ public class SetFragment extends Fragment {
 
     private void initView() {
         spUtils = RairApp.getRairApp().getSpUtils();
-//        boolean isNight = spUtils.getBoolean("isNight");
-//        if (isNight) setSwitchNight.setChecked(true);
-//        setSwitchNight.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//                if (isChecked) {
-//                    spUtils.put("isNight", true);
-//                    RairApp.getRairApp().configTheme();
-//                    getActivity().recreate();
-//                } else {
-//                    spUtils.put("isNight", false);
-//                    RairApp.getRairApp().configTheme();
-//                    getActivity().recreate();
-//                }
-//            }
-//        });
     }
     @Override
     public void onResume() {
@@ -129,7 +104,7 @@ public class SetFragment extends Fragment {
         Picasso.with(getContext()).load(R.mipmap.ic_head).into(setCivHead);
     }
 
-    @OnClick({R.id.set_ll_user, R.id.set_ll_notify, R.id.set_ll_recover, R.id.set_ll_secret, R.id.set_ll_export})
+    @OnClick({R.id.set_ll_user, R.id.set_ll_notify , R.id.set_ll_secret, R.id.set_ll_export})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.set_ll_user:
@@ -145,17 +120,16 @@ public class SetFragment extends Fragment {
                 Intent notifyIntent = new Intent(getContext(), NotifyActivity.class);
                 startActivity(notifyIntent);
                 break;
-            case R.id.set_ll_recover:
-//                TODO： 根据用户是否登录判断打开响应的页面
-//
-//                if (BmobUser.getCurrentUser(User.class) == null) {
+//            case R.id.set_ll_recover:
+////                TODO： 备份和恢复功能是否需要?
+//                if (!spUtils.getBoolean("hasLogin", false)) {
 //                    Intent loginIntent = new Intent(getContext(), LoginActivity.class);
 //                    startActivity(loginIntent);
 //                } else {
 //                    Intent recoverIntent = new Intent(getContext(), RecoverActivity.class);
 //                    startActivity(recoverIntent);
 //                }
-                break;
+//                break;
             case R.id.set_ll_secret:
                 Intent secretIntent = new Intent(getContext(), SecretActivity.class);
                 startActivity(secretIntent);

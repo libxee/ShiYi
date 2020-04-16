@@ -6,7 +6,7 @@ public class Constants {
     public static final String DB_NAME = "diary.db";
     public static final int DB_VERSION = 2;
     //RairPath
-    public static final String RAIR_PATH = "RairDiary";
+    public static final String RAIR_PATH = "ShijiDiary";
     //    public static final String PDF_NAME = "我的日记.pdf";
     public static final String TXT_NAME = "我的日记.txt";
     public static final String BACKUP_NAME = "Backup.db";
@@ -14,16 +14,16 @@ public class Constants {
     public static final String HEAD_IMAGE = "head.jpg";
     public static final String FORMAT = "%s（%s）%s";
     //SharedPreferences
-    public static final String SP_NAME = "rair";
+    public static final String SP_NAME = "shiji";
     public static final String RECREATE = "isRecreate";
     public  static final String CURRENT_USERNAME = "current_username";
     public  static final String CURRENT_TOKEN = "current_token";
     public  static final boolean LOGIN_STATUS = false;
 
     //设置提醒时间
-    public static final String SET_RECEIVER = "com.rair.set";
+    public static final String SET_RECEIVER = "com.shiji.set";
     //提醒广播
-    public static final String REMIND_RECEIVER = "com.rair.time";
+    public static final String REMIND_RECEIVER = "com.shiji.time";
     //加群key
     public static final String QQ_KEY = "J_-";
     //Bmob

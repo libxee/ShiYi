@@ -29,10 +29,10 @@ public class FindXrvAdapter extends BaseQuickAdapter<Diary, BaseViewHolder> {
         User user = item.getUser();
 //        ImageView ivSex = helper.getView(R.id.find_item_iv_sex);
 //        CircleImageView civHead = helper.getView(R.id.find_item_civ_head);
-
         helper.setText(R.id.find_item_tv_name, item.getTitle());
         helper.setText(R.id.find_item_tv_time, item.getDate());
         helper.setText(R.id.find_item_tv_content, item.getContent());
+        helper.setText(R.id.find_item_tv_author, "作者: @"+ user.getUsername());
+        helper.setText(R.id.find_item_tv_likes, (int)(Math.random()*1000) + "人");
     }
-
 }

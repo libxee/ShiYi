@@ -39,7 +39,6 @@
         <activity android:name=".ui.setting.remind.NotifyActivity" />
         <activity android:name=".ui.setting.secret.SecretActivity" />
         <activity android:name=".ui.setting.export.ExportActivity" />
-        <activity android:name=".ui.setting.about.AboutActivity" />
         <activity android:name=".ui.setting.user.UserActivity" />
         <activity android:name=".ui.setting.user.LoginActivity" />
         <activity android:name=".ui.setting.recover.RecoverActivity" />

@@ -253,9 +253,6 @@ public class OneDayDetail extends AppCompatActivity {
             case R.id.one_detail_back:
                 this.finish();
                 break;
-            case R.id.about_iv_back:
-                System.out.println("ss");
-
         }
     }
 

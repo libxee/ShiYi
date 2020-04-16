@@ -96,34 +96,34 @@
                 android:layout_marginLeft="10dp"
                 android:background="@color/divider" />
 
-            <LinearLayout
-                android:id="@+id/set_ll_recover"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:background="?android:attr/selectableItemBackground"
-                android:gravity="center_vertical"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp">
+<!--            <LinearLayout-->
+<!--                android:id="@+id/set_ll_recover"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="60dp"-->
+<!--                android:background="?android:attr/selectableItemBackground"-->
+<!--                android:gravity="center_vertical"-->
+<!--                android:paddingLeft="10dp"-->
+<!--                android:paddingRight="10dp">-->
 
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@mipmap/ic_recover" />
+<!--                <ImageView-->
+<!--                    android:layout_width="20dp"-->
+<!--                    android:layout_height="20dp"-->
+<!--                    android:src="@mipmap/ic_recover" />-->
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_weight="1"
-                    android:text="备份与恢复"
-                    android:textColor="@color/primary_text"
-                    android:textSize="16sp" />
+<!--                <TextView-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginLeft="10dp"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:text="备份与恢复"-->
+<!--                    android:textColor="@color/primary_text"-->
+<!--                    android:textSize="16sp" />-->
 
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@mipmap/ic_next" />
-            </LinearLayout>
+<!--                <ImageView-->
+<!--                    android:layout_width="20dp"-->
+<!--                    android:layout_height="20dp"-->
+<!--                    android:src="@mipmap/ic_next" />-->
+<!--            </LinearLayout>-->
 
             <View
                 android:layout_width="match_parent"
