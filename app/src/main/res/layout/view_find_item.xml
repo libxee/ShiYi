@@ -11,24 +11,24 @@
         android:orientation="horizontal"
         android:padding="10dp">
 
-        <RelativeLayout
-            android:layout_width="60dp"
-            android:layout_height="60dp">
+<!--        <RelativeLayout-->
+<!--            android:layout_width="60dp"-->
+<!--            android:layout_height="60dp">-->
 
-            <com.rair.diary.view.CircleImageView
-                android:id="@+id/find_item_civ_head"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@mipmap/ic_head" />
+<!--            <com.rair.diary.view.CircleImageView-->
+<!--                android:id="@+id/find_item_civ_head"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:src="@mipmap/ic_head" />-->
 
-            <ImageView
-                android:id="@+id/find_item_iv_sex"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentRight="true"
-                android:padding="4dp" />
-        </RelativeLayout>
+<!--            <ImageView-->
+<!--                android:id="@+id/find_item_iv_sex"-->
+<!--                android:layout_width="20dp"-->
+<!--                android:layout_height="20dp"-->
+<!--                android:layout_alignParentBottom="true"-->
+<!--                android:layout_alignParentRight="true"-->
+<!--                android:padding="4dp" />-->
+<!--        </RelativeLayout>-->
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -45,7 +45,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="Rair"
+                    android:text="名字"
                     android:textColor="@color/primary_text"
                     android:textSize="16sp" />
 
@@ -53,6 +53,7 @@
                     android:id="@+id/find_item_tv_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="日期"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:textColor="@color/secondary_text"
@@ -65,6 +66,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:ellipsize="end"
+                android:text="内容"
                 android:lineSpacingExtra="6dp"
                 android:maxLines="6"
                 android:textColor="@color/secondary_text"

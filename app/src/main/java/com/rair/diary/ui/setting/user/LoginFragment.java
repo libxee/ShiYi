@@ -137,7 +137,7 @@ private User user;
 //                put("token", "tokeen");
 //            }};
             loginSuccess(token, user);
-            System.out.println("LOGIN SUCCESS========");
+            System.out.println("LOGIN SUCCESS========"+ token);
             CommonUtils.showSnackar(loginTvLogin, "登陆成功");
             getActivity().finish();
         }else{

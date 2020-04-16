@@ -2,6 +2,26 @@ package com.rair.diary.bean;
 
 
 public class Diary {
+    //发布者
+    private User user;
+    //昵称
+    private String name;
+    //标题
+    private String title;
+    //内容
+    private String content;
+    //图片
+    private String image;
+    //天气
+    private String weather;
+    //日期
+    private String date;
+    //星期
+    private String week;
+    //发布时间
+    private String createTime;
+    //点赞总数
+    private Integer likes;
 
     public User getUser() {
         return user;
@@ -83,26 +103,5 @@ public class Diary {
         this.likes = likes;
     }
 
-    //发布者
-    private User user;
-    //昵称
-    private String name;
-    //标题
-    private String title;
-    //内容
-    private String content;
-    //图片
-    private String image;
-    //天气
-    private String weather;
-    //日期
-    private String date;
-    //星期
-    private String week;
-
-    //发布时间
-    private String createTime;
-    //点赞总数
-    private Integer likes;
 
 }

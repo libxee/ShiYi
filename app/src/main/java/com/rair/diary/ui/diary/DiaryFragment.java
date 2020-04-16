@@ -419,6 +419,7 @@ public class DiaryFragment extends Fragment implements TextWatcher, DiaryRvAdapt
      * 查询数据
      */
     private void queryDatas() {
+   //TODO：判断用户是否已经登录，如果已经登录，从后端接口查数据，如果未登录，从端上DB查
         datas.clear();
         diaryDao.query(datas);
         rvAdapter.notifyDataSetChanged();

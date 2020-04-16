@@ -27,11 +27,11 @@ public class FindXrvAdapter extends BaseQuickAdapter<Diary, BaseViewHolder> {
     @Override
     protected void convert(BaseViewHolder helper, Diary item) {
         User user = item.getUser();
-        ImageView ivSex = helper.getView(R.id.find_item_iv_sex);
-        CircleImageView civHead = helper.getView(R.id.find_item_civ_head);
+//        ImageView ivSex = helper.getView(R.id.find_item_iv_sex);
+//        CircleImageView civHead = helper.getView(R.id.find_item_civ_head);
 
-        helper.setText(R.id.find_item_tv_name, item.getName());
-        helper.setText(R.id.find_item_tv_time, item.getCreateTime());
+        helper.setText(R.id.find_item_tv_name, item.getTitle());
+        helper.setText(R.id.find_item_tv_time, item.getDate());
         helper.setText(R.id.find_item_tv_content, item.getContent());
     }
 
