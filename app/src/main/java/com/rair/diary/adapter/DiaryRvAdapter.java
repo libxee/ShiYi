@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.rair.diary.R;
 import com.rair.diary.bean.DiaryBean;
 import com.rair.diary.constant.Constants;
@@ -53,15 +54,13 @@ public class DiaryRvAdapter extends RecyclerView.Adapter<DiaryRvAdapter.DiaryHol
         holder.tvTitle.setText(diaryBean.getTitle());
         holder.tvContent.setText(diaryBean.getContent());
         String image = diaryBean.getImage();
-        if (!image.equals("n")) {
-            File file = new File(image);
-            if (file.exists()) {
-                holder.ivShow.setVisibility(View.VISIBLE);
-                Bitmap bitmap = BitmapFactory.decodeFile(image);
-                holder.ivShow.setImageBitmap(bitmap);
-            } else {
-                holder.ivShow.setVisibility(View.GONE);
-            }
+        if (!image.equals("")) {
+            Glide.with(context)
+                    .load(image)
+                    .into(holder.ivShow);
+            holder.ivShow.setVisibility(View.VISIBLE);
+        }else{
+            holder.ivShow.setVisibility(View.GONE);
         }
         holder.tvDate.setText(String.format(Constants.FORMAT, diaryBean.getDate(), diaryBean.getWeek(), diaryBean.getWeather()));
         final int mPosition = position;

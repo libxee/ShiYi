@@ -54,15 +54,16 @@ public class FindFragment extends Fragment implements BaseQuickAdapter.OnItemCli
     @BindView(R.id.find_rv_list)
     RecyclerView findrvList;
     Unbinder unbinder;
-//    @BindView(R.id.find_tv_tip)
+    //    @BindView(R.id.find_tv_tip)
 //    TextView findTvTip;
     private ArrayList<Diary> datas;
     //当前页
     private int pageNum = 1;
     private FindXrvAdapter findXrvAdapter;
     private SPUtils spUtils;
-    private  boolean hasLogin;
+    private boolean hasLogin;
     FindFragment findFragment;
+
     public static FindFragment newInstance() {
         FindFragment findFragment = new FindFragment();
         return findFragment;
@@ -106,20 +107,22 @@ public class FindFragment extends Fragment implements BaseQuickAdapter.OnItemCli
         findrvList.setAdapter(findXrvAdapter);
         findXrvAdapter.setOnItemClickListener(this);
         hasLogin = spUtils.getBoolean("hasLogin", false);
-        if (hasLogin){
+        if (hasLogin) {
             loadDiary();
-        }else {
+        } else {
             AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), R.style.DialogStyle);
             builder.setTitle("登录之后即可获取社区内容~");
             builder.show();
         }
     }
+
     /**
      * 加载日记
      */
     private void loadDiary() {
         getArticlesByPage();
     }
+
     private List<Diary> formatDiaryList(String response) {
         JsonObject jsonObject = new JsonParser().parse(response).getAsJsonObject().getAsJsonObject("data");
         JsonArray jsonArray = jsonObject.getAsJsonArray("list");
@@ -141,22 +144,24 @@ public class FindFragment extends Fragment implements BaseQuickAdapter.OnItemCli
                 String s = HttpUtils.getStringByOkhttp(RequestURL);
                 return s;
             }
+
             @Override
             protected void onPostExecute(String s) {
                 if (s != null && !s.isEmpty()) {
                     ArrayList<Diary> arr = (ArrayList<Diary>) formatDiaryList(s);
-                    if( arr.size()>0){
-                       pageNum ++;
-                    }else{
+                    if (arr.size() > 0) {
+                        pageNum++;
+                    } else {
                         CommonUtils.showSnackar(findrvList, "已经到底了~");
                     }
                     findXrvAdapter.notifyDataSetChanged();
-                }else {
+                } else {
                     CommonUtils.showSnackar(findrvList, "something wrong");
                 }
             }
         }.execute();
     }
+
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
         Intent diaryDetailIntent = new Intent(getContext(), DiaryDetailActivity.class);
@@ -166,6 +171,7 @@ public class FindFragment extends Fragment implements BaseQuickAdapter.OnItemCli
         diaryDetailIntent.putExtra("date", datas.get(position).getDate());
         diaryDetailIntent.putExtra("week", datas.get(position).getWeek());
         diaryDetailIntent.putExtra("weather", datas.get(position).getWeather());
+        diaryDetailIntent.putExtra("hasAuth", false);
         startActivity(diaryDetailIntent);
     }
 
@@ -176,16 +182,17 @@ public class FindFragment extends Fragment implements BaseQuickAdapter.OnItemCli
 //        退出登录后,清空已经展示的社区内容;
 //        登录成功后,重新获取内容
         hasLogin = spUtils.getBoolean("hasLogin", false);
-        if (!hasLogin){
+        if (!hasLogin) {
             datas.clear();
             pageNum = 1;
             System.out.println("HIDDEN=========");
             findXrvAdapter.notifyDataSetChanged();
-        } else if(hasLogin && pageNum == 1){
+        } else if (hasLogin && pageNum == 1) {
             loadDiary();
             System.out.println("SHOW============");
         }
     }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();

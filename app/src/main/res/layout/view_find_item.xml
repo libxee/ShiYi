@@ -10,6 +10,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="20dp">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -27,6 +28,7 @@
                     android:text="名字"
                     android:textColor="@color/primary_text"
                     android:textSize="16sp" />
+
                 <TextView
                     android:id="@+id/find_item_tv_time"
                     android:layout_width="wrap_content"
@@ -50,6 +52,7 @@
                 android:textColor="@color/secondary_text"
                 android:layout_marginBottom="20dp"
                 android:textSize="14sp" />
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="20dp">
@@ -62,13 +65,14 @@
                     android:text="作者"
                     android:textColor="@color/secondary_text"
                     android:textSize="14sp" />
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="6dp"
-                    android:src="@mipmap/like"
-                    />
+                    android:src="@mipmap/like" />
+
                 <TextView
                     android:id="@+id/find_item_tv_likes"
                     android:layout_width="wrap_content"

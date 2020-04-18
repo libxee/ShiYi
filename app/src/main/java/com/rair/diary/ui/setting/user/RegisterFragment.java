@@ -45,6 +45,7 @@ public class RegisterFragment extends Fragment {
     Unbinder unbinder;
     private SPUtils spUtils;
     private User user;
+
     public static RegisterFragment newInstance() {
         RegisterFragment registerFragment = new RegisterFragment();
         return registerFragment;
@@ -118,6 +119,7 @@ public class RegisterFragment extends Fragment {
 //            }
 //        });
     }
+
     @SuppressLint("StaticFieldLeak")
     private void registerHttpMethod(String postData) {
         String RequestURL = "http://119.29.235.55:8000/auth/register";
@@ -128,6 +130,7 @@ public class RegisterFragment extends Fragment {
                 System.out.println("CONTENT=========" + s);
                 return s;
             }
+
             @Override
             protected void onPostExecute(String s) {
                 if (s != null && !s.isEmpty()) {
@@ -138,30 +141,33 @@ public class RegisterFragment extends Fragment {
             }
         }.execute();
     }
-    private void formatString2User(String response){
+
+    private void formatString2User(String response) {
         JsonObject jsonObject = new JsonParser().parse(response).getAsJsonObject();
         String status = jsonObject.get("status").toString();
-        if(status.equals("0")){
-            String token =jsonObject.get("data").toString();
+        if (status.equals("0")) {
+            String token = jsonObject.get("data").toString();
             loginSuccess(token, user);
             System.out.println("REGISTER SUCCESS========");
             CommonUtils.showSnackar(registerTvRegister, "注册成功");
             getActivity().finish();
-        }else{
+        } else {
             System.out.println("REGISTER FAILED========");
             CommonUtils.showSnackar(registerTvRegister, "注册失败,请重试");
         }
-        System.out.println("RESPONSEE========"+ status);
+        System.out.println("RESPONSEE========" + status);
 
     }
-    private  void loginSuccess(String token, User user){
+
+    private void loginSuccess(String token, User user) {
         spUtils = RairApp.getRairApp().getSpUtils();
-        spUtils.put("hasLogin",true);
-        spUtils.put("current_token",token);
+        spUtils.put("hasLogin", true);
+        spUtils.put("current_token", token);
         spUtils.put("current_username", user.getUsername());
-        spUtils.put("current_password",user.getPassword());
-        System.out.println("HASLOGIN=========="+ spUtils.getBoolean("hasLogin") + user.getUsername());
+        spUtils.put("current_password", user.getPassword());
+        System.out.println("HASLOGIN==========" + spUtils.getBoolean("hasLogin") + user.getUsername());
     }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();

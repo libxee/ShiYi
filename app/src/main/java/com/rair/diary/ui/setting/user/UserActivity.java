@@ -52,17 +52,18 @@ public class UserActivity extends AppCompatActivity {
     TextView userTvUnlogin;
     private Unbinder unbinder;
     private SPUtils spUtils;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
         unbinder = ButterKnife.bind(this);
-        spUtils =  RairApp.getRairApp().getSpUtils();
+        spUtils = RairApp.getRairApp().getSpUtils();
         initView();
     }
 
     private void initView() {
-        boolean hasLogin =  spUtils.getBoolean("hasLogin", false);
+        boolean hasLogin = spUtils.getBoolean("hasLogin", false);
 
         if (hasLogin) {
             userTvName.setText(spUtils.getString("current_username"));
@@ -135,7 +136,7 @@ public class UserActivity extends AppCompatActivity {
     private void checkSelfPermission() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_CONTACTS)) {
-                CommonUtils.showSnackar( userRlName,"需要读写权限");
+                CommonUtils.showSnackar(userRlName, "需要读写权限");
             } else {
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
             }

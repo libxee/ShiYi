@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
@@ -52,7 +53,8 @@ public class LoginFragment extends Fragment {
     TextView loginTvForget;
     Unbinder unbinder;
     private SPUtils spUtils;
-private User user;
+    private User user;
+
     public static LoginFragment newInstance() {
         LoginFragment loginFragment = new LoginFragment();
         return loginFragment;
@@ -115,46 +117,46 @@ private User user;
                 System.out.println("CONTENT=========" + s);
                 return s;
             }
+
             @Override
             protected void onPostExecute(String s) {
                 if (s != null && !s.isEmpty()) {
                     formatString2User(s);
-//                    TODO 确定本地存储登录信息逻辑
-
                 } else {
-                    CommonUtils.showSnackar(loginTvLogin, "登陆失败");
+                    Toast.makeText(getContext(), "登陆失败", Toast.LENGTH_SHORT).show();
                 }
             }
         }.execute();
     }
-    private void formatString2User(String response){
+
+    private void formatString2User(String response) {
         JsonObject jsonObject = new JsonParser().parse(response).getAsJsonObject();
         String status = jsonObject.get("status").toString();
-        if(status.equals("0")){
-            String token =jsonObject.get("data").toString();
-//            HashMap<String, String > infoMap = new HashMap<String, String>(){{
-//                put("status", String.valueOf(0));
-//                put("token", "tokeen");
-//            }};
+        if (status.equals("0")) {
+            String token = jsonObject.get("data").toString();
             loginSuccess(token, user);
-            System.out.println("LOGIN SUCCESS========"+ token);
+            System.out.println("LOGIN SUCCESS========" + token);
             CommonUtils.showSnackar(loginTvLogin, "登陆成功");
-            getActivity().finish();
-        }else{
-            System.out.println("LOGIN FAILED========");
-            CommonUtils.showSnackar(loginTvLogin, "登陆失败,请重试");
-        }
-        System.out.println("RESPONSEE========"+ status);
+            Toast.makeText(this.getContext(), "登陆成功", Toast.LENGTH_SHORT).show();
 
+            getActivity().finish();
+        } else {
+            System.out.println("LOGIN FAILED========");
+//            CommonUtils.showSnackar(loginTvLogin, "");
+            Toast.makeText(this.getContext(), "登陆失败,请重试", Toast.LENGTH_SHORT).show();
+        }
+        System.out.println("RESPONSEE========" + status);
     }
-    private  void loginSuccess(String token, User user){
+
+    private void loginSuccess(String token, User user) {
         spUtils = RairApp.getRairApp().getSpUtils();
-        spUtils.put("hasLogin",true);
-        spUtils.put("current_token",token);
+        spUtils.put("hasLogin", true);
+        spUtils.put("current_token", token);
         spUtils.put("current_username", user.getUsername());
-        spUtils.put("current_password",user.getPassword());
-        System.out.println("HASLOGIN=========="+ spUtils.getBoolean("hasLogin") + user.getUsername());
+        spUtils.put("current_password", user.getPassword());
+        System.out.println("HASLOGIN==========" + spUtils.getBoolean("hasLogin") + user.getUsername());
     }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();

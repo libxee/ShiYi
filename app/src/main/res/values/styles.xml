@@ -27,7 +27,7 @@
 
     <style name="DialogStyle" parent="Theme.AppCompat.DayNight.Dialog.Alert">
         <item name="android:windowBackground">@color/backgroundColor</item>
-        <item name="android:minHeight">100dp</item>
+        <!--        <item name="android:minHeight">100dp</item>-->
     </style>
 
     <style name="AppTheme.NoActionBar.NoActionBar">

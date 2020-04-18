@@ -45,7 +45,7 @@ public class SetFragment extends Fragment {
     LinearLayout setLlUser;
     @BindView(R.id.set_ll_notify)
     LinearLayout setLlNotify;
-//    @BindView(R.id.set_ll_recover)
+    //    @BindView(R.id.set_ll_recover)
 //    LinearLayout setLlRecover;
     @BindView(R.id.set_ll_secret)
     LinearLayout setLlSecret;
@@ -76,12 +76,13 @@ public class SetFragment extends Fragment {
     private void initView() {
         spUtils = RairApp.getRairApp().getSpUtils();
     }
+
     @Override
     public void onResume() {
         super.onResume();
-       boolean hasLogin =  spUtils.getBoolean("hasLogin", false);
+        boolean hasLogin = spUtils.getBoolean("hasLogin", false);
         if (hasLogin) {
-            System.out.println("USERNAME====="+spUtils.getString("username"));
+            System.out.println("USERNAME=====" + spUtils.getString("username"));
             setTvName.setText(spUtils.getString("current_username"));
 //            loadHead(user);
         } else {
@@ -104,7 +105,7 @@ public class SetFragment extends Fragment {
         Picasso.with(getContext()).load(R.mipmap.ic_head).into(setCivHead);
     }
 
-    @OnClick({R.id.set_ll_user, R.id.set_ll_notify , R.id.set_ll_secret, R.id.set_ll_export})
+    @OnClick({R.id.set_ll_user, R.id.set_ll_notify, R.id.set_ll_secret, R.id.set_ll_export})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.set_ll_user:

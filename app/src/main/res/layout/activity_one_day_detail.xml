@@ -121,14 +121,14 @@
                                 android:layout_marginBottom="10dp" />
 
 
-                                <TextView
-                                    android:id="@+id/one_detail_movie_product_info"
-                                    android:layout_width="match_parent"
-                                    android:textSize="12sp"
-                                    android:layout_marginBottom="10dp"
-                                    android:layout_height="wrap_content"
-                                    android:text="导演:弗兰克·德拉邦特FrankDarabont 主演:蒂姆·罗宾斯TimRobbins"
-                                    />
+                            <TextView
+                                android:id="@+id/one_detail_movie_product_info"
+                                android:layout_width="match_parent"
+                                android:textSize="12sp"
+                                android:layout_marginBottom="10dp"
+                                android:layout_height="wrap_content"
+                                android:text="导演:弗兰克·德拉邦特FrankDarabont 主演:蒂姆·罗宾斯TimRobbins" />
+
                             <TextView
                                 android:id="@+id/one_detail_movie_type"
                                 android:layout_width="match_parent"
@@ -149,17 +149,17 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:text="9.6分 "
-                                    android:textColor="#e09015"
-                                    />
+                                    android:textColor="#e09015" />
+
                                 <TextView
                                     android:id="@+id/one_detail_movie_commentnum"
                                     android:textSize="@dimen/sp_14"
                                     android:layout_marginLeft="6dp"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="(7777777人评价)"
-                                    />
+                                    android:text="(7777777人评价)" />
                             </LinearLayout>
+
                             <TextView
                                 android:id="@+id/one_detail_movie_quote"
                                 android:textSize="@dimen/sp_16"
@@ -241,8 +241,7 @@
                                     android:layout_width="match_parent"
                                     android:textSize="12sp"
                                     android:layout_height="wrap_content"
-                                    android:text="清] 曹雪芹 著"
-                                     />
+                                    android:text="清] 曹雪芹 著" />
 
                                 <TextView
                                     android:id="@+id/one_detail_book_press"
@@ -265,17 +264,17 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:text="9.6分 "
-                                    android:textColor="#e09015"
-                                    />
+                                    android:textColor="#e09015" />
+
                                 <TextView
                                     android:id="@+id/one_detail_book_commentnum"
                                     android:textSize="@dimen/sp_14"
                                     android:layout_marginLeft="6dp"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="(7777777人评价)"
-                                    />
+                                    android:text="(7777777人评价)" />
                             </LinearLayout>
+
                             <TextView
                                 android:id="@+id/one_detail_book_quote"
                                 android:textSize="@dimen/sp_16"

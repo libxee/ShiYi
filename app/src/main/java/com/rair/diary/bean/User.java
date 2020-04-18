@@ -7,12 +7,13 @@ public class User {
     private String sign;
     //昵称
     private String nickName;
-//    用户名
+    //    用户名
     private String username;
 
 
     // 密码
     private String password;
+
     public String getPassword() {
         return password;
     }
@@ -28,6 +29,7 @@ public class User {
     public void setUsername(String username) {
         this.username = username;
     }
+
     public String getSign() {
         return sign;
     }

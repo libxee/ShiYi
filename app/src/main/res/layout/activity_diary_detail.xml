@@ -41,19 +41,18 @@
             android:layout_centerVertical="true">
 
             <ImageView
-                android:id="@+id/detail_iv_save"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:id="@+id/detail_iv_options"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:padding="5dp"
-                android:src="@mipmap/ic_save"
-                android:visibility="gone" />
+                android:src="@mipmap/ic_option_white" />
         </com.rair.diary.view.RippleView>
     </RelativeLayout>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="true">
+        android:id="@+id/diary_detail_scrollview">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -95,6 +94,7 @@
                         android:id="@+id/detail_et_content"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
+                        android:minHeight="500dp"
                         android:layout_marginTop="10dp"
                         android:layout_weight="1"
                         android:enabled="false"
@@ -117,7 +117,7 @@
     <LinearLayout
         android:id="@+id/detail_ll_option"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="50dp"
         android:gravity="center"
         android:orientation="horizontal">
 

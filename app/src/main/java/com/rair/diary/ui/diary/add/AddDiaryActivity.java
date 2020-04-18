@@ -1,10 +1,13 @@
 package com.rair.diary.ui.diary.add;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -16,14 +19,41 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.rair.diary.R;
+import com.rair.diary.base.RairApp;
+import com.rair.diary.bean.Diary;
 import com.rair.diary.bean.DiaryBean;
 import com.rair.diary.constant.Constants;
 import com.rair.diary.db.DiaryDao;
 import com.rair.diary.utils.CommonUtils;
+import com.rair.diary.utils.HttpUtils;
+import com.rair.diary.utils.SPUtils;
 import com.rair.diary.view.LinedEditText;
+import com.tencent.cos.xml.CosXmlService;
+import com.tencent.cos.xml.CosXmlServiceConfig;
+import com.tencent.cos.xml.exception.CosXmlClientException;
+import com.tencent.cos.xml.exception.CosXmlServiceException;
+import com.tencent.cos.xml.listener.CosXmlProgressListener;
+import com.tencent.cos.xml.listener.CosXmlResultListener;
+import com.tencent.cos.xml.model.CosXmlRequest;
+import com.tencent.cos.xml.model.CosXmlResult;
+import com.tencent.cos.xml.transfer.COSXMLUploadTask;
+import com.tencent.cos.xml.transfer.TransferConfig;
+import com.tencent.cos.xml.transfer.TransferManager;
+import com.tencent.cos.xml.transfer.TransferState;
+import com.tencent.cos.xml.transfer.TransferStateListener;
+import com.tencent.qcloud.core.auth.QCloudCredentialProvider;
+import com.tencent.qcloud.core.auth.ShortTimeCredentialProvider;
 
+import org.json.JSONObject;
+import org.w3c.dom.Text;
+
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -74,7 +104,9 @@ public class AddDiaryActivity extends AppCompatActivity {
     private String mWeek;
     private String weather;
     private String image;
-
+    private  String  cosImagePath;
+    private SPUtils spUtils;
+    private  boolean hasUploadSuccess;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,6 +116,8 @@ public class AddDiaryActivity extends AppCompatActivity {
     }
 
     private void intView() {
+        hasUploadSuccess = false;
+        spUtils = RairApp.getRairApp().getSpUtils();
         Calendar calendar = Calendar.getInstance();
         Date date = calendar.getTime();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.CHINA);
@@ -151,10 +185,11 @@ public class AddDiaryActivity extends AppCompatActivity {
         String title = addEtTitle.getText().toString().trim();
         String content = addEtContent.getText().toString().trim();
         if (TextUtils.isEmpty(title)) {
-            title = "无标题";
+            title = "无题";
         }
         if (TextUtils.isEmpty(content)) {
-            content = "无内容";
+            Toast.makeText(this, "内容不能为空哦，写点东西吧~", Toast.LENGTH_SHORT).show();
+            return;
         }
         if (TextUtils.isEmpty(weather)) {
             weather = "晴";
@@ -162,18 +197,70 @@ public class AddDiaryActivity extends AppCompatActivity {
         if (TextUtils.isEmpty(image)) {
             image = "";
         }
-        DiaryDao diaryDao = new DiaryDao(this);
+        if (TextUtils.isEmpty(cosImagePath)){
+            cosImagePath = "";
+        }
         DiaryBean diary = new DiaryBean();
         diary.setDate(mDate);
         diary.setWeek(mWeek);
         diary.setWeather(weather);
         diary.setTitle(title);
         diary.setContent(content);
-        diary.setImage(image);
-        diaryDao.insert(diary);
-        this.finish();
+        diary.setImage(cosImagePath);
+//        如果用户已经登录，保存到线上数据库，并且设置
+        if (spUtils.getBoolean("hasLogin", false)) {
+            saveDiary2Server(diary);
+            DiaryDao diaryDao = new DiaryDao(this);
+            diaryDao.insert(diary);
+        } else {
+            DiaryDao diaryDao = new DiaryDao(this);
+            diaryDao.insert(diary);
+            this.finish();
+        }
         CommonUtils.hideInput(this);
         CommonUtils.showSnackar(addEtContent, "保存成功");
+    }
+
+    private void saveDiary2Server(DiaryBean diary) {
+        Gson gson = new Gson();
+        String diaryJson = gson.toJson(diary);
+        addNewDiary2Server(diaryJson);
+    }
+
+    private void formatString2Res(String response) {
+        JsonObject jsonObject = new JsonParser().parse(response).getAsJsonObject();
+        String status = jsonObject.get("status").toString();
+        if (status.equals("0")) {
+            JsonObject idInfo = jsonObject.get("data").getAsJsonObject();
+            int diaryID = idInfo.get("id").getAsInt();
+            Toast.makeText(this, "发布成功", Toast.LENGTH_SHORT).show();
+            this.finish();
+            System.out.println("LOGIN SUCCESS========" + diaryID);
+        } else {
+            System.out.println("LOGIN FAILED========");
+            Toast.makeText(this, "发布失败", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @SuppressLint("StaticFieldLeak")
+    private void addNewDiary2Server(String postData) {
+        String RequestURL = "http://119.29.235.55:8000/api/v1/articles";
+        new AsyncTask<Void, Void, String>() {
+            @Override
+            protected String doInBackground(Void... params) {
+                String s = HttpUtils.PostHttp(RequestURL, postData);
+                return s;
+            }
+
+            @Override
+            protected void onPostExecute(String s) {
+                if (s != null && !s.isEmpty()) {
+                    formatString2Res(s);
+                } else {
+//                    Toast.makeText(, "发布失败", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }.execute();
     }
 
     /**
@@ -229,10 +316,90 @@ public class AddDiaryActivity extends AppCompatActivity {
                 addIvShow.setVisibility(View.VISIBLE);
                 addIvShow.setImageBitmap(bitmap);
                 image = imagePath;
+                    initCosXmlService();
+                System.out.println("IMAGE==========" + imagePath + "==== " + image);
             } else {
                 addIvShow.setVisibility(View.GONE);
             }
         }
+    }
+    private void initCosXmlService(){
+        String region = "ap-beijing";
+        // 创建 CosXmlServiceConfig 对象，根据需要修改默认的配置参数
+        CosXmlServiceConfig serviceConfig = new CosXmlServiceConfig.Builder()
+                .setRegion(region)
+                .builder();
+        String secretId = "AKIDTp0zqmp6TWxIgyK7B7s6EQeIo8LQqATf"; //永久密钥 secretId
+        String secretKey = "APjuvkNoRyKVUIuY4Pkutlx2ylMlO2aw"; //永久密钥 secretKey
+        /**
+         * 初始化 {@link QCloudCredentialProvider} 对象，来给 SDK 提供临时密钥
+         * @parma secretId 永久密钥 secretId
+         * @param secretKey 永久密钥 secretKey
+         * @param keyDuration 密钥有效期，单位为秒
+         */
+        QCloudCredentialProvider credentialProvider = new ShortTimeCredentialProvider(secretId, secretKey, 300);
+        CosXmlService cosXmlService = new CosXmlService(this, serviceConfig, credentialProvider);
+        System.out.println("START========");
+        uploadImage(cosXmlService);
+    }
+    private  void uploadImage( CosXmlService cosXmlService){
+        // 初始化 TransferConfig
+        TransferConfig transferConfig = new TransferConfig.Builder().build();
+        /*若有特殊要求，则可以如下进行初始化定制。例如限定当对象 >= 2M 时，启用分块上传，且分块上传的分块大小为1M，当源对象大于5M时启用分块复制，且分块复制的大小为5M。*/
+        transferConfig = new TransferConfig.Builder()
+                .setDividsionForCopy(5 * 1024 * 1024) // 是否启用分块复制的最小对象大小
+                .setSliceSizeForCopy(5 * 1024 * 1024) // 分块复制时的分块大小
+                .setDivisionForUpload(2 * 1024 * 1024) // 是否启用分块上传的最小对象大小
+                .setSliceSizeForUpload(1024 * 1024) // 分块上传时的分块大小
+                .build();
+        TransferManager transferManager = new TransferManager(cosXmlService, transferConfig);
+        String extension = "";
+        String cosPath = "";
+        int i = image.lastIndexOf('.');
+        if (i > 0) {
+            extension = image.substring(i+1);
+            cosPath =  "image/"+new Date().getTime() + "." + extension ; //对象在存储桶中的位置标识符，即称对象键
+        }else{
+            cosPath = image;
+        }
+        String bucket = "shiji-1253438335"; //存储桶，格式：BucketName-APPID
+        String srcPath = new File(this.getExternalCacheDir(), image).toString(); //本地文件的绝对路径
+        String uploadId = null; //若存在初始化分块上传的 UploadId，则赋值对应的 uploadId 值用于续传；否则，赋值 null
+        COSXMLUploadTask cosxmlUploadTask = transferManager.upload(bucket, cosPath, image, uploadId);
+        System.out.println("START========"+ cosxmlUploadTask);
+
+//设置上传进度回调
+        cosxmlUploadTask.setCosXmlProgressListener(new CosXmlProgressListener() {
+            @Override
+            public void onProgress(long complete, long target) {
+                // todo Do something to update progress...
+                System.out.println(complete+ target);
+            }
+        });
+//设置返回结果回调
+        cosxmlUploadTask.setCosXmlResultListener(new CosXmlResultListener() {
+            @Override
+            public void onSuccess(CosXmlRequest request, CosXmlResult result) {
+                COSXMLUploadTask.COSXMLUploadTaskResult cOSXMLUploadTaskResult = (COSXMLUploadTask.COSXMLUploadTaskResult) result;
+                System.out.println("SUCCESS"+result.accessUrl+ cOSXMLUploadTaskResult);
+//                Toast.makeText()
+                cosImagePath =result.accessUrl;
+                hasUploadSuccess = true;
+            }
+            @Override
+            public void onFail(CosXmlRequest request, CosXmlClientException exception, CosXmlServiceException serviceException) {
+                // todo Upload failed because of CosXmlClientException or CosXmlServiceException...
+                System.out.println("FAILED"+  exception + serviceException);
+                hasUploadSuccess = false;
+            }
+        });
+//设置任务状态回调, 可以查看任务过程
+        cosxmlUploadTask.setTransferStateListener(new TransferStateListener() {
+            @Override
+            public void onStateChanged(TransferState state) {
+                // todo notify transfer state
+            }
+        });
     }
 
     @Override

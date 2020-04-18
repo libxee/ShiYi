@@ -32,7 +32,7 @@
             android:id="@+id/diary_item_iv_option"
             android:layout_gravity="top"
             android:layout_width="20dp"
-            android:layout_height="10dp"
+            android:layout_height="20dp"
             android:layout_marginLeft="20dp"
             android:src="@mipmap/ic_option" />
     </LinearLayout>

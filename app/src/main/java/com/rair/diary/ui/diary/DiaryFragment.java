@@ -2,10 +2,13 @@ package com.rair.diary.ui.diary;
 
 
 import android.Manifest;
+import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -13,6 +16,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -21,7 +25,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.google.gson.reflect.TypeToken;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.rair.diary.R;
 import com.rair.diary.adapter.DiaryRvAdapter;
@@ -33,6 +44,11 @@ import com.rair.diary.db.DiaryDao;
 import com.rair.diary.ui.diary.add.AddDiaryActivity;
 import com.rair.diary.ui.diary.detail.DiaryDetailActivity;
 import com.rair.diary.utils.CommonUtils;
+import com.rair.diary.utils.HttpUtils;
+import com.rair.diary.utils.SPUtils;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -40,6 +56,7 @@ import java.io.OutputStreamWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import butterknife.BindView;
@@ -51,12 +68,12 @@ import butterknife.Unbinder;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class DiaryFragment extends Fragment implements TextWatcher, DiaryRvAdapter.OnRvItemClickListener, XRecyclerView.LoadingListener {
+public class DiaryFragment extends Fragment implements TextWatcher, DiaryRvAdapter.OnRvItemClickListener {
 
     @BindView(R.id.diary_et_search)
     EditText diaryEtSearch;
     @BindView(R.id.diary_xrv_list)
-    XRecyclerView diaryXRvList;
+    RecyclerView diaryXRvList;
     @BindView(R.id.diary_fab_add)
     FloatingActionButton diaryFabAdd;
     @BindView(R.id.diary_iv_delete)
@@ -65,6 +82,8 @@ public class DiaryFragment extends Fragment implements TextWatcher, DiaryRvAdapt
     private ArrayList<DiaryBean> datas;
     private DiaryDao diaryDao;
     private DiaryRvAdapter rvAdapter;
+    private int currentPage;
+    private SPUtils spUtils;
 
     public static DiaryFragment newInstance() {
         DiaryFragment diaryFragment = new DiaryFragment();
@@ -80,6 +99,25 @@ public class DiaryFragment extends Fragment implements TextWatcher, DiaryRvAdapt
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        RefreshLayout refreshLayout = view.findViewById(R.id.diaryRefreshLayout);
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshlayout) {
+                currentPage = 1;
+//                queryDiaryFromServer();
+                queryDatas();
+//                rvAdapter.notifyDataSetChanged();
+                refreshlayout.finishRefresh(500);
+            }
+        });
+        refreshLayout.setOnLoadmoreListener(new OnLoadmoreListener() {
+            @Override
+            public void onLoadmore(RefreshLayout refreshlayout) {
+                queryDiaryFromServer();
+                rvAdapter.notifyDataSetChanged();
+                refreshlayout.finishLoadmore(500);
+            }
+        });
         unbinder = ButterKnife.bind(this, view);
         initView();
     }
@@ -87,30 +125,32 @@ public class DiaryFragment extends Fragment implements TextWatcher, DiaryRvAdapt
     @Override
     public void onResume() {
         super.onResume();
-        queryDatas();
+        System.out.println("=========RESUME============");
+//        queryDatas();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // 如果结果码是OK，而且请求码和我们设置的请求码相同
+//        if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE)
+//        {
+//            // 其他操作
+//        }
     }
 
     private void initView() {
         diaryDao = new DiaryDao(getContext());
+        currentPage = 1;
+        spUtils = RairApp.getRairApp().getSpUtils();
         datas = new ArrayList<>();
         diaryXRvList.setLayoutManager(new LinearLayoutManager(getContext()));
         rvAdapter = new DiaryRvAdapter(getContext(), datas);
         diaryXRvList.setAdapter(rvAdapter);
-        diaryXRvList.setLoadingListener(this);
         rvAdapter.setOnRvItemClickListener(this);
         diaryEtSearch.addTextChangedListener(this);
         queryDatas();
     }
 
-    @Override
-    public void onRefresh() {
-        diaryXRvList.refreshComplete();
-    }
-
-    @Override
-    public void onLoadMore() {
-        diaryXRvList.loadMoreComplete();
-    }
 
     @Override
     public void OnItemClick(int position) {
@@ -122,6 +162,7 @@ public class DiaryFragment extends Fragment implements TextWatcher, DiaryRvAdapt
         intent.putExtra("week", datas.get(position).getWeek());
         intent.putExtra("weather", datas.get(position).getWeather());
         intent.putExtra("id", datas.get(position).getId());
+        intent.putExtra("hasAuth", true);
         startActivity(intent);
     }
 
@@ -132,7 +173,6 @@ public class DiaryFragment extends Fragment implements TextWatcher, DiaryRvAdapt
         builder.setItems(new String[]{getString(R.string.share), getString(R.string.publish),
                         getString(R.string.delete), getString(R.string.export), getString(R.string.empty)},
                 new DialogInterface.OnClickListener() {
-
                     @Override
                     public void onClick(final DialogInterface dialog, int which) {
                         if (which == 0) {
@@ -222,7 +262,73 @@ public class DiaryFragment extends Fragment implements TextWatcher, DiaryRvAdapt
 //        }
     }
 
+    @SuppressLint("StaticFieldLeak")
+    private void publishDiary2Server(int diaryId) {
+
+        String RequestURL = "http://119.29.235.55:8000/api/v1/publish/" + diaryId;
+        new AsyncTask<Void, Void, String>() {
+            @Override
+            protected String doInBackground(Void... params) {
+                String s = HttpUtils.getStringByOkhttp(RequestURL);
+                System.out.println("CONTENT=========" + s);
+                return s;
+            }
+
+            @Override
+            protected void onPostExecute(String s) {
+                if (s != null && !s.isEmpty()) {
+//                    formatString2User(s);
+
+                } else {
+//                    CommonUtils.showSnackar(loginTvLogin, "发布");
+                }
+            }
+        }.execute();
+    }
+
+    private void formatDiaryList(String response) {
+        JsonObject resObject = new JsonParser().parse(response).getAsJsonObject();
+        JsonObject dataObject = resObject.getAsJsonObject("data");
+        JsonArray jsonArray = dataObject.getAsJsonArray("list");
+//        String status = resObject.get("status").toString();
+        for (JsonElement pic : jsonArray) {
+            DiaryBean diary = new Gson().fromJson(pic, new TypeToken<DiaryBean>() {
+            }.getType());
+            datas.add(diary);
+        }
+        rvAdapter.notifyDataSetChanged();
+        if (jsonArray.size() > 0) {
+            currentPage++;
+        }
+//        return datas;
+    }
+
+    @SuppressLint("StaticFieldLeak")
+    private void queryDiaryFromServer() {
+
+        String RequestURL = "http://119.29.235.55:8000/api/v1/articles?range=personal&page=" + currentPage;
+        new AsyncTask<Void, Void, String>() {
+            @Override
+            protected String doInBackground(Void... params) {
+                String s = HttpUtils.getStringByOkhttp(RequestURL);
+                System.out.println("CONTENT=========" + s);
+                return s;
+            }
+
+            @Override
+            protected void onPostExecute(String s) {
+                if (s != null && !s.isEmpty()) {
+//                    formatString2User(s);
+                    formatDiaryList(s);
+                } else {
+                    Toast.makeText(getContext(), "数据获取失败", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }.execute();
+    }
+
     private void doPublish(String title, String content, String weather, String date, String week) {
+
 //        final User user = BmobUser.getCurrentUser(User.class);
 //        if (user != null) {
 //            String timeMillis = new SimpleDateFormat("yyyy年MM月dd日 HH:mm", Locale.CHINA).format(new Date());
@@ -419,9 +525,15 @@ public class DiaryFragment extends Fragment implements TextWatcher, DiaryRvAdapt
      * 查询数据
      */
     private void queryDatas() {
-   //TODO：判断用户是否已经登录，如果已经登录，从后端接口查数据，如果未登录，从端上DB查
+        //判断用户是否已经登录，如果已经登录，从后端接口查数据，如果未登录，从端上DB查离线化文章.
+        boolean hasLogin = spUtils.getBoolean("hasLogin", false);
         datas.clear();
-        diaryDao.query(datas);
+        if (hasLogin) {
+            queryDiaryFromServer();
+        } else {
+//            未登录,加载本地离线日记
+            diaryDao.query(datas);
+        }
         rvAdapter.notifyDataSetChanged();
     }
 

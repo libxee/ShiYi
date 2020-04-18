@@ -26,7 +26,8 @@ public class Book {
     private String image;
 
 
-    private  String description;
+    private String description;
+
     public String getDescription() {
         return description;
     }
@@ -34,6 +35,7 @@ public class Book {
     public void setDescription(String description) {
         this.description = description;
     }
+
     public int getComment_num() {
         return comment_num;
     }
@@ -49,6 +51,7 @@ public class Book {
     public void setImage(String image) {
         this.image = image;
     }
+
     public String getName() {
         return name;
     }
@@ -72,7 +75,6 @@ public class Book {
     public void setQuote(String quote) {
         this.quote = quote;
     }
-
 
 
     public String getAuthor() {

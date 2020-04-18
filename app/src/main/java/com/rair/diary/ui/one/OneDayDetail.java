@@ -39,7 +39,7 @@ import butterknife.Unbinder;
 public class OneDayDetail extends AppCompatActivity {
     @BindView(R.id.one_detail_back)
     ImageView detailIvBack;
-//    文章
+    //    文章
     @BindView(R.id.one_detail_title)
     TextView detailTitle;
     @BindView(R.id.one_detail_article_content)
@@ -50,7 +50,7 @@ public class OneDayDetail extends AppCompatActivity {
     TextView articleTitle;
     @BindView(R.id.one_detail_article_nodata)
     TextView articleNoData;
-//    书籍
+    //    书籍
     @BindView(R.id.one_detail_book_author)
     TextView bookAuthor;
     @BindView(R.id.one_detail_book_title)
@@ -66,7 +66,7 @@ public class OneDayDetail extends AppCompatActivity {
     @BindView(R.id.one_detail_book_cover)
     ImageView bookCover;
 
-//   电影R.id
+    //   电影R.id
     @BindView(R.id.one_detail_movie_title)
     TextView movieTitle;
     @BindView(R.id.one_detail_movie_product_info)
@@ -136,21 +136,23 @@ public class OneDayDetail extends AppCompatActivity {
             articleNoData.setVisibility(View.VISIBLE);
         }
     }
+
     @SuppressLint("SetTextI18n")
-    private void  setMovieView(Boolean hasData){
-        if (hasData){
+    private void setMovieView(Boolean hasData) {
+        if (hasData) {
             movieTitle.setText(movie.getName());
             movieScore.setText(movie.getScore() + "分");
             movieComment.setText(movie.getComment_num() + "人评价");
             movieProductInfo.setText(movie.getProduct_info());
-            movieType.setText(movie.getCountry() + "   " +movie.getType());
+            movieType.setText(movie.getCountry() + "   " + movie.getType());
             movieQuote.setText(movie.getQuote());
             Glide.with(this).load(movie.getCover_url()).into(movieCover);
         }
     }
+
     @SuppressLint("SetTextI18n")
-    private void setBookView(Boolean hasData){
-        if (hasData){
+    private void setBookView(Boolean hasData) {
+        if (hasData) {
             bookTitle.setText(book.getName());
             bookAuthor.setText(book.getAuthor());
             bookCommentNum.setText(Integer.toString(book.getComment_num()) + "人评价");
@@ -161,7 +163,8 @@ public class OneDayDetail extends AppCompatActivity {
 
         }
     }
-    private  int getIdByDate(String date){
+
+    private int getIdByDate(String date) {
         int curId = 1;
         try {
             curId = CommonUtils.formatDate2Id(date);
@@ -170,6 +173,7 @@ public class OneDayDetail extends AppCompatActivity {
         }
         return curId;
     }
+
     @SuppressLint("StaticFieldLeak")
     private void getArticleByDate(String date) {
         String dateFormatted = "20170216";
@@ -235,6 +239,7 @@ public class OneDayDetail extends AppCompatActivity {
                 System.out.println("CONTENT=========" + s);
                 return s;
             }
+
             @Override
             protected void onPostExecute(String s) {
                 if (s != null && !s.isEmpty()) {
