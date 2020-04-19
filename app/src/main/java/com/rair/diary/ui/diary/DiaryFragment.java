@@ -40,6 +40,7 @@ import com.rair.diary.base.RairApp;
 import com.rair.diary.bean.Diary;
 import com.rair.diary.bean.DiaryBean;
 import com.rair.diary.bean.User;
+import com.rair.diary.constant.Constants;
 import com.rair.diary.db.DiaryDao;
 import com.rair.diary.ui.diary.add.AddDiaryActivity;
 import com.rair.diary.ui.diary.detail.DiaryDetailActivity;
@@ -63,6 +64,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+
+import static android.app.Activity.RESULT_OK;
 
 
 /**
@@ -131,11 +134,27 @@ public class DiaryFragment extends Fragment implements TextWatcher, DiaryRvAdapt
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        // 如果结果码是OK，而且请求码和我们设置的请求码相同
-//        if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE)
-//        {
-//            // 其他操作
-//        }
+        System.out.println(requestCode + resultCode + data.toString());
+        switch (requestCode){
+                case Constants.ADD_NEW_DIARY:
+                    if(resultCode == Constants.ADD_NEW_DIARY_SUCCESS){
+                        currentPage = 1;
+                        DiaryBean diary = new  DiaryBean();
+                        String  JsonData =    data.getStringExtra("diary");
+                        diary = new Gson().fromJson(JsonData,DiaryBean.class);
+                        System.out.println(diary.toString());
+                        datas.add(0, diary);
+                        rvAdapter.notifyItemInserted(0);
+                        diaryXRvList.getLayoutManager().scrollToPosition(0);
+                    }
+                    break;
+                case Constants.DETAIL_DIARY:
+                    if(resultCode == Constants.DETAIL_DIARY_EDITED_SUCCESS){
+//                        编辑成功，需要更新列表内容
+                    }
+                    break;
+            }
+
     }
 
     private void initView() {
@@ -153,21 +172,20 @@ public class DiaryFragment extends Fragment implements TextWatcher, DiaryRvAdapt
 
 
     @Override
-    public void OnItemClick(int position) {
+    public void OnItemClick(int position, DiaryBean diaryBean) {
         Intent intent = new Intent(getContext(), DiaryDetailActivity.class);
-        intent.putExtra("title", datas.get(position).getTitle());
-        intent.putExtra("content", datas.get(position).getContent());
-        intent.putExtra("image", datas.get(position).getImage());
-        intent.putExtra("date", datas.get(position).getDate());
-        intent.putExtra("week", datas.get(position).getWeek());
-        intent.putExtra("weather", datas.get(position).getWeather());
-        intent.putExtra("id", datas.get(position).getId());
+        intent.putExtra("title", diaryBean.getTitle());
+        intent.putExtra("content", diaryBean.getContent());
+        intent.putExtra("image", diaryBean.getImage());
+        intent.putExtra("date", diaryBean.getDate());
+        intent.putExtra("week", diaryBean.getWeek());
+        intent.putExtra("weather", diaryBean.getWeather());
+        intent.putExtra("id", diaryBean.getId());
         intent.putExtra("hasAuth", true);
         startActivity(intent);
     }
-
     @Override
-    public void OnOptionClick(final int position) {
+    public void OnOptionClick(final int position, DiaryBean diaryBean) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), R.style.DialogStyle);
         builder.setTitle(R.string.option);
         builder.setItems(new String[]{getString(R.string.share), getString(R.string.publish),
@@ -175,28 +193,24 @@ public class DiaryFragment extends Fragment implements TextWatcher, DiaryRvAdapt
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(final DialogInterface dialog, int which) {
-                        if (which == 0) {
-                            doShare(dialog, position);
-                        } else if (which == 1) {
-                            String title = datas.get(position).getTitle();
-                            String content = datas.get(position).getContent();
-                            String image = datas.get(position).getImage();
-                            String weather = datas.get(position).getWeather();
-                            String date = datas.get(position).getDate();
-                            String week = datas.get(position).getWeek();
-                            if (TextUtils.isEmpty(image) || image.equals("n") || image == null) {
-                                doPublish(title, content, weather, date, week);
-                            } else {
-                                doPublishPic(title, content, image, weather, date, week);
-                            }
-                            dialog.dismiss();
-                        } else if (which == 2) {
-                            doDelete(dialog, position);
-                        } else if (which == 3) {
-                            doExport(dialog, position);
-                        } else if (which == 4) {
-                            doClear(dialog);
+                        switch (which){
+                            case 0:
+                                doShare(dialog, position);
+                                break;
+                            case 1:
+                                doPublish(diaryBean);
+                                break;
+                            case 2:
+                                doDelete(dialog, position,diaryBean);
+                                break;
+                            case 3:
+                                doExport(dialog, position);
+                                break;
+                            case  4:
+                                doClear(dialog);
+                                break;
                         }
+
                     }
                 });
         builder.show();
@@ -219,72 +233,27 @@ public class DiaryFragment extends Fragment implements TextWatcher, DiaryRvAdapt
         dialog.dismiss();
     }
 
-    /**
-     * 发布
-     *
-     * @param content
-     * @param weather
-     * @param date
-     * @param week
-     */
-    private void doPublishPic(String title, String content, String image, String weather, String date, String week) {
-//        final User user = BmobUser.getCurrentUser(User.class);
-//        if (user != null) {
-//            String timeMillis = new SimpleDateFormat("yyyy年MM月dd日 HH:mm", Locale.CHINA).format(new Date());
-//            final Diary diary = new Diary();
-//            diary.setUser(user);
-//            diary.setName(user.getUsername());
-//            diary.setTitle(title);
-//            diary.setContent(content);
-//            diary.setWeather(weather);
-//            diary.setDate(date);
-//            diary.setWeek(week);
-//            diary.setCreateTime(timeMillis);
-//            final BmobFile imageFile = new BmobFile(new File(image));
-//            imageFile.uploadblock(new UploadFileListener() {
-//                @Override
-//                public void done(BmobException e) {
-//                    if (e == null) {
-//                        diary.setImage(imageFile);
-//                        diary.save(new SaveListener<String>() {
-//                            @Override
-//                            public void done(String s, BmobException e) {
-//                                if (e == null) {
-//                                    toSetRelation(user, diary);
-//                                }
-//                            }
-//                        });
-//                    }
-//                }
-//            });
-//        } else {
-//            CommonUtils.showSnackar(diaryEtSearch, "请先登录后再操作");
-//        }
-    }
-
+// 发布文章到广场。
     @SuppressLint("StaticFieldLeak")
     private void publishDiary2Server(int diaryId) {
-
-        String RequestURL = "http://119.29.235.55:8000/api/v1/publish/" + diaryId;
+        String RequestURL = "http://119.29.235.55:8000/api/v1/publish/" + diaryId + "?state=1";
         new AsyncTask<Void, Void, String>() {
             @Override
             protected String doInBackground(Void... params) {
                 String s = HttpUtils.getStringByOkhttp(RequestURL);
-                System.out.println("CONTENT=========" + s);
                 return s;
             }
-
             @Override
             protected void onPostExecute(String s) {
                 if (s != null && !s.isEmpty()) {
-//                    formatString2User(s);
-
+                    formatString2Res(s, "发布成功","发布失败");
                 } else {
-//                    CommonUtils.showSnackar(loginTvLogin, "发布");
+                    Toast.makeText(getContext(), "发布失败", Toast.LENGTH_SHORT).show();
                 }
             }
         }.execute();
     }
+
 
     private void formatDiaryList(String response) {
         JsonObject resObject = new JsonParser().parse(response).getAsJsonObject();
@@ -326,63 +295,46 @@ public class DiaryFragment extends Fragment implements TextWatcher, DiaryRvAdapt
             }
         }.execute();
     }
-
-    private void doPublish(String title, String content, String weather, String date, String week) {
-
-//        final User user = BmobUser.getCurrentUser(User.class);
-//        if (user != null) {
-//            String timeMillis = new SimpleDateFormat("yyyy年MM月dd日 HH:mm", Locale.CHINA).format(new Date());
-//            final Diary diary = new Diary();
-//            diary.setUser(user);
-//            diary.setName(user.getUsername());
-//            diary.setTitle(title);
-//            diary.setContent(content);
-//            diary.setWeather(weather);
-//            diary.setDate(date);
-//            diary.setWeek(week);
-//            diary.setCreateTime(timeMillis);
-//            diary.save(new SaveListener<String>() {
-//                @Override
-//                public void done(String s, BmobException e) {
-//                    if (e == null) {
-//                        toSetRelation(user, diary);
-//                    }
-//                }
-//            });
-//        } else {
-//            CommonUtils.showSnackar(diaryEtSearch, "请先登录后再操作");
-//        }
+    @SuppressLint("StaticFieldLeak")
+    private void deleteDiary(int diaryId) {
+        String RequestURL = "http://119.29.235.55:8000/api/v1/delete/" + diaryId;
+        new AsyncTask<Void, Void, String>() {
+            @Override
+            protected String doInBackground(Void... params) {
+                String s = HttpUtils.getStringByOkhttp(RequestURL);
+                System.out.println("CONTENT=========" + s);
+                return s;
+            }
+            @Override
+            protected void onPostExecute(String s) {
+                if (s != null && !s.isEmpty()) {
+//                    formatString2User(s);
+                } else {
+//                    CommonUtils.showSnackar(loginTvLogin, "发布");
+                }
+            }
+        }.execute();
     }
 
-    /**
-     * 关联
-     *
-     * @param user
-     * @param diary
-     */
-    private void toSetRelation(User user, Diary diary) {
-//        BmobRelation relation = new BmobRelation();
-//        relation.add(diary);
-//        user.setDiary(relation);
-//        user.update(new UpdateListener() {
-//            @Override
-//            public void done(BmobException e) {
-//                if (e == null) {
-//                    CommonUtils.showSnackar(diaryEtSearch, "发布成功");
-//                } else {
-//                    CommonUtils.showSnackar(diaryEtSearch, "发布失败");
-//                }
-//            }
-//        });
+    private void formatString2Res(String response , String successToast, String failToast) {
+        JsonObject jsonObject = new JsonParser().parse(response).getAsJsonObject();
+        String status = jsonObject.get("status").toString();
+        if (status.equals("0")) {
+            Toast.makeText(getContext(), successToast, Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getContext(), failToast, Toast.LENGTH_SHORT).show();
+        }
     }
+    private void doPublish(DiaryBean diaryBean) {
+        int id = (int) diaryBean.getId();
+        this.publishDiary2Server(id);
+    }
+
 
     /**
      * 删除操作
-     *
-     * @param dialog
-     * @param position
      */
-    private void doDelete(DialogInterface dialog, final int position) {
+    private void doDelete(DialogInterface dialog, final int position, DiaryBean diaryBean) {
         dialog.dismiss();
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), R.style.DialogStyle);
         builder.setMessage(getString(R.string.delete_sure));
@@ -390,10 +342,15 @@ public class DiaryFragment extends Fragment implements TextWatcher, DiaryRvAdapt
         builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int which) {
-                diaryDao.delete(datas.get(position).getId());
-                queryDatas();
-                CommonUtils.showSnackar(diaryEtSearch, getString(R.string.delete_over));
-                dialogInterface.cancel();
+                int actPosition = datas.indexOf(diaryBean);
+                int diaryId = (int) diaryBean.getId();
+                System.out.println("diaryId======="+diaryId);
+                datas.remove(actPosition);
+                if (actPosition >= 0) {
+                    rvAdapter.notifyItemRemoved(actPosition);
+                }
+//                CommonUtils.showSnackar(diaryEtSearch, getString(R.string.delete_over));
+//                dialogInterface.cancel();
             }
         });
         builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
@@ -479,7 +436,7 @@ public class DiaryFragment extends Fragment implements TextWatcher, DiaryRvAdapt
         switch (view.getId()) {
             case R.id.diary_fab_add:
                 Intent intent = new Intent(getContext(), AddDiaryActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent,Constants.ADD_NEW_DIARY);
                 break;
             case R.id.diary_iv_delete:
                 diaryEtSearch.setText("");

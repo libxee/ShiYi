@@ -27,9 +27,8 @@ public class DiaryRvAdapter extends RecyclerView.Adapter<DiaryRvAdapter.DiaryHol
     private OnRvItemClickListener onRvItemClickListener;
 
     public interface OnRvItemClickListener {
-        void OnItemClick(int position);
-
-        void OnOptionClick(int position);
+        void OnItemClick(int position, DiaryBean diaryBean);
+        void OnOptionClick(int position, DiaryBean diaryBean);
     }
 
     public void setOnRvItemClickListener(OnRvItemClickListener onRvItemClickListener) {
@@ -68,14 +67,14 @@ public class DiaryRvAdapter extends RecyclerView.Adapter<DiaryRvAdapter.DiaryHol
             @Override
             public void onClick(View v) {
                 if (onRvItemClickListener != null)
-                    onRvItemClickListener.OnItemClick(mPosition);
+                    onRvItemClickListener.OnItemClick(mPosition, diaryBean);
             }
         });
         holder.ivOption.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (onRvItemClickListener != null)
-                    onRvItemClickListener.OnOptionClick(mPosition);
+                    onRvItemClickListener.OnOptionClick(mPosition, diaryBean);
             }
         });
     }

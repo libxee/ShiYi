@@ -30,6 +30,7 @@ import com.rair.diary.bean.Diary;
 import com.rair.diary.bean.DiaryBean;
 import com.rair.diary.constant.Constants;
 import com.rair.diary.db.DiaryDao;
+import com.rair.diary.ui.diary.detail.DiaryDetailActivity;
 import com.rair.diary.utils.CommonUtils;
 import com.rair.diary.utils.HttpUtils;
 import com.rair.diary.utils.SPUtils;
@@ -107,6 +108,8 @@ public class AddDiaryActivity extends AppCompatActivity {
     private  String  cosImagePath;
     private SPUtils spUtils;
     private  boolean hasUploadSuccess;
+    private  boolean isDiaryAddSuccess;
+    private  DiaryBean diary;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -117,6 +120,8 @@ public class AddDiaryActivity extends AppCompatActivity {
 
     private void intView() {
         hasUploadSuccess = false;
+        isDiaryAddSuccess = false;
+        diary = new DiaryBean();
         spUtils = RairApp.getRairApp().getSpUtils();
         Calendar calendar = Calendar.getInstance();
         Date date = calendar.getTime();
@@ -125,7 +130,9 @@ public class AddDiaryActivity extends AppCompatActivity {
         mWeek = DateToWeek(date);
         addTvTitle.setText(String.format(Constants.FORMAT, mDate, mWeek, ""));
     }
-
+//    public  void setResult(){
+//
+//    }
     public String DateToWeek(Date date) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
@@ -136,6 +143,13 @@ public class AddDiaryActivity extends AppCompatActivity {
         return WEEK[dayIndex - 1];
     }
 
+    public  void setIntentResult() {
+        Intent intent = new Intent();
+        intent.putExtra("diary",new Gson().toJson(diary));
+        if(this.isDiaryAddSuccess){
+            this.setResult(Constants.ADD_NEW_DIARY_SUCCESS,intent);
+        }
+    }
     @OnClick({R.id.add_iv_back, R.id.add_iv_save, R.id.add_iv_qing, R.id.add_iv_yin,
             R.id.add_iv_yu, R.id.add_iv_leiyu, R.id.add_iv_xue, R.id.add_iv_photo, R.id.add_iv_weather})
     public void onViewClicked(View view) {
@@ -200,7 +214,6 @@ public class AddDiaryActivity extends AppCompatActivity {
         if (TextUtils.isEmpty(cosImagePath)){
             cosImagePath = "";
         }
-        DiaryBean diary = new DiaryBean();
         diary.setDate(mDate);
         diary.setWeek(mWeek);
         diary.setWeather(weather);
@@ -210,8 +223,6 @@ public class AddDiaryActivity extends AppCompatActivity {
 //        如果用户已经登录，保存到线上数据库，并且设置
         if (spUtils.getBoolean("hasLogin", false)) {
             saveDiary2Server(diary);
-            DiaryDao diaryDao = new DiaryDao(this);
-            diaryDao.insert(diary);
         } else {
             DiaryDao diaryDao = new DiaryDao(this);
             diaryDao.insert(diary);
@@ -233,11 +244,12 @@ public class AddDiaryActivity extends AppCompatActivity {
         if (status.equals("0")) {
             JsonObject idInfo = jsonObject.get("data").getAsJsonObject();
             int diaryID = idInfo.get("id").getAsInt();
+            diary.setId(diaryID);
+            isDiaryAddSuccess = true;
+            this.setIntentResult();
             Toast.makeText(this, "发布成功", Toast.LENGTH_SHORT).show();
             this.finish();
-            System.out.println("LOGIN SUCCESS========" + diaryID);
         } else {
-            System.out.println("LOGIN FAILED========");
             Toast.makeText(this, "发布失败", Toast.LENGTH_SHORT).show();
         }
     }
@@ -292,7 +304,7 @@ public class AddDiaryActivity extends AppCompatActivity {
             case 0:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     MultiImageSelector.create()
-                            .showCamera(true) // 是否显示相机. 默认为显示
+                            .showCamera(false) // 是否显示相机. 默认为显示
                             .single() // 单选模式
                             .multi() // 多选模式, 默认模式;
                             .start(this, 0);
@@ -316,7 +328,7 @@ public class AddDiaryActivity extends AppCompatActivity {
                 addIvShow.setVisibility(View.VISIBLE);
                 addIvShow.setImageBitmap(bitmap);
                 image = imagePath;
-                    initCosXmlService();
+                initCosXmlService();
                 System.out.println("IMAGE==========" + imagePath + "==== " + image);
             } else {
                 addIvShow.setVisibility(View.GONE);
