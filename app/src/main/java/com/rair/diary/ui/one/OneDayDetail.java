@@ -14,6 +14,7 @@ import com.rair.diary.bean.Movie;
 import com.rair.diary.bean.OneArticle;
 import com.rair.diary.utils.CommonUtils;
 import com.rair.diary.utils.HttpUtils;
+import com.rair.diary.utils.StatusBarUtil;
 import com.rair.diary.utils.Utils;
 
 import android.annotation.SuppressLint;

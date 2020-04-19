@@ -22,6 +22,15 @@ public class Diary {
     private String createTime;
     //点赞总数
     private Integer likes;
+    private int id;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public User getUser() {
         return user;

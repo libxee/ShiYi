@@ -15,7 +15,9 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
@@ -53,6 +55,8 @@ public class FindFragment extends Fragment implements BaseQuickAdapter.OnItemCli
 
     @BindView(R.id.find_rv_list)
     RecyclerView findrvList;
+    @BindView(R.id.find_front_no_data)
+    ImageView findNoData;
     Unbinder unbinder;
     //    @BindView(R.id.find_tv_tip)
 //    TextView findTvTip;
@@ -62,12 +66,13 @@ public class FindFragment extends Fragment implements BaseQuickAdapter.OnItemCli
     private FindXrvAdapter findXrvAdapter;
     private SPUtils spUtils;
     private boolean hasLogin;
+    private String lastId;
     FindFragment findFragment;
-
     public static FindFragment newInstance() {
         FindFragment findFragment = new FindFragment();
         return findFragment;
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -100,6 +105,7 @@ public class FindFragment extends Fragment implements BaseQuickAdapter.OnItemCli
     }
 
     private void initView() {
+        lastId = "";
         spUtils = RairApp.getRairApp().getSpUtils();
         datas = new ArrayList<>();
         findrvList.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -110,9 +116,7 @@ public class FindFragment extends Fragment implements BaseQuickAdapter.OnItemCli
         if (hasLogin) {
             loadDiary();
         } else {
-            AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), R.style.DialogStyle);
-            builder.setTitle("登录之后即可获取社区内容~");
-            builder.show();
+            Toast.makeText(getContext(), "登录即可查看广场发布内容~", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -132,24 +136,28 @@ public class FindFragment extends Fragment implements BaseQuickAdapter.OnItemCli
             }.getType());
             datas.add(diary);
         }
+        int minId = datas.get(datas.size()-1).getId();
+        lastId = Integer.toString(minId);
         return datas;
     }
-
     @SuppressLint("StaticFieldLeak")
     private void getArticlesByPage() {
-        String RequestURL = "http://119.29.235.55:8000/api/v1/articles?state=1&page=" + pageNum;
+        if(pageNum == 1){
+            lastId = "";
+        }
+        String RequestURL = "http://119.29.235.55:8000/api/v1/articles?state=1&lastId=" + lastId;
         new AsyncTask<Void, Void, String>() {
             @Override
             protected String doInBackground(Void... params) {
                 String s = HttpUtils.getStringByOkhttp(RequestURL);
                 return s;
             }
-
             @Override
             protected void onPostExecute(String s) {
                 if (s != null && !s.isEmpty()) {
                     ArrayList<Diary> arr = (ArrayList<Diary>) formatDiaryList(s);
                     if (arr.size() > 0) {
+                        findNoData.setVisibility(View.GONE);
                         pageNum++;
                     } else {
                         CommonUtils.showSnackar(findrvList, "已经到底了~");
@@ -174,22 +182,37 @@ public class FindFragment extends Fragment implements BaseQuickAdapter.OnItemCli
         diaryDetailIntent.putExtra("hasAuth", false);
         startActivity(diaryDetailIntent);
     }
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        checkCoverShow();
+    }
+    private void checkCoverShow(){
+        hasLogin = spUtils.getBoolean("hasLogin", false);
+        System.out.println("=========FIND RESUME============");
+        if(hasLogin){
+            if (datas.size()>0){
+                findNoData.setVisibility(View.GONE);
+            }else {
+                findNoData.setVisibility(View.VISIBLE);
+            }
+        }else  {
+            findNoData.setVisibility(View.VISIBLE);
+        }
+    }
     @Override
     public void onHiddenChanged(boolean hidden) {
-
         super.onHiddenChanged(hidden);
 //        退出登录后,清空已经展示的社区内容;
 //        登录成功后,重新获取内容
         hasLogin = spUtils.getBoolean("hasLogin", false);
+        checkCoverShow();
         if (!hasLogin) {
             datas.clear();
             pageNum = 1;
-            System.out.println("HIDDEN=========");
             findXrvAdapter.notifyDataSetChanged();
         } else if (hasLogin && pageNum == 1) {
             loadDiary();
-            System.out.println("SHOW============");
         }
     }
 

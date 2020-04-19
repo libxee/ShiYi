@@ -15,7 +15,7 @@
             android:id="@+id/set_ll_user"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/colorPrimary"
+            android:background="@color/white"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:paddingLeft="10dp"
@@ -26,7 +26,6 @@
                 android:layout_width="45dp"
                 android:layout_height="45dp"
                 android:src="@mipmap/ic_head"
-                app:civ_border_color="@color/white"
                 app:civ_border_width="2dp" />
 
             <TextView
@@ -36,9 +35,8 @@
                 android:layout_marginLeft="10dp"
                 android:layout_weight="1"
                 android:text="未登录"
-                android:textColor="@color/white"
+                android:textColor="@color/primary_text"
                 android:textSize="16sp" />
-
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"

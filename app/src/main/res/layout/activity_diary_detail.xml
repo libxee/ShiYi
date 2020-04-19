@@ -10,7 +10,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:background="@color/colorPrimary">
+        android:background="@color/white">
 
         <com.rair.diary.view.RippleView
             android:layout_width="48dp"
@@ -20,9 +20,10 @@
             <ImageView
                 android:id="@+id/detail_iv_back"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="30dp"
+                android:layout_centerInParent="true"
                 android:padding="5dp"
-                android:src="@mipmap/ic_back" />
+                android:src="@mipmap/back_dark" />
         </com.rair.diary.view.RippleView>
 
         <TextView
@@ -31,7 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="日记内容"
-            android:textColor="@color/white"
+            android:textColor="@color/primary_text"
             android:textSize="18sp" />
 
         <com.rair.diary.view.RippleView
@@ -45,7 +46,8 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:padding="5dp"
-                android:src="@mipmap/ic_option_white" />
+                android:layout_centerInParent="true"
+                android:src="@mipmap/ic_option_dark" />
         </com.rair.diary.view.RippleView>
     </RelativeLayout>
 

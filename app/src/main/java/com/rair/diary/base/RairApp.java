@@ -8,6 +8,7 @@ import android.util.Log;
 import com.rair.diary.config.Cockroach;
 import com.rair.diary.constant.Constants;
 import com.rair.diary.utils.SPUtils;
+import com.rair.diary.utils.StatusBarUtil;
 import com.rair.diary.utils.Utils;
 
 import java.io.File;
@@ -26,7 +27,8 @@ public class RairApp extends Application {
         spUtils = new SPUtils(Constants.SP_NAME);
 //        Bmob.initialize(this, Constants.APP_ID);
 //        Cockroach.install(exceptionHandler);
-        configTheme();
+//        configTheme();
+
     }
 
     public void configTheme() {

@@ -2,14 +2,10 @@ package com.rair.diary.ui.diary.detail;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -17,21 +13,21 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.rair.diary.R;
+import com.rair.diary.bean.Diary;
 import com.rair.diary.constant.Constants;
 import com.rair.diary.db.DiaryDao;
-import com.rair.diary.ui.setting.secret.SecretActivity;
 import com.rair.diary.utils.CommonUtils;
 import com.rair.diary.utils.DrawImage;
 import com.rair.diary.utils.HttpUtils;
 import com.rair.diary.view.LinedEditText;
-
-import java.io.File;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -59,6 +55,7 @@ public class DiaryDetailActivity extends AppCompatActivity {
     @BindView(R.id.detail_tv_tite)
     TextView detailTvTite;
     private Unbinder bind;
+    private  Diary editedDiary;
     private DiaryDao diaryDao;
     private long id;
 
@@ -108,7 +105,7 @@ public class DiaryDetailActivity extends AppCompatActivity {
     public void onOptionClicked() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.DialogStyle);
         builder.setTitle(R.string.option);
-        builder.setItems(new String[]{"编辑", "保存", "生成图片"},
+        builder.setItems(new String[]{"编辑", "保存"},
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(final DialogInterface dialog, int which) {
@@ -117,8 +114,6 @@ public class DiaryDetailActivity extends AppCompatActivity {
                             detailEtContent.setEnabled(true);
                         } else if (which == 1) {
                             doSave();
-                        } else if (which == 2) {
-                            new Handler().post(runnable);
                         }
                     }
                 });
@@ -151,13 +146,33 @@ public class DiaryDetailActivity extends AppCompatActivity {
 //            CommonUtils.showSnackar(detailEtContent, "还没写东西");
             Toast.makeText(this, "内容不能为空哦，写点东西吧~", Toast.LENGTH_SHORT).show();
         } else {
-            diaryDao.update(title, content, id);
-            this.finish();
-            Toast.makeText(this, "保存成功", Toast.LENGTH_SHORT).show();
-            CommonUtils.hideInput(this);
+            editedDiary = new Diary();
+            editedDiary.setContent(content);
+            editedDiary.setId((int) id);
+            editedDiary.setTitle(title);
+            Gson gson = new Gson();
+            String diaryJson = gson.toJson(editedDiary);
+            saveEditDiaryMethod(diaryJson);
+
         }
     }
-
+    public  void setIntentResult(Diary diary) {
+        Intent intent = new Intent();
+        intent.putExtra("diary",new Gson().toJson(diary));
+        this.setResult(Constants.DETAIL_DIARY_EDITED_SUCCESS,intent);
+    }
+    private void formatString2Res(String response) {
+        JsonObject jsonObject = new JsonParser().parse(response).getAsJsonObject();
+        String status = jsonObject.get("status").toString();
+        if (status.equals("0")) {
+            this.setIntentResult(editedDiary);
+                Toast.makeText(this, "编辑内容保存成功", Toast.LENGTH_SHORT).show();
+                CommonUtils.hideInput(this);
+            this.finish();
+            } else {
+            Toast.makeText(this, "编辑内容保存失败", Toast.LENGTH_SHORT).show();
+        }
+    }
     @SuppressLint("StaticFieldLeak")
     private void saveEditDiaryMethod(String postData) {
         String RequestURL = "http://119.29.235.55:8000/api/v1/articles";
@@ -168,18 +183,17 @@ public class DiaryDetailActivity extends AppCompatActivity {
                 System.out.println("CONTENT=========" + s);
                 return s;
             }
-
             @Override
             protected void onPostExecute(String s) {
                 if (s != null && !s.isEmpty()) {
-//                    formatString2User(s);
-//                    TODO 确定本地存储登录信息逻辑
+                    formatString2Res(s);
                 } else {
 //                    CommonUtils.showSnackar(loginTvLogin, "登陆失败");
                 }
             }
         }.execute();
     }
+
 
     @Override
     protected void onDestroy() {

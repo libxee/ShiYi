@@ -26,6 +26,7 @@ import com.rair.diary.ui.setting.SetFragment;
 import com.rair.diary.ui.one.OneFragment;
 import com.rair.diary.utils.CommonUtils;
 import com.rair.diary.utils.SPUtils;
+import com.rair.diary.utils.StatusBarUtil;
 import com.rair.diary.view.LockPattern;
 
 import butterknife.BindView;
@@ -61,6 +62,9 @@ public class MainActivity extends AppCompatActivity implements OnTabSelectListen
 
     private void initView() {
         spUtils = RairApp.getRairApp().getSpUtils();
+//        StatusBarUtil.transparencyBar(this); //设置状态栏全透明
+//        StatusBarUtil.StatusBarLightMode(this); //设置白底黑字
+//        StatusBarUtil.StatusBarLightMode(this); //设置白底黑字
         mainJpTabbar.setTabListener(this);
         fragments = new Fragment[4];
         if (spUtils.getBoolean(Constants.RECREATE, false)) {
