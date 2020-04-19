@@ -137,6 +137,17 @@ public class DiaryFragment extends Fragment implements TextWatcher, DiaryRvAdapt
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
         checkCoverShow();
+        super.onHiddenChanged(hidden);
+//        登录成功后,重新获取内容
+        hasLogin = spUtils.getBoolean("hasLogin", false);
+        checkCoverShow();
+        if (!hasLogin) {
+            datas.clear();
+            currentPage = 1;
+            rvAdapter.notifyDataSetChanged();
+        } else if (hasLogin && currentPage == 1) {
+            queryDatas();
+        }
     }
     private void checkCoverShow(){
         hasLogin = spUtils.getBoolean("hasLogin", false);

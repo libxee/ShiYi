@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.gyf.immersionbar.ImmersionBar;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -44,26 +43,26 @@ public class StatusBarUtil {
      * @param activity
      * @return 1:MIUUI 2:Flyme 3:android6.0
      */
-    public static int StatusBarLightMode(Activity activity) {
-        int result = 0;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            if (MIUISetStatusBarLightMode(activity, true)) {
-                //小米
-                result = 1;
-            } else if (FlymeSetStatusBarLightMode(activity.getWindow(), true)) {
-                //魅族
-                result = 2;
-            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                //6.0以上
-                activity.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-                result = 3;
-            } else {
-                //其他的都设置状态栏成半透明的,以下设置半透明是调用第三方ImmersionBar库的，根据个人需求更改，
-                ImmersionBar.with(activity).statusBarDarkFont(true, 0.5f).init();
-            }
-        }
-        return result;
-    }
+//    public static int StatusBarLightMode(Activity activity) {
+//        int result = 0;
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+//            if (MIUISetStatusBarLightMode(activity, true)) {
+//                //小米
+//                result = 1;
+//            } else if (FlymeSetStatusBarLightMode(activity.getWindow(), true)) {
+//                //魅族
+//                result = 2;
+//            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//                //6.0以上
+//                activity.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+//                result = 3;
+//            } else {
+//                //其他的都设置状态栏成半透明的,以下设置半透明是调用第三方ImmersionBar库的，根据个人需求更改，
+//                ImmersionBar.with(activity).statusBarDarkFont(true, 0.5f).init();
+//            }
+//        }
+//        return result;
+//    }
 
     /**
      * 设置状态栏图标为深色和魅族特定的文字风格
