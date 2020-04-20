@@ -1,8 +1,10 @@
 package com.rair.diary.ui.setting.export;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.pm.PackageManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -15,12 +17,21 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.google.gson.reflect.TypeToken;
 import com.rair.diary.R;
 import com.rair.diary.base.RairApp;
 import com.rair.diary.bean.DiaryBean;
 import com.rair.diary.constant.Constants;
 import com.rair.diary.db.DiaryDao;
 import com.rair.diary.utils.CommonUtils;
+import com.rair.diary.utils.HttpUtils;
+
+import org.json.JSONArray;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -39,15 +50,14 @@ public class ExportActivity extends AppCompatActivity {
     ImageView exportIvBack;
     @BindView(R.id.export_ll_txt)
     LinearLayout exportLlTxt;
-    @BindView(R.id.export_ll_db)
-    LinearLayout secretLlDb;
+    @BindView(R.id.export_ll_json)
+    LinearLayout exportJson;
     private Unbinder unbinder;
-    private DiaryDao diaryDao;
     private ArrayList<DiaryBean> diarys;
     private Handler handler;
     private File rairPath;
     private ProgressDialog progressDialog;
-
+    private JsonArray diaryJsonArray;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,14 +66,44 @@ public class ExportActivity extends AppCompatActivity {
         initData();
     }
 
+    private void formatDiaryList(String response) {
+        this.diarys.clear();
+        JsonObject resObject = new JsonParser().parse(response).getAsJsonObject();
+        JsonObject dataObject = resObject.getAsJsonObject("data");
+        this.diaryJsonArray = dataObject.getAsJsonArray("list");
+        for (JsonElement pic : diaryJsonArray) {
+            DiaryBean diary = new Gson().fromJson(pic, new TypeToken<DiaryBean>() {
+            }.getType());
+            diarys.add(diary);
+        }
+    }
+
+    @SuppressLint("StaticFieldLeak")
+    private void queryDiaryFromServer() {
+        String RequestURL = "http://119.29.235.55:8000/api/v1/all_articles?range=personal";
+        new AsyncTask<Void, Void, String>() {
+            @Override
+            protected String doInBackground(Void... params) {
+                String s = HttpUtils.getStringByOkhttp(RequestURL);
+                return s;
+            }
+            @Override
+            protected void onPostExecute(String s) {
+                if (s != null && !s.isEmpty()) {
+                    formatDiaryList(s);
+                } else {
+                    CommonUtils.showSnackar(exportLlTxt, "数据获取失败");
+                }
+            }
+        }.execute();
+    }
     private void initData() {
         progressDialog = new ProgressDialog(this, R.style.DialogStyle);
         progressDialog.setMessage("正在导出。。。");
         progressDialog.setCanceledOnTouchOutside(false);
         rairPath = RairApp.getRairApp().getRairPath();
-        diaryDao = new DiaryDao(this);
         diarys = new ArrayList<>();
-        diaryDao.query(diarys);
+        queryDiaryFromServer();
         handler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
@@ -90,7 +130,7 @@ public class ExportActivity extends AppCompatActivity {
                 }
             case 1:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    doExportDb();
+                    doExportJSON();
                 } else {
                     CommonUtils.showSnackar(exportLlTxt, "没有授予读写权限，恢复失败,请到设置中手动打开");
                 }
@@ -98,7 +138,7 @@ public class ExportActivity extends AppCompatActivity {
         }
     }
 
-    @OnClick({R.id.export_iv_back, R.id.export_ll_txt, R.id.export_ll_db})
+    @OnClick({R.id.export_iv_back, R.id.export_ll_txt, R.id.export_ll_json})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.export_iv_back:
@@ -115,7 +155,7 @@ public class ExportActivity extends AppCompatActivity {
                     doExportTxt();
                 }
                 break;
-            case R.id.export_ll_db:
+            case R.id.export_ll_json:
                 if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                     if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_CONTACTS)) {
                         CommonUtils.showSnackar(exportLlTxt, "需要读写权限");
@@ -123,7 +163,7 @@ public class ExportActivity extends AppCompatActivity {
                         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
                     }
                 } else {
-                    doExportDb();
+                    doExportJSON();
                 }
                 break;
         }
@@ -152,16 +192,15 @@ public class ExportActivity extends AppCompatActivity {
     }
 
     /**
-     * 导出db操作
+     * 导出json操作
      */
-    private void doExportDb() {
+    private void doExportJSON() {
         progressDialog.show();
+        final String jsonpath = new File(rairPath, Constants.Export_NAME).getAbsolutePath();
         new Thread(new Runnable() {
             @Override
             public void run() {
-                String dbPath = ExportActivity.this.getDatabasePath(Constants.DB_NAME).getAbsolutePath();
-                String sdPath = new File(rairPath, Constants.Export_NAME).getAbsolutePath();
-                boolean success = copyFile(dbPath, sdPath);
+                boolean success = exportJSONMethod(jsonpath);
                 if (success) {
                     Message message = Message.obtain(handler, 0);
                     handler.sendMessage(message);
@@ -170,12 +209,27 @@ public class ExportActivity extends AppCompatActivity {
         }).start();
     }
 
+    private boolean exportJSONMethod(String outputPdfPath) {
+        try {
+            File outputFile = new File(outputPdfPath);
+            FileOutputStream outStream = new FileOutputStream(outputFile);
+            OutputStreamWriter writer = new OutputStreamWriter(outStream, "utf-8");
+            StringBuilder sb = new StringBuilder();
+            for (JsonElement pic : diaryJsonArray) {
+                sb.append(pic);
+                sb.append("\n");
+            }
+            writer.write(sb.toString());
+            writer.flush();
+            writer.close();
+            outStream.close();
+            return true;
+        } catch (Exception e) {
+        }
+        return false;
+    }
     /**
      * 转成txt导出
-     *
-     * @param outputPdfPath 导出路径
-     * @param diarys        日记集合
-     * @return 是否成功
      */
     private boolean exportTxt(String outputPdfPath, ArrayList<DiaryBean> diarys) {
         try {

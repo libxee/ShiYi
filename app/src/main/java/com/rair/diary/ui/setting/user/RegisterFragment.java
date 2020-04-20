@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -36,10 +37,12 @@ public class RegisterFragment extends Fragment {
 
     @BindView(R.id.register_et_name)
     EditTextWithDel registerEtName;
-    @BindView(R.id.register_et_email)
-    EditTextWithDel registerEtEmail;
+//    @BindView(R.id.register_et_email)
+//    EditTextWithDel registerEtEmail;
     @BindView(R.id.register_et_pwd)
     EditTextWithDel registerEtPwd;
+    @BindView(R.id.register_et_pwd_repeat)
+    EditTextWithDel registerEtPwdRepeat;
     @BindView(R.id.register_tv_register)
     TextView registerTvRegister;
     Unbinder unbinder;
@@ -73,22 +76,18 @@ public class RegisterFragment extends Fragment {
      */
     private void doRegister() {
         String userName = registerEtName.getText().toString();
-        String userMail = registerEtEmail.getText().toString();
         String userPwd = registerEtPwd.getText().toString();
+        String userPwdRepeat = registerEtPwdRepeat.getText().toString();
         if (TextUtils.isEmpty(userName)) {
-            CommonUtils.showSnackar(registerTvRegister, "请输入用户名");
-            return;
-        }
-        if (TextUtils.isEmpty(userMail)) {
-            CommonUtils.showSnackar(registerTvRegister, "请输入邮箱");
-            return;
-        }
-        if (!CommonUtils.isEmail(userMail)) {
-            CommonUtils.showSnackar(registerTvRegister, "邮箱格式不正确");
+            Toast.makeText(getContext(), "请输入用户名", Toast.LENGTH_LONG).show();
             return;
         }
         if (TextUtils.isEmpty(userPwd)) {
-            CommonUtils.showSnackar(registerTvRegister, "请输入密码");
+            Toast.makeText(getContext(), "请输入密码", Toast.LENGTH_LONG).show();
+            return;
+        }
+        if (!userPwd.equals(userPwdRepeat)) {
+            Toast.makeText(getContext(), "两次输入密码不一致，请重新确认密码", Toast.LENGTH_LONG).show();
             return;
         }
         user = new User();
@@ -97,27 +96,6 @@ public class RegisterFragment extends Fragment {
         Gson gson = new Gson();
         String userJSON = gson.toJson(user);
         registerHttpMethod(userJSON);
-//        user.signUp(new SaveListener<User>() {
-//            @Override
-//            public void done(User user, BmobException e) {
-//                if (e == null) {
-//                    CommonUtils.showSnackar(registerTvRegister, "注册成功，已登录");
-//                    getActivity().finish();
-//                } else {
-//                    switch (e.getErrorCode()) {
-//                        case 202:
-//                            CommonUtils.showSnackar(registerTvRegister, "注册失败，用户名已经存在");
-//                            break;
-//                        case 203:
-//                            CommonUtils.showSnackar(registerTvRegister, "注册失败，邮箱已经存在");
-//                            break;
-//                        default:
-//                            CommonUtils.showSnackar(registerTvRegister, "注册失败");
-//                            break;
-//                    }
-//                }
-//            }
-//        });
     }
 
     @SuppressLint("StaticFieldLeak")
@@ -136,7 +114,7 @@ public class RegisterFragment extends Fragment {
                 if (s != null && !s.isEmpty()) {
                     formatString2User(s);
                 } else {
-                    CommonUtils.showSnackar(registerTvRegister, "注册失败");
+                    Toast.makeText(getContext(), "注册失败,请重试~", Toast.LENGTH_LONG).show();
                 }
             }
         }.execute();
@@ -146,17 +124,16 @@ public class RegisterFragment extends Fragment {
         JsonObject jsonObject = new JsonParser().parse(response).getAsJsonObject();
         String status = jsonObject.get("status").toString();
         if (status.equals("0")) {
-            String token = jsonObject.get("data").toString();
+            JsonObject dataObject = jsonObject.getAsJsonObject("data");
+            String token = dataObject.get("token").getAsString();
             loginSuccess(token, user);
-            System.out.println("REGISTER SUCCESS========");
-            CommonUtils.showSnackar(registerTvRegister, "注册成功");
+            System.out.println("REGISTER SUCCESS");
+            Toast.makeText(getContext(), "注册成功~", Toast.LENGTH_LONG).show();
             getActivity().finish();
         } else {
-            System.out.println("REGISTER FAILED========");
-            CommonUtils.showSnackar(registerTvRegister, "注册失败,请重试");
+            System.out.println("REGISTER FAILED");
+            Toast.makeText(getContext(), "注册失败,请重试~", Toast.LENGTH_LONG).show();
         }
-        System.out.println("RESPONSEE========" + status);
-
     }
 
     private void loginSuccess(String token, User user) {

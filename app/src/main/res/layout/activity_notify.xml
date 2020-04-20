@@ -9,32 +9,33 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:background="@color/colorPrimary">
+        android:background="@color/white">
 
         <ImageView
             android:id="@+id/notify_iv_back"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_centerVertical="true"
             android:padding="5dp"
-            android:src="@mipmap/ic_back" />
+            android:src="@mipmap/back_dark" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="设置提醒"
-            android:textColor="@color/white"
+            android:textColor="@color/primary_text"
             android:textSize="18sp" />
 
     </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <RelativeLayout
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:background="?android:attr/selectableItemBackground"
@@ -58,11 +59,6 @@
                 android:layout_centerVertical="true" />
         </RelativeLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:layout_marginLeft="10dp"
-            android:background="@color/divider" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -89,7 +85,6 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:background="@color/text_bg"
-                android:enabled="false"
                 android:gravity="center"
                 android:text="设置"
                 android:textColor="@color/text_color_select"
@@ -107,11 +102,6 @@
             android:layout_height="120dp"
             android:orientation="horizontal"
             android:padding="10dp">
-
-            <AnalogClock
-                android:layout_width="100dp"
-                android:layout_height="100dp" />
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -152,5 +142,56 @@
             android:layout_marginLeft="10dp"
             android:background="@color/divider" />
     </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp"
+        tools:context=".MainActivity">
 
+        <Button
+            android:id="@+id/btn_main_add"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:text="增加日历事件" />
+        <Button
+            android:id="@+id/btn_main_update"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:text="更新提醒时间" />
+        <Button
+            android:id="@+id/btn_main_delete"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:text="删除日历事件" />
+
+
+        <Button
+            android:id="@+id/btn_main_query"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:visibility="gone"
+            android:text="查询日历事件" />
+
+        <Button
+            android:id="@+id/btn_edit"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:text="打开系统日历编辑" />
+
+        <Button
+            android:id="@+id/btn_search"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:visibility="gone"
+            android:text="检查是否存在" />
+
+        <TextView
+            android:id="@+id/tv_event"
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textSize="16sp"
+            tools:text="事件" />
+    </LinearLayout>
 </LinearLayout>

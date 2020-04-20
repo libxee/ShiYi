@@ -320,9 +320,9 @@ public class DiaryFragment extends Fragment implements TextWatcher, DiaryRvAdapt
         if (jsonArray.size() > 0) {
             currentPage++;
             diaryNoData.setVisibility(View.GONE);
+            long minId = datas.get(datas.size()-1).getId();
+            lastId = Long.toString(minId);
         }
-        long minId = datas.get(datas.size()-1).getId();
-        lastId = Long.toString(minId);
         rvAdapter.notifyDataSetChanged();
 
     }

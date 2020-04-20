@@ -63,7 +63,6 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
@@ -171,12 +170,12 @@
 
                     </LinearLayout>
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="10dp"
-                        android:background="#f6f6f6" />
 
                 </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="@color/thrid_text4" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -286,12 +285,12 @@
 
                     </LinearLayout>
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="10dp"
-                        android:background="#f6f6f6" />
-                </LinearLayout>
 
+                </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="@color/thrid_text4" />
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:id="@+id/one_detail_article"

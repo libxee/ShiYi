@@ -23,6 +23,7 @@ public class HttpUtils {
         if (!current_token.equals("")) {
             current_token = current_token.replace("\"", "");
         }
+        System.out.println("toke======"+ current_token);
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder().get().url(path).addHeader("User-Agent", useAgent).addHeader("jwtToken", current_token).build();
         System.out.println(request.toString() + request.headers().toString());

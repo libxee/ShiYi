@@ -10,6 +10,8 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_CALENDAR" />
+    <uses-permission android:name="android.permission.WRITE_CALENDAR" />
     <application
         android:name=".base.RairApp"
         android:allowBackup="true"
@@ -50,9 +52,6 @@
             android:name=".ui.MainActivity"
             android:configChanges="orientation|screenSize"
             android:windowSoftInputMode="adjustResize|stateHidden|adjustPan|stateUnchanged" />
-        <activity
-            android:name=".ui.setting.feedback.FeedBackActivity"
-            android:windowSoftInputMode="adjustResize|stateHidden" />
 
         <service android:name=".service.RemindService">
             <intent-filter android:priority="999">
@@ -62,7 +61,7 @@
 
         <receiver android:name=".receiver.RairReceiver">
             <intent-filter>
-                <action android:name="com.rair.time" />
+                <action android:name="com.shiji.time" />
             </intent-filter>
         </receiver>
 

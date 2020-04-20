@@ -26,6 +26,7 @@ public class RairReceiver extends BroadcastReceiver {
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     @Override
     public void onReceive(Context context, Intent intent) {
+        System.out.println("RECEIVE======");
         if (intent.getAction().equals(Constants.REMIND_RECEIVER)) {
             calendar.setTimeInMillis(System.currentTimeMillis());
             int h = calendar.get(Calendar.HOUR_OF_DAY);
@@ -45,7 +46,7 @@ public class RairReceiver extends BroadcastReceiver {
         PendingIntent contentIntent = PendingIntent.getActivity(context, 0, notificationIntent, 0);
         Notification notification = new Notification.Builder(context)
                 .setContentTitle("提醒")
-                .setContentText("时间到了，该写日记了哦，亲！O(∩_∩)O~")
+                .setContentText("时间到了，该写日记了哦")
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentIntent(contentIntent)
                 .build();

@@ -12,6 +12,7 @@ import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.rair.diary.R;
 import com.rair.diary.base.RairApp;
@@ -84,24 +85,14 @@ public class SetFragment extends Fragment {
         if (hasLogin) {
             System.out.println("USERNAME=====" + spUtils.getString("username"));
             setTvName.setText(spUtils.getString("current_username"));
-//            loadHead(user);
+            setCivHead.setVisibility(View.VISIBLE);
+//            loadHead();
         } else {
             setTvName.setText("未登录");
         }
     }
 
-    /**
-     * 加载头像
-     *
-     * @param user
-     */
-    private void loadHead(User user) {
-//        if (user.getHeadFile() != null) {
-//            BmobFile headFile = user.getHeadFile();
-//            Picasso.with(getContext()).load(headFile.getFileUrl()).into(setCivHead);
-//        } else {
-//            Picasso.with(getContext()).load(R.mipmap.ic_head).into(setCivHead);
-//        }
+    private void loadHead() {
         Picasso.with(getContext()).load(R.mipmap.ic_head).into(setCivHead);
     }
 
@@ -121,23 +112,17 @@ public class SetFragment extends Fragment {
                 Intent notifyIntent = new Intent(getContext(), NotifyActivity.class);
                 startActivity(notifyIntent);
                 break;
-//            case R.id.set_ll_recover:
-////                TODO： 备份和恢复功能是否需要?
-//                if (!spUtils.getBoolean("hasLogin", false)) {
-//                    Intent loginIntent = new Intent(getContext(), LoginActivity.class);
-//                    startActivity(loginIntent);
-//                } else {
-//                    Intent recoverIntent = new Intent(getContext(), RecoverActivity.class);
-//                    startActivity(recoverIntent);
-//                }
-//                break;
             case R.id.set_ll_secret:
                 Intent secretIntent = new Intent(getContext(), SecretActivity.class);
                 startActivity(secretIntent);
                 break;
             case R.id.set_ll_export:
-                Intent exportIntent = new Intent(getContext(), ExportActivity.class);
-                startActivity(exportIntent);
+                if (spUtils.getBoolean("hasLogin", false)){
+                    Intent exportIntent = new Intent(getContext(), ExportActivity.class);
+                    startActivity(exportIntent);
+                }else {
+                    Toast.makeText(getContext(), "请先登录~", Toast.LENGTH_SHORT).show();
+                }
                 break;
 
         }

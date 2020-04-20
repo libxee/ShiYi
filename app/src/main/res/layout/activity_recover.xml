@@ -9,7 +9,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:background="@color/colorPrimary">
+        android:background="@color/white">
 
         <com.rair.diary.view.RippleView
             android:layout_width="48dp"
@@ -19,9 +19,10 @@
             <ImageView
                 android:id="@+id/recover_iv_back"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="30dp"
+                android:layout_centerVertical="true"
                 android:padding="5dp"
-                android:src="@mipmap/ic_back" />
+                android:src="@mipmap/back_dark" />
         </com.rair.diary.view.RippleView>
 
         <TextView
@@ -29,7 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="备份与恢复"
-            android:textColor="@color/white"
+            android:textColor="@color/primary_text"
             android:textSize="18sp" />
     </RelativeLayout>
 

@@ -11,7 +11,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:background="@color/colorPrimary">
+        android:background="@color/white">
 
         <com.rair.diary.view.RippleView
             android:layout_width="48dp"
@@ -21,9 +21,10 @@
             <ImageView
                 android:id="@+id/add_iv_back"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="30dp"
+                android:layout_centerInParent="true"
                 android:padding="5dp"
-                android:src="@mipmap/ic_back" />
+                android:src="@mipmap/back_dark" />
         </com.rair.diary.view.RippleView>
 
         <TextView
@@ -32,7 +33,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="写日记"
-            android:textColor="@color/white"
+            android:textColor="@color/primary_text"
             android:textSize="18sp" />
 
         <com.rair.diary.view.RippleView
@@ -46,7 +47,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:padding="5dp"
-                android:src="@mipmap/ic_save" />
+                android:src="@mipmap/ic_save_dark" />
         </com.rair.diary.view.RippleView>
     </RelativeLayout>
 
@@ -107,7 +108,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
+                android:layout_height="35dp"
                 android:gravity="center"
                 android:orientation="horizontal">
                 <ImageView
@@ -130,6 +131,7 @@
                 android:ellipsize="end"
                 android:hint="请输入标题"
                 android:maxLines="1"
+                android:paddingHorizontal="10dp"
                 android:textColor="@color/primary_text"
                 android:textColorHint="@color/secondary_text"
                 android:textSize="16sp" />

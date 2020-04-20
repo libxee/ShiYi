@@ -15,8 +15,8 @@
         app:inner_color="@color/colorPrimaryLight"
         app:line_color="@color/colorPrimary"
         app:outer_color="@color/colorPrimaryLight"
-        app:selected_inner_color="@color/colorPrimaryDark"
-        app:selected_outer_color="@color/colorPrimaryDark" />
+        app:selected_inner_color="@color/ripple"
+        app:selected_outer_color="@color/colorPrimary" />
 
     <com.rair.diary.view.LockPattern
         android:id="@+id/pattern_lp_2"
@@ -27,8 +27,8 @@
         app:inner_color="@color/colorPrimaryLight"
         app:line_color="@color/colorPrimary"
         app:outer_color="@color/colorPrimaryLight"
-        app:selected_inner_color="@color/colorPrimaryDark"
-        app:selected_outer_color="@color/colorPrimaryDark" />
+        app:selected_inner_color="@color/ripple"
+        app:selected_outer_color="@color/colorPrimary" />
 
     <LinearLayout
         android:id="@+id/pattern_ll_1"

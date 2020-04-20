@@ -42,8 +42,8 @@ public class UserActivity extends AppCompatActivity {
     ImageView userIvBack;
     @BindView(R.id.user_civ_head)
     CircleImageView userCivHead;
-    @BindView(R.id.user_rl_head)
-    RelativeLayout userRlHead;
+//    @BindView(R.id.user_rl_head)
+//    RelativeLayout userRlHead;
     @BindView(R.id.user_tv_name)
     TextView userTvName;
     @BindView(R.id.user_rl_name)

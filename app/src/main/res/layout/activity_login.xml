@@ -34,7 +34,6 @@
             android:text="登录注册"
             android:textColor="@color/primary_text"
             android:textSize="18sp" />
-
     </RelativeLayout>
 
     <RelativeLayout

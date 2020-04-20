@@ -26,6 +26,7 @@ public class RemindService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         sendBroadcast(new Intent(Constants.SET_RECEIVER));
+        System.out.println("sendBroadcast");
         new Thread(new Runnable() {
 
             @Override

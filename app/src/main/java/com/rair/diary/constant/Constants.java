@@ -9,8 +9,8 @@ public class Constants {
     public static final String RAIR_PATH = "ShijiDiary";
     //    public static final String PDF_NAME = "我的日记.pdf";
     public static final String TXT_NAME = "我的日记.txt";
-    public static final String BACKUP_NAME = "Backup.db";
-    public static final String Export_NAME = "我的日记.db";
+    public static final String BACKUP_NAME = "Backup.json";
+    public static final String Export_NAME = "我的日记.json";
     public static final String HEAD_IMAGE = "head.jpg";
     public static final String FORMAT = "%s（%s）%s";
     //SharedPreferences
