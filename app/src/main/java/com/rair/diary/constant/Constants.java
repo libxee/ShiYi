@@ -21,16 +21,16 @@ public class Constants {
     public static final boolean LOGIN_STATUS = false;
 
     //Activity REQUEST CODE
-    public  static  final  int ADD_NEW_DIARY = 1;
-    public static  final  int DETAIL_DIARY = 2;
+    public static final int ADD_NEW_DIARY = 1;
+    public static final int DETAIL_DIARY = 2;
 
     //RESULT CODE
-    public  static  final  int ADD_NEW_DIARY_SUCCESS = 10;
-    public  static  final    int ADD_NEW_DIARY_FAILED = 11;
-    public  static  final    int DETAIL_DIARY_EDITED  = 20;
-    public static  final  int DETAIL_DIARY_NOT_EDITED = 21;
-    public  static  final int DETAIL_DIARY_EDITED_SUCCESS = 22;
-    public static  final int DETAIL_DIARY_EDITED_FAILED = 23;
+    public static final int ADD_NEW_DIARY_SUCCESS = 10;
+    public static final int ADD_NEW_DIARY_FAILED = 11;
+    public static final int DETAIL_DIARY_EDITED = 20;
+    public static final int DETAIL_DIARY_NOT_EDITED = 21;
+    public static final int DETAIL_DIARY_EDITED_SUCCESS = 22;
+    public static final int DETAIL_DIARY_EDITED_FAILED = 23;
 
     //设置提醒时间
     public static final String SET_RECEIVER = "com.shiji.set";

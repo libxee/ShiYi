@@ -91,6 +91,7 @@
 
 
                     <LinearLayout
+                        android:id="@+id/detail_movie_card"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="20dp"
@@ -118,8 +119,6 @@
                                 android:textSize="16sp"
                                 android:textStyle='bold'
                                 android:layout_marginBottom="10dp" />
-
-
                             <TextView
                                 android:id="@+id/one_detail_movie_product_info"
                                 android:layout_width="match_parent"
@@ -157,6 +156,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:text="(7777777人评价)" />
+
                             </LinearLayout>
 
                             <TextView
@@ -166,12 +166,14 @@
                                 android:layout_height="wrap_content"
                                 android:textColor="@color/thrid_text3"
                                 android:text="希望让人自由" />
+
                         </LinearLayout>
 
                     </LinearLayout>
 
 
                 </LinearLayout>
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
@@ -201,6 +203,7 @@
                         android:text="暂无数据" />
 
                     <LinearLayout
+                        android:id="@+id/detail_book_card"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="20dp"
@@ -287,10 +290,12 @@
 
 
                 </LinearLayout>
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
                     android:background="@color/thrid_text4" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:id="@+id/one_detail_article"

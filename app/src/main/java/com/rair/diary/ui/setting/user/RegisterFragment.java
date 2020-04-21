@@ -37,7 +37,7 @@ public class RegisterFragment extends Fragment {
 
     @BindView(R.id.register_et_name)
     EditTextWithDel registerEtName;
-//    @BindView(R.id.register_et_email)
+    //    @BindView(R.id.register_et_email)
 //    EditTextWithDel registerEtEmail;
     @BindView(R.id.register_et_pwd)
     EditTextWithDel registerEtPwd;

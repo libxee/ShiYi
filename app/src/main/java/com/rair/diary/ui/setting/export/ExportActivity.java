@@ -58,6 +58,7 @@ public class ExportActivity extends AppCompatActivity {
     private File rairPath;
     private ProgressDialog progressDialog;
     private JsonArray diaryJsonArray;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,6 +88,7 @@ public class ExportActivity extends AppCompatActivity {
                 String s = HttpUtils.getStringByOkhttp(RequestURL);
                 return s;
             }
+
             @Override
             protected void onPostExecute(String s) {
                 if (s != null && !s.isEmpty()) {
@@ -97,6 +99,7 @@ public class ExportActivity extends AppCompatActivity {
             }
         }.execute();
     }
+
     private void initData() {
         progressDialog = new ProgressDialog(this, R.style.DialogStyle);
         progressDialog.setMessage("正在导出。。。");
@@ -228,6 +231,7 @@ public class ExportActivity extends AppCompatActivity {
         }
         return false;
     }
+
     /**
      * 转成txt导出
      */

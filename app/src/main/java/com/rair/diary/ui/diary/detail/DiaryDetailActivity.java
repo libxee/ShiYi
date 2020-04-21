@@ -55,7 +55,7 @@ public class DiaryDetailActivity extends AppCompatActivity {
     @BindView(R.id.detail_tv_tite)
     TextView detailTvTite;
     private Unbinder bind;
-    private  Diary editedDiary;
+    private Diary editedDiary;
     private DiaryDao diaryDao;
     private long id;
 
@@ -91,10 +91,11 @@ public class DiaryDetailActivity extends AppCompatActivity {
                     .load(image)
                     .into(detailIvShow);
             detailIvShow.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             detailIvShow.setVisibility(View.GONE);
         }
     }
+
     final Runnable runnable = new Runnable() {
         @Override
         public void run() {
@@ -156,23 +157,26 @@ public class DiaryDetailActivity extends AppCompatActivity {
 
         }
     }
-    public  void setIntentResult(Diary diary) {
+
+    public void setIntentResult(Diary diary) {
         Intent intent = new Intent();
-        intent.putExtra("diary",new Gson().toJson(diary));
-        this.setResult(Constants.DETAIL_DIARY_EDITED_SUCCESS,intent);
+        intent.putExtra("diary", new Gson().toJson(diary));
+        this.setResult(Constants.DETAIL_DIARY_EDITED_SUCCESS, intent);
     }
+
     private void formatString2Res(String response) {
         JsonObject jsonObject = new JsonParser().parse(response).getAsJsonObject();
         String status = jsonObject.get("status").toString();
         if (status.equals("0")) {
             this.setIntentResult(editedDiary);
-                Toast.makeText(this, "编辑内容保存成功", Toast.LENGTH_SHORT).show();
-                CommonUtils.hideInput(this);
+            Toast.makeText(this, "编辑内容保存成功", Toast.LENGTH_SHORT).show();
+            CommonUtils.hideInput(this);
             this.finish();
-            } else {
+        } else {
             Toast.makeText(this, "编辑内容保存失败", Toast.LENGTH_SHORT).show();
         }
     }
+
     @SuppressLint("StaticFieldLeak")
     private void saveEditDiaryMethod(String postData) {
         String RequestURL = "http://119.29.235.55:8000/api/v1/articles";
@@ -183,6 +187,7 @@ public class DiaryDetailActivity extends AppCompatActivity {
                 System.out.println("CONTENT=========" + s);
                 return s;
             }
+
             @Override
             protected void onPostExecute(String s) {
                 if (s != null && !s.isEmpty()) {

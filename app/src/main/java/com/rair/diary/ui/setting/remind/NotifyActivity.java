@@ -65,7 +65,7 @@ public class NotifyActivity extends AppCompatActivity implements CompoundButton.
     @BindView(R.id.btn_main_update)
     TextView btnMainUpdate;
     @BindView(R.id.btn_edit)
-TextView btnEdit;
+    TextView btnEdit;
 
     private Unbinder unbinder;
     private Calendar calendar;
@@ -95,19 +95,35 @@ TextView btnEdit;
         calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
     }
+
     @SuppressLint("SetTextI18n")
     @Override
     protected void onResume() {
         super.onResume();
         isSet = spUtils.getBoolean("isRemindSet", false);
-        if(isSet){
-            notifyTvRemindTime.setText("提醒时间："+spUtils.getString("setTime"));
-        }else{
+        if (isSet) {
+            btnMainDelete.setVisibility(View.VISIBLE);
+            notifyTvRemindTime.setText("提醒时间：" + spUtils.getString("setTime"));
+        } else {
+            btnMainDelete.setVisibility(View.GONE);
             notifyTvRemindTime.setText("提醒时间：（未设置提醒）");
         }
     }
+    private void setBtnStatus(boolean status){
+    }
+    private boolean hasSetRemind(){
+        long calID2 = CalendarProviderManager.obtainCalendarAccountID(this);
+        List<CalendarEvent> events2 = CalendarProviderManager.queryAccountEvent(this, calID2);
+        if (null != events2) {
+            if (events2.size() == 0) {
+                return false;}
+            else {
+               return true;}
+        }
+        return false;
+    }
     //每天只设置一个提醒
-    private  void addEventOne(){
+    private void addEventOne() {
         long calID = CalendarProviderManager.obtainCalendarAccountID(this);
         List<CalendarEvent> events = CalendarProviderManager.queryAccountEvent(this, calID);
         if (null != events) {
@@ -119,7 +135,7 @@ TextView btnEdit;
                         this, eventID, RemindMILLISECOND,
                         RemindMILLISECOND + 600000,
                         "FREQ=DAILY;INTERVAL=1"
-                        );
+                );
                 if (result3 == 1) {
                     Toast.makeText(this, "设置提醒成功", Toast.LENGTH_SHORT).show();
                 } else {
@@ -130,19 +146,22 @@ TextView btnEdit;
             Toast.makeText(this, "设置提醒失败", Toast.LENGTH_SHORT).show();
         }
     }
-    private  void addEvent(){
+
+    private void addEvent() {
+        deleteEvent();
         CalendarEvent calendarEvent = new CalendarEvent(
                 "【拾记】回顾下今天做了什么吧~",
                 "让理想生活的样子清晰可见",
                 "",
                 RemindMILLISECOND,
-                RemindMILLISECOND + 60000,
+                RemindMILLISECOND + 600000,
                 0,
                 "FREQ=DAILY;INTERVAL=1"
         );
         // 添加事件
         int result = CalendarProviderManager.addCalendarEvent(this, calendarEvent);
         if (result == 0) {
+            btnMainDelete.setVisibility(View.VISIBLE);
             Toast.makeText(this, "设置提醒成功", Toast.LENGTH_SHORT).show();
         } else if (result == -1) {
             Toast.makeText(this, "设置提醒失败", Toast.LENGTH_SHORT).show();
@@ -150,29 +169,31 @@ TextView btnEdit;
             Toast.makeText(this, "无日历读写权限权限，请到系统应用管理页面进行授权", Toast.LENGTH_SHORT).show();
         }
     }
-    private  void deleteEvent(){
+
+    private void deleteEvent() {
         // 删除事件
         long calID2 = CalendarProviderManager.obtainCalendarAccountID(this);
         List<CalendarEvent> events2 = CalendarProviderManager.queryAccountEvent(this, calID2);
         if (null != events2) {
             if (events2.size() == 0) {
-                Toast.makeText(this, "没有事件可以删除", Toast.LENGTH_SHORT).show();
+                return;
             } else {
                 long eventID = events2.get(0).getId();
                 int result2 = CalendarProviderManager.deleteCalendarEvent(this, eventID);
+                btnMainDelete.setVisibility(View.GONE);
                 if (result2 == -2) {
-                    Toast.makeText(this, "没有权限", Toast.LENGTH_SHORT).show();
+                    return;
                 } else {
                     notifyTvRemindTime.setText("提醒时间（未设置提醒）");
-                    spUtils.put("isRemindSet",false);
-                    Toast.makeText(this, "删除成功", Toast.LENGTH_SHORT).show();
+                    spUtils.put("isRemindSet", false);
                 }
             }
         } else {
-            Toast.makeText(this, "查询失败", Toast.LENGTH_SHORT).show();
+            return;
         }
     }
-    private void  updateEvent(){
+
+    private void updateEvent() {
         // 更新事件
         long calID = CalendarProviderManager.obtainCalendarAccountID(this);
         List<CalendarEvent> events = CalendarProviderManager.queryAccountEvent(this, calID);
@@ -183,7 +204,7 @@ TextView btnEdit;
                 long eventID = events.get(0).getId();
                 int result3 = CalendarProviderManager.updateCalendarEventTime(
                         this, eventID, RemindMILLISECOND,
-                        RemindMILLISECOND + 600000,"FREQ=DAILY;INTERVAL=1");
+                        RemindMILLISECOND + 600000, "FREQ=DAILY;INTERVAL=1");
                 if (result3 == 1) {
                     Toast.makeText(this, "更新成功", Toast.LENGTH_SHORT).show();
                 } else {
@@ -194,7 +215,8 @@ TextView btnEdit;
             Toast.makeText(this, "查询失败", Toast.LENGTH_SHORT).show();
         }
     }
-    private void queryEvent(){
+
+    private void queryEvent() {
         // 查询事件
         long calID4 = CalendarProviderManager.obtainCalendarAccountID(this);
         List<CalendarEvent> events4 = CalendarProviderManager.queryAccountEvent(this, calID4);
@@ -209,13 +231,15 @@ TextView btnEdit;
             Toast.makeText(this, "查询失败", Toast.LENGTH_SHORT).show();
         }
     }
-    private void  editSystemCal(){
+
+    private void editSystemCal() {
         // 启动系统日历进行编辑事件
         CalendarProviderManager.startCalendarForIntentToInsert(this, System.currentTimeMillis(),
                 System.currentTimeMillis() + 600000, "", "由【拾记】APP添加", "",
                 false);
     }
-    private void searchEvent(){
+
+    private void searchEvent() {
         if (CalendarProviderManager.isEventAlreadyExist(this, 1552986006309L,
                 155298606609L, "xxx")) {
             Toast.makeText(this, "存在", Toast.LENGTH_SHORT).show();
@@ -223,7 +247,8 @@ TextView btnEdit;
             Toast.makeText(this, "不存在", Toast.LENGTH_SHORT).show();
         }
     }
-    @OnClick({R.id.notify_iv_back, R.id.notify_tv_set,R.id.btn_main_add, R.id.btn_main_delete, R.id.btn_edit,
+
+    @OnClick({R.id.notify_iv_back, R.id.notify_tv_set, R.id.btn_main_add, R.id.btn_main_delete, R.id.btn_edit,
             R.id.btn_main_update})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -249,6 +274,7 @@ TextView btnEdit;
                 break;
         }
     }
+
     /**
      * 设置提醒时间
      */
@@ -265,13 +291,12 @@ TextView btnEdit;
                 calendar.set(Calendar.MINUTE, minute);
                 calendar.set(Calendar.SECOND, 0);
                 calendar.set(Calendar.MILLISECOND, 0);
-                RemindMILLISECOND =  calendar.getTimeInMillis();
+                RemindMILLISECOND = calendar.getTimeInMillis();
                 spUtils.put("hour", hourOfDay);
                 spUtils.put("minute", minute);
                 spUtils.put("isRemindSet", true);
-                spUtils.put("setTime", CommonUtils.format(hourOfDay) +":"+ CommonUtils.format(minute));
-
-                addEventOne();
+                spUtils.put("setTime", CommonUtils.format(hourOfDay) + ":" + CommonUtils.format(minute));
+                addEvent();
                 String remindTime = "提醒时间：" + CommonUtils.format(hourOfDay) + ":" + CommonUtils.format(minute);
                 notifyTvRemindTime.setText(remindTime);
             }

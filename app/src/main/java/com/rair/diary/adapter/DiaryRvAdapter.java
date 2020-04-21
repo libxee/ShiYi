@@ -28,6 +28,7 @@ public class DiaryRvAdapter extends RecyclerView.Adapter<DiaryRvAdapter.DiaryHol
 
     public interface OnRvItemClickListener {
         void OnItemClick(int position, DiaryBean diaryBean);
+
         void OnOptionClick(int position, DiaryBean diaryBean);
     }
 
@@ -58,7 +59,7 @@ public class DiaryRvAdapter extends RecyclerView.Adapter<DiaryRvAdapter.DiaryHol
                     .load(image)
                     .into(holder.ivShow);
             holder.ivShow.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             holder.ivShow.setVisibility(View.GONE);
         }
         holder.tvDate.setText(String.format(Constants.FORMAT, diaryBean.getDate(), diaryBean.getWeek(), diaryBean.getWeather()));

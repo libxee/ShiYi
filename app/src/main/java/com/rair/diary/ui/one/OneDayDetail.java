@@ -16,6 +16,7 @@ import com.rair.diary.utils.CommonUtils;
 import com.rair.diary.utils.HttpUtils;
 import com.rair.diary.utils.StatusBarUtil;
 import com.rair.diary.utils.Utils;
+import com.rair.diary.webview.Webview;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -24,6 +25,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -253,15 +256,30 @@ public class OneDayDetail extends AppCompatActivity {
         }.execute();
     }
 
-    @OnClick({R.id.one_detail_back,})
+    @OnClick({R.id.one_detail_back,R.id.detail_movie_card,R.id.detail_book_card})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.one_detail_back:
                 this.finish();
                 break;
+            case R.id.detail_movie_card:
+                String movieURl = "https://m.douban.com/movie/subject/"+ movie.getSubject();
+                System.out.println(movieURl);
+
+                openWebview(movieURl);
+                break;
+            case R.id.detail_book_card:
+                String bookURl = "https://m.douban.com/book/subject/"+ book.getSubject();
+                System.out.println(bookURl);
+                openWebview(bookURl);
+                break;
         }
     }
-
+    private void   openWebview(String url){
+        Intent intent = new Intent(this, Webview.class);
+        intent.putExtra("loadUrl", url);
+        startActivity(intent);
+    }
     @Override
     protected void onDestroy() {
         super.onDestroy();

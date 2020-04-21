@@ -25,7 +25,6 @@ public class Util {
 
     /**
      * 获取最终日历事件重复规则
-     *
      */
     public static String getFinalRRuleMode(long time) {
         return getEndDate(time) + "T235959Z";

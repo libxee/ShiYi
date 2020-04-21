@@ -87,7 +87,8 @@ public class DiaryFragment extends Fragment implements TextWatcher, DiaryRvAdapt
     private SPUtils spUtils;
     private String lastId;
     private boolean hasLogin;
-    private  DiaryBean viewDetailDiary;
+    private DiaryBean viewDetailDiary;
+
     public static DiaryFragment newInstance() {
         DiaryFragment diaryFragment = new DiaryFragment();
         return diaryFragment;
@@ -114,11 +115,11 @@ public class DiaryFragment extends Fragment implements TextWatcher, DiaryRvAdapt
         refreshLayout.setOnLoadmoreListener(new OnLoadmoreListener() {
             @Override
             public void onLoadmore(RefreshLayout refreshlayout) {
-                if (hasLogin){
+                if (hasLogin) {
                     queryDiaryFromServer();
                     rvAdapter.notifyDataSetChanged();
                     refreshlayout.finishLoadmore(500);
-                }else {
+                } else {
                     refreshLayout.finishLoadmoreWithNoMoreData();
                 }
             }
@@ -133,10 +134,9 @@ public class DiaryFragment extends Fragment implements TextWatcher, DiaryRvAdapt
         System.out.println("=========RESUME============");
         checkCoverShow();
     }
+
     @Override
     public void onHiddenChanged(boolean hidden) {
-        super.onHiddenChanged(hidden);
-        checkCoverShow();
         super.onHiddenChanged(hidden);
 //        登录成功后,重新获取内容
         hasLogin = spUtils.getBoolean("hasLogin", false);
@@ -149,15 +149,16 @@ public class DiaryFragment extends Fragment implements TextWatcher, DiaryRvAdapt
             queryDatas();
         }
     }
-    private void checkCoverShow(){
+
+    private void checkCoverShow() {
         hasLogin = spUtils.getBoolean("hasLogin", false);
-        if(hasLogin){
-            if (datas.size()>0){
+        if (hasLogin) {
+            if (datas.size() > 0) {
                 diaryNoData.setVisibility(View.GONE);
-            }else {
+            } else {
                 diaryNoData.setVisibility(View.VISIBLE);
             }
-        }else  {
+        } else {
             diaryNoData.setVisibility(View.VISIBLE);
 
         }
@@ -165,42 +166,34 @@ public class DiaryFragment extends Fragment implements TextWatcher, DiaryRvAdapt
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        switch (requestCode){
-                case Constants.ADD_NEW_DIARY:
-                    if(resultCode == Constants.ADD_NEW_DIARY_SUCCESS){
-                        currentPage = 1;
-                        DiaryBean diary = new  DiaryBean();
-                        String  JsonData = data.getStringExtra("diary");
-                        diary = new Gson().fromJson(JsonData,DiaryBean.class);
-                        datas.add(0, diary);
-                        rvAdapter.notifyItemInserted(0);
-                        diaryXRvList.getLayoutManager().scrollToPosition(0);
-                    }
-                    break;
-                case Constants.DETAIL_DIARY:
-                    if(resultCode == Constants.DETAIL_DIARY_EDITED_SUCCESS){
+        switch (requestCode) {
+            case Constants.ADD_NEW_DIARY:
+                if (resultCode == Constants.ADD_NEW_DIARY_SUCCESS) {
+                    DiaryBean diary = new DiaryBean();
+                    String JsonData = data.getStringExtra("diary");
+                    diary = new Gson().fromJson(JsonData, DiaryBean.class);
+                    datas.add(0, diary);
+                    rvAdapter.notifyItemInserted(0);
+                    diaryXRvList.getLayoutManager().scrollToPosition(0);
+                }
+                break;
+            case Constants.DETAIL_DIARY:
+                if (resultCode == Constants.DETAIL_DIARY_EDITED_SUCCESS) {
 //                        编辑成功，需要更新列表内容
-                        DiaryBean diaryEdited = new  DiaryBean();
-                        String  JsonData =    data.getStringExtra("diary");
-                        diaryEdited = new Gson().fromJson(JsonData,DiaryBean.class);
-                        System.out.println(diaryEdited.toString());
-                        int actPosition = datas.indexOf(viewDetailDiary);
-                        int diaryId = (int) diaryEdited.getId();
-                        DiaryBean diaryInList = datas.get(actPosition);
-                        datas.get(actPosition).setContent(diaryEdited.getContent());
-                        datas.get(actPosition).setTitle(diaryEdited.getTitle());
-                        rvAdapter.notifyItemChanged(actPosition);
-                        System.out.println("diaryId======="+diaryId);
-//                        for(int i = 0; i < datas.size(); i++){
-//                            System.out.println( diaryEdited.getId() + "====== "+datas.get(i).getId());
-//                            if (diaryEdited.getId() == datas.get(i).getId()){
-//
-//                            }
-//                        }
-
-                    }
-                    break;
-            }
+                    DiaryBean diaryEdited = new DiaryBean();
+                    String JsonData = data.getStringExtra("diary");
+                    diaryEdited = new Gson().fromJson(JsonData, DiaryBean.class);
+                    System.out.println(diaryEdited.toString());
+                    int actPosition = datas.indexOf(viewDetailDiary);
+                    int diaryId = (int) diaryEdited.getId();
+                    DiaryBean diaryInList = datas.get(actPosition);
+                    datas.get(actPosition).setContent(diaryEdited.getContent());
+                    datas.get(actPosition).setTitle(diaryEdited.getTitle());
+                    rvAdapter.notifyItemChanged(actPosition);
+                    System.out.println("diaryId=======" + diaryId);
+                }
+                break;
+        }
 
     }
 
@@ -233,6 +226,7 @@ public class DiaryFragment extends Fragment implements TextWatcher, DiaryRvAdapt
         intent.putExtra("hasAuth", true);
         startActivityForResult(intent, Constants.DETAIL_DIARY);
     }
+
     @Override
     public void OnOptionClick(final int position, DiaryBean diaryBean) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), R.style.DialogStyle);
@@ -242,7 +236,7 @@ public class DiaryFragment extends Fragment implements TextWatcher, DiaryRvAdapt
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(final DialogInterface dialog, int which) {
-                        switch (which){
+                        switch (which) {
                             case 0:
                                 doShare(dialog, position);
                                 break;
@@ -250,7 +244,7 @@ public class DiaryFragment extends Fragment implements TextWatcher, DiaryRvAdapt
                                 doPublish(diaryBean);
                                 break;
                             case 2:
-                                doDelete(dialog, position,diaryBean);
+                                doDelete(dialog, position, diaryBean);
                                 break;
                             case 3:
                                 doExport(dialog, position);
@@ -280,7 +274,7 @@ public class DiaryFragment extends Fragment implements TextWatcher, DiaryRvAdapt
         dialog.dismiss();
     }
 
-// 发布文章到广场。
+    // 发布文章到广场。
     @SuppressLint("StaticFieldLeak")
     private void publishDiary2Server(int diaryId) {
         String RequestURL = "http://119.29.235.55:8000/api/v1/publish/" + diaryId + "?state=1";
@@ -290,13 +284,14 @@ public class DiaryFragment extends Fragment implements TextWatcher, DiaryRvAdapt
                 String s = HttpUtils.getStringByOkhttp(RequestURL);
                 return s;
             }
+
             @Override
             protected void onPostExecute(String s) {
                 if (s != null && !s.isEmpty()) {
-                   boolean success =  formatString2Res(s);
-                    if (success){
+                    boolean success = formatString2Res(s);
+                    if (success) {
                         Toast.makeText(getContext(), "发布成功", Toast.LENGTH_SHORT).show();
-                    }else {
+                    } else {
                         Toast.makeText(getContext(), "发布失败", Toast.LENGTH_SHORT).show();
                     }
                 } else {
@@ -320,7 +315,7 @@ public class DiaryFragment extends Fragment implements TextWatcher, DiaryRvAdapt
         if (jsonArray.size() > 0) {
             currentPage++;
             diaryNoData.setVisibility(View.GONE);
-            long minId = datas.get(datas.size()-1).getId();
+            long minId = datas.get(datas.size() - 1).getId();
             lastId = Long.toString(minId);
         }
         rvAdapter.notifyDataSetChanged();
@@ -329,7 +324,7 @@ public class DiaryFragment extends Fragment implements TextWatcher, DiaryRvAdapt
 
     @SuppressLint("StaticFieldLeak")
     private void queryDiaryFromServer() {
-        if(currentPage == 1){
+        if (currentPage == 1) {
             lastId = "";
         }
         String RequestURL = "http://119.29.235.55:8000/api/v1/articles?range=personal&page=" + currentPage + "&lastId=" + lastId;
@@ -339,6 +334,7 @@ public class DiaryFragment extends Fragment implements TextWatcher, DiaryRvAdapt
                 String s = HttpUtils.getStringByOkhttp(RequestURL);
                 return s;
             }
+
             @Override
             protected void onPostExecute(String s) {
                 if (s != null && !s.isEmpty()) {
@@ -349,6 +345,7 @@ public class DiaryFragment extends Fragment implements TextWatcher, DiaryRvAdapt
             }
         }.execute();
     }
+
     @SuppressLint("StaticFieldLeak")
     private void deleteDiary(int diaryId, int actPosition) {
         String RequestURL = "http://119.29.235.55:8000/api/v1/del_article/" + diaryId;
@@ -359,26 +356,27 @@ public class DiaryFragment extends Fragment implements TextWatcher, DiaryRvAdapt
                 System.out.println("CONTENT=========" + s);
                 return s;
             }
+
             @Override
             protected void onPostExecute(String s) {
                 if (s != null && !s.isEmpty()) {
-                   boolean success = formatString2Res(s);
-                   if (success){
-                       datas.remove(actPosition);
-                       if (actPosition >= 0) {
-                           rvAdapter.notifyItemRemoved(actPosition);
-                       }
-                       Toast.makeText(getContext(), "删除成功", Toast.LENGTH_SHORT).show();
-                   }
-                   else {
-                       Toast.makeText(getContext(), "删除失败", Toast.LENGTH_SHORT).show();
-                   }
+                    boolean success = formatString2Res(s);
+                    if (success) {
+                        datas.remove(actPosition);
+                        if (actPosition >= 0) {
+                            rvAdapter.notifyItemRemoved(actPosition);
+                        }
+                        Toast.makeText(getContext(), "删除成功", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getContext(), "删除失败", Toast.LENGTH_SHORT).show();
+                    }
                 } else {
                     Toast.makeText(getContext(), "删除失败", Toast.LENGTH_SHORT).show();
                 }
             }
         }.execute();
     }
+
     private boolean formatString2Res(String response) {
         JsonObject jsonObject = new JsonParser().parse(response).getAsJsonObject();
         String status = jsonObject.get("status").toString();
@@ -388,10 +386,12 @@ public class DiaryFragment extends Fragment implements TextWatcher, DiaryRvAdapt
             return false;
         }
     }
+
     private void doPublish(DiaryBean diaryBean) {
         int id = (int) diaryBean.getId();
         this.publishDiary2Server(id);
     }
+
     /**
      * 删除操作
      */
@@ -405,7 +405,7 @@ public class DiaryFragment extends Fragment implements TextWatcher, DiaryRvAdapt
             public void onClick(DialogInterface dialogInterface, int which) {
                 int actPosition = datas.indexOf(diaryBean);
                 int diaryId = (int) diaryBean.getId();
-                System.out.println("diaryId======="+diaryId);
+                System.out.println("diaryId=======" + diaryId);
                 deleteDiary(diaryId, actPosition);
             }
         });
@@ -465,10 +465,10 @@ public class DiaryFragment extends Fragment implements TextWatcher, DiaryRvAdapt
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.diary_fab_add:
-                if(hasLogin){
+                if (hasLogin) {
                     Intent intent = new Intent(getContext(), AddDiaryActivity.class);
-                    startActivityForResult(intent,Constants.ADD_NEW_DIARY);
-                }else {
+                    startActivityForResult(intent, Constants.ADD_NEW_DIARY);
+                } else {
                     Toast.makeText(getContext(), "请先登录~", Toast.LENGTH_SHORT).show();
                 }
                 break;

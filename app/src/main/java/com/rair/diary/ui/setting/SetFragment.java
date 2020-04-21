@@ -118,10 +118,10 @@ public class SetFragment extends Fragment {
                 startActivity(secretIntent);
                 break;
             case R.id.set_ll_export:
-                if (spUtils.getBoolean("hasLogin", false)){
+                if (spUtils.getBoolean("hasLogin", false)) {
                     Intent exportIntent = new Intent(getContext(), ExportActivity.class);
                     startActivity(exportIntent);
-                }else {
+                } else {
                     Toast.makeText(getContext(), "请先登录~", Toast.LENGTH_SHORT).show();
                 }
                 break;

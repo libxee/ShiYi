@@ -68,6 +68,7 @@ public class FindFragment extends Fragment implements BaseQuickAdapter.OnItemCli
     private boolean hasLogin;
     private String lastId;
     FindFragment findFragment;
+
     public static FindFragment newInstance() {
         FindFragment findFragment = new FindFragment();
         return findFragment;
@@ -136,13 +137,14 @@ public class FindFragment extends Fragment implements BaseQuickAdapter.OnItemCli
             }.getType());
             datas.add(diary);
         }
-        int minId = datas.get(datas.size()-1).getId();
+        int minId = datas.get(datas.size() - 1).getId();
         lastId = Integer.toString(minId);
         return datas;
     }
+
     @SuppressLint("StaticFieldLeak")
     private void getArticlesByPage() {
-        if(pageNum == 1){
+        if (pageNum == 1) {
             lastId = "";
         }
         String RequestURL = "http://119.29.235.55:8000/api/v1/articles?state=1&lastId=" + lastId;
@@ -152,6 +154,7 @@ public class FindFragment extends Fragment implements BaseQuickAdapter.OnItemCli
                 String s = HttpUtils.getStringByOkhttp(RequestURL);
                 return s;
             }
+
             @Override
             protected void onPostExecute(String s) {
                 if (s != null && !s.isEmpty()) {
@@ -182,24 +185,27 @@ public class FindFragment extends Fragment implements BaseQuickAdapter.OnItemCli
         diaryDetailIntent.putExtra("hasAuth", false);
         startActivity(diaryDetailIntent);
     }
+
     @Override
     public void onResume() {
         super.onResume();
         checkCoverShow();
     }
-    private void checkCoverShow(){
+
+    private void checkCoverShow() {
         hasLogin = spUtils.getBoolean("hasLogin", false);
         System.out.println("=========FIND RESUME============");
-        if(hasLogin){
-            if (datas.size()>0){
+        if (hasLogin) {
+            if (datas.size() > 0) {
                 findNoData.setVisibility(View.GONE);
-            }else {
+            } else {
                 findNoData.setVisibility(View.VISIBLE);
             }
-        }else  {
+        } else {
             findNoData.setVisibility(View.VISIBLE);
         }
     }
+
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);

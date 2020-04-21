@@ -105,11 +105,12 @@ public class AddDiaryActivity extends AppCompatActivity {
     private String mWeek;
     private String weather;
     private String image;
-    private  String  cosImagePath;
+    private String cosImagePath;
     private SPUtils spUtils;
-    private  boolean hasUploadSuccess;
-    private  boolean isDiaryAddSuccess;
-    private  DiaryBean diary;
+    private boolean hasUploadSuccess;
+    private boolean isDiaryAddSuccess;
+    private DiaryBean diary;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -130,7 +131,8 @@ public class AddDiaryActivity extends AppCompatActivity {
         mWeek = DateToWeek(date);
         addTvTitle.setText(String.format(Constants.FORMAT, mDate, mWeek, ""));
     }
-//    public  void setResult(){
+
+    //    public  void setResult(){
 //
 //    }
     public String DateToWeek(Date date) {
@@ -143,13 +145,14 @@ public class AddDiaryActivity extends AppCompatActivity {
         return WEEK[dayIndex - 1];
     }
 
-    public  void setIntentResult() {
+    public void setIntentResult() {
         Intent intent = new Intent();
-        intent.putExtra("diary",new Gson().toJson(diary));
-        if(this.isDiaryAddSuccess){
-            this.setResult(Constants.ADD_NEW_DIARY_SUCCESS,intent);
+        intent.putExtra("diary", new Gson().toJson(diary));
+        if (this.isDiaryAddSuccess) {
+            this.setResult(Constants.ADD_NEW_DIARY_SUCCESS, intent);
         }
     }
+
     @OnClick({R.id.add_iv_back, R.id.add_iv_save, R.id.add_iv_qing, R.id.add_iv_yin,
             R.id.add_iv_yu, R.id.add_iv_leiyu, R.id.add_iv_xue, R.id.add_iv_photo, R.id.add_iv_weather})
     public void onViewClicked(View view) {
@@ -211,7 +214,7 @@ public class AddDiaryActivity extends AppCompatActivity {
         if (TextUtils.isEmpty(image)) {
             image = "";
         }
-        if (TextUtils.isEmpty(cosImagePath)){
+        if (TextUtils.isEmpty(cosImagePath)) {
             cosImagePath = "";
         }
         diary.setDate(mDate);
@@ -335,7 +338,8 @@ public class AddDiaryActivity extends AppCompatActivity {
             }
         }
     }
-    private void initCosXmlService(){
+
+    private void initCosXmlService() {
         String region = "ap-beijing";
         // 创建 CosXmlServiceConfig 对象，根据需要修改默认的配置参数
         CosXmlServiceConfig serviceConfig = new CosXmlServiceConfig.Builder()
@@ -354,7 +358,8 @@ public class AddDiaryActivity extends AppCompatActivity {
         System.out.println("START========");
         uploadImage(cosXmlService);
     }
-    private  void uploadImage( CosXmlService cosXmlService){
+
+    private void uploadImage(CosXmlService cosXmlService) {
         // 初始化 TransferConfig
         TransferConfig transferConfig = new TransferConfig.Builder().build();
         /*若有特殊要求，则可以如下进行初始化定制。例如限定当对象 >= 2M 时，启用分块上传，且分块上传的分块大小为1M，当源对象大于5M时启用分块复制，且分块复制的大小为5M。*/
@@ -369,23 +374,23 @@ public class AddDiaryActivity extends AppCompatActivity {
         String cosPath = "";
         int i = image.lastIndexOf('.');
         if (i > 0) {
-            extension = image.substring(i+1);
-            cosPath =  "image/"+new Date().getTime() + "." + extension ; //对象在存储桶中的位置标识符，即称对象键
-        }else{
+            extension = image.substring(i + 1);
+            cosPath = "image/" + new Date().getTime() + "." + extension; //对象在存储桶中的位置标识符，即称对象键
+        } else {
             cosPath = image;
         }
         String bucket = "shiji-1253438335"; //存储桶，格式：BucketName-APPID
         String srcPath = new File(this.getExternalCacheDir(), image).toString(); //本地文件的绝对路径
         String uploadId = null; //若存在初始化分块上传的 UploadId，则赋值对应的 uploadId 值用于续传；否则，赋值 null
         COSXMLUploadTask cosxmlUploadTask = transferManager.upload(bucket, cosPath, image, uploadId);
-        System.out.println("START========"+ cosxmlUploadTask);
+        System.out.println("START========" + cosxmlUploadTask);
 
 //设置上传进度回调
         cosxmlUploadTask.setCosXmlProgressListener(new CosXmlProgressListener() {
             @Override
             public void onProgress(long complete, long target) {
                 // todo Do something to update progress...
-                System.out.println(complete+ target);
+                System.out.println(complete + target);
             }
         });
 //设置返回结果回调
@@ -393,15 +398,16 @@ public class AddDiaryActivity extends AppCompatActivity {
             @Override
             public void onSuccess(CosXmlRequest request, CosXmlResult result) {
                 COSXMLUploadTask.COSXMLUploadTaskResult cOSXMLUploadTaskResult = (COSXMLUploadTask.COSXMLUploadTaskResult) result;
-                System.out.println("SUCCESS"+result.accessUrl+ cOSXMLUploadTaskResult);
+                System.out.println("SUCCESS" + result.accessUrl + cOSXMLUploadTaskResult);
 //                Toast.makeText()
-                cosImagePath =result.accessUrl;
+                cosImagePath = result.accessUrl;
                 hasUploadSuccess = true;
             }
+
             @Override
             public void onFail(CosXmlRequest request, CosXmlClientException exception, CosXmlServiceException serviceException) {
                 // todo Upload failed because of CosXmlClientException or CosXmlServiceException...
-                System.out.println("FAILED"+  exception + serviceException);
+                System.out.println("FAILED" + exception + serviceException);
                 hasUploadSuccess = false;
             }
         });

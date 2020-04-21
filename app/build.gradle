@@ -53,5 +53,5 @@ dependencies {
     }
     implementation "com.android.support:support-fragment:28.0.0"
 //    implementation 'com.lxj:xpopup:1.8.17' //就是androidx版本
-    compile 'com.tencent.qcloud:cosxml:5.4.31'
+    implementation 'com.tencent.qcloud:cosxml:5.4.31'
 }
