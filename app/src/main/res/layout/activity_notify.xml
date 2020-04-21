@@ -69,25 +69,24 @@
             android:paddingRight="10dp">
 
             <TextView
-                android:id="@+id/notify_tv_tips"
+                android:id="@+id/notify_tv_remind_time"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:enabled="false"
-                android:text="设置提醒时间"
+                android:text="提醒时间:"
                 android:textColor="@color/text_color_select"
                 android:textSize="16sp" />
-
             <TextView
                 android:id="@+id/notify_tv_set"
                 android:layout_width="60dp"
                 android:layout_height="40dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:background="@color/text_bg"
                 android:gravity="center"
                 android:text="设置"
-                android:textColor="@color/text_color_select"
+                android:textColor="@color/white"
+                android:background="@drawable/textview_bg_select"
                 android:textSize="16sp" />
         </RelativeLayout>
 
@@ -96,45 +95,6 @@
             android:layout_height="0.5dp"
             android:layout_marginLeft="10dp"
             android:background="@color/divider" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="120dp"
-            android:orientation="horizontal"
-            android:padding="10dp">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="10dp"
-                android:gravity="center_vertical"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/notify_tv_current_time"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="当前时间："
-                    android:textColor="@color/primary_text"
-                    android:textSize="16sp" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
-                    android:layout_marginTop="5dp"
-                    android:background="@color/divider" />
-
-                <TextView
-                    android:id="@+id/notify_tv_remind_time"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="提醒时间"
-                    android:textColor="@color/primary_text"
-                    android:textSize="16sp" />
-            </LinearLayout>
-
-        </LinearLayout>
 
         <View
             android:layout_width="match_parent"
@@ -146,52 +106,60 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp"
-        tools:context=".MainActivity">
-
-        <Button
+        android:padding="16dp">
+        <TextView
+            android:visibility="gone"
             android:id="@+id/btn_main_add"
             android:layout_width="match_parent"
-            android:layout_height="64dp"
-            android:text="增加日历事件" />
-        <Button
+            android:layout_height="50dp"
+            android:text="增加提醒"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/textview_bg_select"
+            android:clickable="true"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+        <TextView
+            android:visibility="gone"
             android:id="@+id/btn_main_update"
             android:layout_width="match_parent"
-            android:layout_height="64dp"
-            android:text="更新提醒时间" />
-        <Button
-            android:id="@+id/btn_main_delete"
-            android:layout_width="match_parent"
-            android:layout_height="64dp"
-            android:text="删除日历事件" />
-
-
-        <Button
-            android:id="@+id/btn_main_query"
-            android:layout_width="match_parent"
-            android:layout_height="64dp"
-            android:visibility="gone"
-            android:text="查询日历事件" />
-
-        <Button
+            android:layout_height="50dp"
+            android:text="更新提醒时间"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/textview_bg_select"
+            android:clickable="true"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+        <TextView
             android:id="@+id/btn_edit"
             android:layout_width="match_parent"
-            android:layout_height="64dp"
-            android:text="打开系统日历编辑" />
-
-        <Button
-            android:id="@+id/btn_search"
-            android:layout_width="match_parent"
-            android:layout_height="64dp"
-            android:visibility="gone"
-            android:text="检查是否存在" />
-
+            android:layout_height="50dp"
+            android:text="添加自定义提醒"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/textview_bg_select"
+            android:clickable="true"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
         <TextView
-            android:id="@+id/tv_event"
-
+            android:id="@+id/btn_main_delete"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:textSize="16sp"
-            tools:text="事件" />
+            android:layout_height="50dp"
+            android:text="删除提醒"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/textview_bg_select"
+            android:clickable="true"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
+<!--        <TextView-->
+<!--            android:id="@+id/tv_event"-->
+
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:textSize="16sp"-->
+<!--            tools:text="事件" />-->
     </LinearLayout>
 </LinearLayout>

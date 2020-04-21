@@ -37,9 +37,9 @@ public class CalendarProviderManager {
 
 
     // ----------------------- 创建日历账户时账户名使用 ---------------------------
-    private static String CALENDAR_NAME = "KyleC";
-    private static String CALENDAR_ACCOUNT_NAME = "KYLE";
-    private static String CALENDAR_DISPLAY_NAME = "KYLE的账户";
+    private static String CALENDAR_NAME = "ShijiC";
+    private static String CALENDAR_ACCOUNT_NAME = "Shiji";
+    private static String CALENDAR_DISPLAY_NAME = "Shiji-APP";
 
 
     // ------------------------------- 日历账户 -----------------------------------
@@ -364,7 +364,7 @@ public class CalendarProviderManager {
      * @return If successfully returns 1
      */
     public static int updateCalendarEventTime(Context context, long eventID, long newBeginTime,
-                                              long newEndTime) {
+                                              long newEndTime, String newRRule) {
         checkContextNull(context);
 
         Uri uri = CalendarContract.Events.CONTENT_URI;
@@ -373,7 +373,7 @@ public class CalendarProviderManager {
         ContentValues event = new ContentValues();
         event.put(CalendarContract.Events.DTSTART, newBeginTime);
         event.put(CalendarContract.Events.DTEND, newEndTime);
-
+        event.put(CalendarContract.Events.RRULE, newRRule);
 
         // 匹配条件
         String selection = "(" + CalendarContract.Events._ID + " = ?)";

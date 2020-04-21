@@ -89,6 +89,7 @@ public class SetFragment extends Fragment {
 //            loadHead();
         } else {
             setTvName.setText("未登录");
+            setCivHead.setVisibility(View.GONE);
         }
     }
 
