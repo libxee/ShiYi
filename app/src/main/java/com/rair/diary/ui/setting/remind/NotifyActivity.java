@@ -91,9 +91,16 @@ public class NotifyActivity extends AppCompatActivity implements CompoundButton.
 
     private void initView() {
         spUtils = RairApp.getRairApp().getSpUtils();
-        isSet = spUtils.getBoolean("isSet", false);
+        isSet = spUtils.getBoolean("isRemindSet", false);
         calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
+        if (isSet) {
+            btnMainDelete.setVisibility(View.VISIBLE);
+            notifyTvRemindTime.setText("提醒时间：" + spUtils.getString("setTime"));
+        } else {
+            btnMainDelete.setVisibility(View.GONE);
+            notifyTvRemindTime.setText("提醒时间：（未设置提醒）");
+        }
     }
 
     @SuppressLint("SetTextI18n")
@@ -162,6 +169,7 @@ public class NotifyActivity extends AppCompatActivity implements CompoundButton.
         int result = CalendarProviderManager.addCalendarEvent(this, calendarEvent);
         if (result == 0) {
             btnMainDelete.setVisibility(View.VISIBLE);
+            spUtils.put("isRemindSet", true);
             Toast.makeText(this, "设置提醒成功", Toast.LENGTH_SHORT).show();
         } else if (result == -1) {
             Toast.makeText(this, "设置提醒失败", Toast.LENGTH_SHORT).show();
@@ -176,20 +184,19 @@ public class NotifyActivity extends AppCompatActivity implements CompoundButton.
         List<CalendarEvent> events2 = CalendarProviderManager.queryAccountEvent(this, calID2);
         if (null != events2) {
             if (events2.size() == 0) {
-                return;
+//                Toast.makeText(this, "size=0", Toast.LENGTH_SHORT).show();
             } else {
                 long eventID = events2.get(0).getId();
                 int result2 = CalendarProviderManager.deleteCalendarEvent(this, eventID);
-                btnMainDelete.setVisibility(View.GONE);
                 if (result2 == -2) {
-                    return;
                 } else {
                     notifyTvRemindTime.setText("提醒时间（未设置提醒）");
+                    btnMainDelete.setVisibility(View.GONE);
                     spUtils.put("isRemindSet", false);
                 }
             }
         } else {
-            return;
+//            Toast.makeText(this, "no event", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -294,7 +301,6 @@ public class NotifyActivity extends AppCompatActivity implements CompoundButton.
                 RemindMILLISECOND = calendar.getTimeInMillis();
                 spUtils.put("hour", hourOfDay);
                 spUtils.put("minute", minute);
-                spUtils.put("isRemindSet", true);
                 spUtils.put("setTime", CommonUtils.format(hourOfDay) + ":" + CommonUtils.format(minute));
                 addEvent();
                 String remindTime = "提醒时间：" + CommonUtils.format(hourOfDay) + ":" + CommonUtils.format(minute);
