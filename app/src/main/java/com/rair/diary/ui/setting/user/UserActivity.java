@@ -64,53 +64,10 @@ public class UserActivity extends AppCompatActivity {
 
     private void initView() {
         boolean hasLogin = spUtils.getBoolean("hasLogin", false);
-
         if (hasLogin) {
             userTvName.setText(spUtils.getString("current_username"));
-//            if (user.getSex() != null && user.getSex().equals("nan")) {
-//                userCbSex.setChecked(false);
-//            } else {
-//                userCbSex.setChecked(true);
-//            }
-//            userCbSex.setChecked(true);
-//            loadHead(user);
         }
 
-    }
-
-    /**
-     * 加载头像
-     *
-     * @param user
-     */
-    private void loadHead(User user) {
-//        if (user.getHeadFile() != null) {
-//            BmobFile headFileFile = user.getHeadFile();
-//            Picasso.with(UserActivity.this).load(headFileFile.getFileUrl()).into(userCivHead);
-//        } else {
-//            Picasso.with(UserActivity.this).load(R.mipmap.ic_head).into(userCivHead);
-//        }
-        Picasso.with(UserActivity.this).load(R.mipmap.ic_head).into(userCivHead);
-    }
-
-    /**
-     * 修改性别
-     *
-     * @param sex 性别
-     */
-    private void changeSex(Integer sex) {
-//        User user = BmobUser.getCurrentUser(User.class);
-//        user.setSex(sex);
-//        user.update(new UpdateListener() {
-//            @Override
-//            public void done(BmobException e) {
-//                if (e == null) {
-//                    CommonUtils.showSnackar(userRlSignature, "修改成功");
-//                } else {
-//                    CommonUtils.showSnackar(userRlSignature, "修改失败");
-//                }
-//            }
-//        });
     }
 
     @OnClick({R.id.user_iv_back, R.id.user_civ_head, R.id.user_rl_head, R.id.user_rl_name, R.id.user_tv_unlogin})
@@ -167,37 +124,6 @@ public class UserActivity extends AppCompatActivity {
     }
 
     /**
-     * 显示签名对话框
-     */
-    private void showEditDialog() {
-        View view = getLayoutInflater().inflate(R.layout.view_edit_sign_dialog, null, false);
-        final EditText etSign = (EditText) view.findViewById(R.id.sign_et_sign);
-        TextView tvOk = (TextView) view.findViewById(R.id.sign_tv_ok);
-        final AlertDialog editDialog = new AlertDialog.Builder(this).create();
-        editDialog.setView(view);
-        View.OnClickListener listener = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                editDialog.dismiss();
-//                User user = BmobUser.getCurrentUser(User.class);
-//                user.setSign(etSign.getText().toString());
-//                user.update(new UpdateListener() {
-//                    @Override
-//                    public void done(BmobException e) {
-//                        if (e == null) {
-//                            CommonUtils.showSnackar(userRlSignature, "编辑成功");
-//                        } else {
-//                            CommonUtils.showSnackar(userRlSignature, "编辑失败");
-//                        }
-//                    }
-//                });
-            }
-        };
-        tvOk.setOnClickListener(listener);
-        editDialog.show();
-    }
-
-    /**
      * 登出
      */
     private void doLoginOut() {
@@ -205,9 +131,9 @@ public class UserActivity extends AppCompatActivity {
         spUtils.put("current_token", "");
         spUtils.put("current_username", "");
         spUtils.put("current_password", "");
+        spUtils.put("needRefresh", true);
         this.finish();
     }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

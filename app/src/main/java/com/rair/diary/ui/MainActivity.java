@@ -62,9 +62,6 @@ public class MainActivity extends AppCompatActivity implements OnTabSelectListen
 
     private void initView() {
         spUtils = RairApp.getRairApp().getSpUtils();
-//        StatusBarUtil.transparencyBar(this); //设置状态栏全透明
-//        StatusBarUtil.StatusBarLightMode(this); //设置白底黑字
-//        StatusBarUtil.StatusBarLightMode(this); //设置白底黑字
         mainJpTabbar.setTabListener(this);
         fragments = new Fragment[4];
         if (spUtils.getBoolean(Constants.RECREATE, false)) {

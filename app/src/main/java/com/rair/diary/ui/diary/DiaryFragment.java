@@ -148,6 +148,14 @@ public class DiaryFragment extends Fragment implements TextWatcher, DiaryRvAdapt
         } else if (hasLogin && currentPage == 1) {
             queryDatas();
         }
+        boolean needRefresh = spUtils.getBoolean("needRefresh", false);
+//        重新登录之后清楚之前的登录信息
+        if(needRefresh){
+            datas.clear();
+            currentPage = 1;
+            queryDatas();
+            spUtils.put("needRefresh", false);
+        }
     }
 
     private void checkCoverShow() {
