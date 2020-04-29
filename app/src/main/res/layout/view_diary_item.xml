@@ -26,6 +26,7 @@
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
                 android:textColor="@color/thrid_text2"
+
                 android:textSize="18sp" />
         </RelativeLayout>
 

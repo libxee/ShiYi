@@ -136,6 +136,7 @@
                 android:paddingHorizontal="10dp"
                 android:textColor="@color/primary_text"
                 android:textColorHint="@color/secondary_text"
+                android:fontFamily="@font/fz_longzhaojw"
                 android:textSize="16sp" />
 
             <com.rair.diary.view.LinedEditText
@@ -146,6 +147,8 @@
                 android:layout_weight="1"
                 android:gravity="top"
                 android:hint="写点什么吧"
+                android:fontFamily="@font/fz_longzhaojw"
+
                 android:lineSpacingExtra="8dp"
                 android:padding="10dp"
                 android:scrollbars="vertical"

@@ -67,6 +67,7 @@
                     android:lineSpacingMultiplier="1.2"
                     android:textSize="14sp"
                     android:layout_margin="@dimen/text_margin"
+                    android:fontFamily="@font/fz_longzhaojw"
                     android:textAppearance="?attr/textAppearanceListItem" />
 
                 <TextView

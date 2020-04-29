@@ -28,6 +28,7 @@ import com.rair.diary.utils.CommonUtils;
 import com.rair.diary.utils.SPUtils;
 import com.rair.diary.utils.StatusBarUtil;
 import com.rair.diary.view.LockPattern;
+import com.umeng.analytics.MobclickAgent;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -82,7 +83,6 @@ public class MainActivity extends AppCompatActivity implements OnTabSelectListen
             }
         }
     }
-
     /**
      * 数字密码
      *

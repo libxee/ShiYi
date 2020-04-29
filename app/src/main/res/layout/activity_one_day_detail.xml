@@ -327,6 +327,8 @@
                         android:textSize="16sp"
                         android:textColor="@color/thrid_text2"
                         android:layout_marginBottom="12dp"
+                        android:fontFamily="@font/fz_longzhaojw"
+
                         android:text="题目" />
 
                     <TextView
@@ -335,6 +337,8 @@
                         android:textAlignment="center"
                         android:id="@+id/one_detail_article_author"
                         android:textSize="12sp"
+                        android:fontFamily="@font/fz_longzhaojw"
+
                         android:text="作者"
                         android:textColor="@color/thrid_text3"
                         android:layout_marginBottom="20dp" />
@@ -345,6 +349,8 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/thrid_text2"
                         android:textSize="14sp"
+                        android:fontFamily="@font/fz_longzhaojw"
+
                         android:text="内容内容"
                         android:lineSpacingMultiplier="1.4" />
                 </LinearLayout>

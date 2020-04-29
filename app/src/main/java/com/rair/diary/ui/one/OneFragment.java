@@ -26,23 +26,17 @@ import com.rair.diary.utils.HttpUtils;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-/**
- * A fragment representing a list of Items.
- * <p/>
- * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
- * interface.
- */
+
 public class OneFragment extends Fragment implements MyOneRecyclerViewAdapter.OnDayPicItemClickListener {
 
-    // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
-    // TODO: Customize parameters
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
     private List<DayPic> DayPicList;
@@ -50,10 +44,7 @@ public class OneFragment extends Fragment implements MyOneRecyclerViewAdapter.On
     private String currentMonthDate;
     private int preNum = 0;
 
-    /**
-     * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes).
-     */
+
     public OneFragment() {
     }
 
@@ -117,6 +108,7 @@ public class OneFragment extends Fragment implements MyOneRecyclerViewAdapter.On
         oneRecyclerViewAdapter.setOnRvItemClickListener(this);
 
     }
+
 
     @Override
     public void onAttach(Context context) {
@@ -192,7 +184,6 @@ public class OneFragment extends Fragment implements MyOneRecyclerViewAdapter.On
 
 
     public interface OnListFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onListFragmentInteraction(DayPic item);
     }
 }

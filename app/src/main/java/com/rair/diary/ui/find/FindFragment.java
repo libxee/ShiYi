@@ -40,6 +40,7 @@ import com.rair.diary.utils.SPUtils;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -191,7 +192,6 @@ public class FindFragment extends Fragment implements BaseQuickAdapter.OnItemCli
         super.onResume();
         checkCoverShow();
     }
-
     private void checkCoverShow() {
         hasLogin = spUtils.getBoolean("hasLogin", false);
         System.out.println("=========FIND RESUME============");

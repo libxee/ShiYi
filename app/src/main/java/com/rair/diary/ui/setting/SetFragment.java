@@ -26,6 +26,7 @@ import com.rair.diary.ui.setting.user.UserActivity;
 import com.rair.diary.utils.SPUtils;
 import com.rair.diary.view.CircleImageView;
 import com.squareup.picasso.Picasso;
+import com.umeng.analytics.MobclickAgent;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -82,6 +83,8 @@ public class SetFragment extends Fragment {
     public void onResume() {
         super.onResume();
         boolean hasLogin = spUtils.getBoolean("hasLogin", false);
+//        MobclickAgent.onPageStart("SetScreen_set_list"); //统计页面("MainScreen"为页面名称，可自定义)
+//        MobclickAgent.onResume(getContext());          //统计时长
         if (hasLogin) {
             System.out.println("USERNAME=====" + spUtils.getString("username"));
             setTvName.setText(spUtils.getString("current_username"));
@@ -93,6 +96,12 @@ public class SetFragment extends Fragment {
         }
     }
 
+    //    @Override
+//    public void onPause() {
+//        super.onPause();
+//        MobclickAgent.onPageEnd("SetScreen_set_list");
+//        MobclickAgent.onPause(getContext());
+//    }
     private void loadHead() {
         Picasso.with(getContext()).load(R.mipmap.ic_head).into(setCivHead);
     }
