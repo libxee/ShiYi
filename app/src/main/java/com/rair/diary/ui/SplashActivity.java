@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
 import com.rair.diary.R;
-import com.umeng.analytics.MobclickAgent;
 
 import java.util.Random;
 

@@ -28,7 +28,6 @@ import com.rair.diary.utils.CommonUtils;
 import com.rair.diary.utils.SPUtils;
 import com.rair.diary.utils.StatusBarUtil;
 import com.rair.diary.view.LockPattern;
-import com.umeng.analytics.MobclickAgent;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

@@ -26,7 +26,6 @@ import com.rair.diary.ui.setting.user.UserActivity;
 import com.rair.diary.utils.SPUtils;
 import com.rair.diary.view.CircleImageView;
 import com.squareup.picasso.Picasso;
-import com.umeng.analytics.MobclickAgent;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
