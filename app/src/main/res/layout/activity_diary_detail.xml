@@ -90,6 +90,8 @@
                         android:maxLines="1"
                         android:paddingHorizontal="10dp"
                         android:textColor="@color/primary_text"
+                        android:fontFamily="@font/fz_longzhaojw"
+
                         android:textColorHint="@color/secondary_text"
                         android:textSize="16sp" />
 
@@ -108,6 +110,7 @@
                         android:padding="10dp"
                         android:scrollbars="vertical"
                         android:textColor="@color/primary_text"
+                        android:fontFamily="@font/fz_longzhaojw"
                         android:textColorHint="@color/secondary_text"
                         android:textSize="16sp" />
 

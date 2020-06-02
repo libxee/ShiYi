@@ -8,9 +8,12 @@ import android.graphics.Color;
 import android.graphics.DashPathEffect;
 import android.graphics.Paint;
 import android.graphics.PathEffect;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.widget.EditText;
+
+import com.rair.diary.R;
 
 @SuppressLint("AppCompatCustomView")
 public class LinedEditText extends EditText {
@@ -34,7 +37,7 @@ public class LinedEditText extends EditText {
 
     }
 
-    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+    @android.support.annotation.RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onDraw(Canvas canvas) {
         Paint mPaint = new Paint();
