@@ -21,35 +21,35 @@
 
 #### 开屏Splash
 
-<img src="https://libx-1253438335.cos.ap-chengdu.myqcloud.com//readme-static20200606001650.png"  width="30%"/>
+<img src="https://libx-1253438335.cos.ap-chengdu.myqcloud.com//readme-static20200606001650.png"  width="23%"/>
 
 #### 日记
 预览：
 
-<img src="https://libx-1253438335.cos.ap-chengdu.myqcloud.com//readme-static20200606001215.png" width="30%" >
+<img src="https://libx-1253438335.cos.ap-chengdu.myqcloud.com//readme-static20200606001215.png" width="23%" >
 
-<img src="https://libx-1253438335.cos.ap-chengdu.myqcloud.com//readme-static20200606001652.png" width="30%"/>
-<img src="https://libx-1253438335.cos.ap-chengdu.myqcloud.com//readme-static20200606001849.png" width="30%"/>
+<img src="https://libx-1253438335.cos.ap-chengdu.myqcloud.com//readme-static20200606001652.png" width="23%"/>
+<img src="https://libx-1253438335.cos.ap-chengdu.myqcloud.com//readme-static20200606001849.png" width="23%"/>
 
-<img src="https://libx-1253438335.cos.ap-chengdu.myqcloud.com//readme-static20200606001850.png" width="30%"/>
-<img src="https://libx-1253438335.cos.ap-chengdu.myqcloud.com//readme-static20200606001214.png"  width="30%"/>
+<img src="https://libx-1253438335.cos.ap-chengdu.myqcloud.com//readme-static20200606001850.png" width="23%"/>
+<img src="https://libx-1253438335.cos.ap-chengdu.myqcloud.com//readme-static20200606001214.png"  width="23%"/>
 
 #### 发现
 预览:
 
-<img src="https://libx-1253438335.cos.ap-chengdu.myqcloud.com//readme-static20200606001209.png"  width="30%"/>
+<img src="https://libx-1253438335.cos.ap-chengdu.myqcloud.com//readme-static20200606001209.png"  width="23%"/>
 
 #### 精选
 预览：
 
-<img src="https://libx-1253438335.cos.ap-chengdu.myqcloud.com//readme-static20200606001216.png"  width="30%"/>
-<img src="https://libx-1253438335.cos.ap-chengdu.myqcloud.com//readme-static20200606001211.png"  width="30%"/>
+<img src="https://libx-1253438335.cos.ap-chengdu.myqcloud.com//readme-static20200606001216.png"  width="23%"/>
+<img src="https://libx-1253438335.cos.ap-chengdu.myqcloud.com//readme-static20200606001211.png"  width="23%"/>
 
 #### 我的
 预览：
 
-<img src="https://libx-1253438335.cos.ap-chengdu.myqcloud.com//readme-static20200606001210.png"  width="30%"/>
-<img src="https://libx-1253438335.cos.ap-chengdu.myqcloud.com//readme-static20200606001651.png"  width="30%"/>
+<img src="https://libx-1253438335.cos.ap-chengdu.myqcloud.com//readme-static20200606001210.png"  width="23%"/>
+<img src="https://libx-1253438335.cos.ap-chengdu.myqcloud.com//readme-static20200606001651.png"  width="23%"/>
 
 ### 使用的开源项目
 
