@@ -21,38 +21,39 @@
 
 #### 开屏Splash
 
-<img src="https://libx-1253438335.cos.ap-chengdu.myqcloud.com//readme-static20200606001650.png"  width="23%"/>
+<img src="doc\static\splash.png"  width="30%"/>
 
 #### 日记
 预览：
 
 <div>
-<img src="https://libx-1253438335.cos.ap-chengdu.myqcloud.com//readme-static20200606001215.png" width="23%" >
+<img src="doc\static\diary-index.png" width="30%" >
 
-<img src="https://libx-1253438335.cos.ap-chengdu.myqcloud.com//readme-static20200606001652.png" width="23%"/>
-<img src="https://libx-1253438335.cos.ap-chengdu.myqcloud.com//readme-static20200606001849.png" width="23%"/>
+<img src="doc\static\diary-add.png" width="30%"/>
 
-<img src="https://libx-1253438335.cos.ap-chengdu.myqcloud.com//readme-static20200606001850.png" width="23%"/>
-<img src="https://libx-1253438335.cos.ap-chengdu.myqcloud.com//readme-static20200606001214.png"  width="23%"/>
+<img src="doc\static\op.png" width="30%"/>
+
+<img src="doc\static\share.png" width="30%"/>
+<img src="doc\static\diary-detail.png"  width="30%"/>
 </div>
 
 #### 发现
 预览:
 
-<img src="https://libx-1253438335.cos.ap-chengdu.myqcloud.com//readme-static20200606001209.png"  width="23%"/>
+<img src="doc\static\find-index.png"  width="30%"/>
 
 #### 精选
 预览：
 <div>
-<img src="https://libx-1253438335.cos.ap-chengdu.myqcloud.com//readme-static20200606001216.png"  width="23%"/>
-<img src="https://libx-1253438335.cos.ap-chengdu.myqcloud.com//readme-static20200606001211.png"  width="23%"/>
+<img src="doc\static\one-index.png"  width="30%"/>
+<img src="doc\static\one-detail.png"  width="30%"/>
 </div>
 
 #### 我的
 预览：
 <div>
-<img src="https://libx-1253438335.cos.ap-chengdu.myqcloud.com//readme-static20200606001210.png"  width="23%"/>
-<img src="https://libx-1253438335.cos.ap-chengdu.myqcloud.com//readme-static20200606001651.png"  width="23%"/>
+<img src="doc\static\mine-index.png"  width="30%"/>
+<img src="doc\static\scode.png"  width="30%"/>
 </div>
 
 ### 使用的开源项目
