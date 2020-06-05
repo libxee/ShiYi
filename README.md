@@ -1,6 +1,6 @@
 # 拾记
-![https://libx-1253438335.cos.ap-chengdu.myqcloud.com/shiji/icon_round.png](https://libx-1253438335.cos.ap-chengdu.myqcloud.com/shiji/icon_round.png)
-###
+<img src="https://libx-1253438335.cos.ap-chengdu.myqcloud.com/shiji/icon_round.png" width="80px" height="80px">
+
 ### 项目基本结构：
 ```
     diary
@@ -16,6 +16,41 @@
     |-- utils
     `-- view
 ```
+
+### 实现模块
+
+#### 开屏Splash
+
+<img src="https://libx-1253438335.cos.ap-chengdu.myqcloud.com//readme-static20200606001650.png"  width="30%"/>
+
+#### 日记
+预览：
+
+<img src="https://libx-1253438335.cos.ap-chengdu.myqcloud.com//readme-static20200606001215.png" width="30%" >
+
+<img src="https://libx-1253438335.cos.ap-chengdu.myqcloud.com//readme-static20200606001652.png" width="30%"/>
+<img src="https://libx-1253438335.cos.ap-chengdu.myqcloud.com//readme-static20200606001849.png" width="30%"/>
+
+<img src="https://libx-1253438335.cos.ap-chengdu.myqcloud.com//readme-static20200606001850.png" width="30%"/>
+<img src="https://libx-1253438335.cos.ap-chengdu.myqcloud.com//readme-static20200606001214.png"  width="30%"/>
+
+#### 发现
+预览:
+
+<img src="https://libx-1253438335.cos.ap-chengdu.myqcloud.com//readme-static20200606001209.png"  width="30%"/>
+
+#### 精选
+预览：
+
+<img src="https://libx-1253438335.cos.ap-chengdu.myqcloud.com//readme-static20200606001216.png"  width="30%"/>
+<img src="https://libx-1253438335.cos.ap-chengdu.myqcloud.com//readme-static20200606001211.png"  width="30%"/>
+
+#### 我的
+预览：
+
+<img src="https://libx-1253438335.cos.ap-chengdu.myqcloud.com//readme-static20200606001210.png"  width="30%"/>
+<img src="https://libx-1253438335.cos.ap-chengdu.myqcloud.com//readme-static20200606001651.png"  width="30%"/>
+
 ### 使用的开源项目
 
 - [square/okhttp](https://github.com/square/okhttp)  OkHttp ：一个HTTP + SPDY 的网络请求库。
@@ -25,3 +60,9 @@
 - [chrisjenx/Calligraphy](https://github.com/chrisjenx/Calligraphy)Calligraphy 是一个自定义字体的类库。
 - [JakeWharton/hugo](https://github.com/JakeWharton/hugo)Hugo 一个通过注解的方法来实现日志功能的类库。
 - [smartrefresh](https://github.com/scwang90/SmartRefreshLayout) Android下拉刷新上拉加载框架
+
+### 体验
+
+<img src="https://libx-1253438335.cos.ap-chengdu.myqcloud.com//readme-static20200606002910.png" width="100px" height="100px"/>
+
+[点此下载](https://shiji-1253438335.cos.ap-beijing.myqcloud.com/app.apk)
