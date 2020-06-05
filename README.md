@@ -1,5 +1,5 @@
 # 拾记
-<img src="https://libx-1253438335.cos.ap-chengdu.myqcloud.com/shiji/icon_round.png" width="80px" height="80px">
+<img src="doc\static\logo.png" width="80px" height="80px">
 
 ### 项目基本结构：
 ```
@@ -68,6 +68,6 @@
 
 ### 体验
 
-<img src="https://libx-1253438335.cos.ap-chengdu.myqcloud.com//readme-static20200606002910.png" width="100px" height="100px"/>
+<img src="doc\static\ercode.png" width="100px" height="100px"/>
 
 [点此下载](https://shiji-1253438335.cos.ap-beijing.myqcloud.com/app.apk)
